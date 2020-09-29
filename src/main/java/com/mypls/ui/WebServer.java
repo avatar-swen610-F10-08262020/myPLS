@@ -1,6 +1,9 @@
 package com.mypls.ui;
 
 import static spark.Spark.*;
+
+import spark.Request;
+import spark.Response;
 import spark.TemplateEngine;
 
 /**
@@ -44,8 +47,15 @@ public class WebServer {
   /**
    * The URL pattern to request the Home page.
    */
-  public static final String HOME_URL = "/";
+  public static final String HOME_URL = "/home";
   public static final String PROFILE_URL = "/profile";
+  public static final String Login_URL = "/login";
+  public static final String Login_User_URL = "/login/user";
+  public static final String Signup_User_URL = "/signup/user";
+  public static final String Logout_URL = "/login/user";
+
+
+
 
 
   //
@@ -122,6 +132,17 @@ public class WebServer {
     // Shows the Checkers game Home page.
     get(HOME_URL, new HomeController(), templateEngine);
     get(PROFILE_URL, new HomeController().handle_data(), templateEngine);
+    get(Login_URL, new LoginController().login(), templateEngine);
+    get(Login_User_URL, new LoginController().login_user(), templateEngine);
+    get(Signup_User_URL, new LoginController().signup_user(), templateEngine);
+
+    post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);
+    post(Login_URL, (req,res) -> new LoginController().authenticate_user(req,res), templateEngine);
+    post(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
+
+
+
+
 
 
   }

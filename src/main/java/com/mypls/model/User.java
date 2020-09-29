@@ -13,6 +13,8 @@ public class User {
     private String last_name;
     private String email;
     private String password;
+    private Integer user_type_id;
+
 
     public String getFirst_name() {
         return first_name;
@@ -26,7 +28,7 @@ public class User {
         return last_name;
     }
 
-    public void getLast_Name(String last_name) {
+    public void setLast_Name(String last_name) {
         this.last_name = last_name;
     }
     public String getPassword() {
@@ -45,6 +47,15 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Integer getUserTypeID() {
+        return user_type_id;
+    }
+
+    public void setUserTypeID(Integer user_type_id) {
+        this.user_type_id = user_type_id;
+    }
+
     @Override
     public String toString() {
         return "User{" + "email='" + email + '\'' + ", password='" + password + '\'' + ", first_name='" + first_name + '\''

@@ -18,6 +18,7 @@ import org.hibernate.*;
  * @author <a href='mailto:aa7510@rit.edu'>Akhter Al Amin</a>
  */
 public class HomeController implements TemplateViewRoute {
+  private static final String USER_SESSION_ID = "user";
 
   @Override
   public ModelAndView handle(Request request, Response response) {
@@ -31,19 +32,21 @@ public class HomeController implements TemplateViewRoute {
 //    session.save(new Employee("Captain Nemo",department));
 //
 //    session.getTransaction().commit();
-    Session session = HibernateUtil.getSessionFactory().openSession();
-    Query q = session.createQuery("From User ");
+//    Session session = HibernateUtil.getSessionFactory().openSession();
+//    Query q = session.createQuery("From User ");
+//
+//    List<User> resultList = q.list();
+//    System.out.println("num of user:" + resultList.size());
+//    String name="";
+//    for (int i=0;i<resultList.size();i++) {
+//      User user = resultList.get(i);
+//      System.out.println("next user: " + user.getFirst_name());
+//      name = user.getFirst_name();
+//    }
+    User currentUser = getAuthenticatedUser(request);
 
-    List<User> resultList = q.list();
-    System.out.println("num of user:" + resultList.size());
-    String name="";
-    for (int i=0;i<resultList.size();i++) {
-      User user = resultList.get(i);
-      System.out.println("next user: " + user.getFirst_name());
-      name = user.getFirst_name();
-    }
     Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome! "+ name);
+    vm.put("Username", "Welcome! "+ currentUser.getFirst_name());
     return new ModelAndView(vm , "home.ftl");
   }
 
@@ -52,5 +55,9 @@ public class HomeController implements TemplateViewRoute {
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome Farhan!");
     return (request, response) -> new ModelAndView(vm , "profile.ftl");
+  }
+
+  private User getAuthenticatedUser(Request request) {
+    return request.session().attribute(USER_SESSION_ID);
   }
 }
