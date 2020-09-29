@@ -15,7 +15,7 @@ public class UserService {
 
         List<User> resultList = q.list();
         for (User userData : resultList) {
-            if(userData.getEmail().equals(user.getEmail()) && userData.getPassword().equals(user.getPassword()))
+            if(userData.getEmail().equals(user.getEmail()) && userData.getPassword().equals(user.getPassword()) && userData.getStatus()==1)
                 return userData;
         }
         return null;

@@ -65,9 +65,8 @@ public class LoginController {
         } else {
             map.put("error", "User Not Found.");
         }
-//        map.put("username", result.getFirst_name());
-//        return (request, response) -> new ModelAndView(map , "signup_user.ftl");
-        return new ModelAndView(map , "signup_user.ftl");
+
+        return new ModelAndView(map , "login_user.ftl");
     }
 
     public ModelAndView register_user(Request req, Response res){

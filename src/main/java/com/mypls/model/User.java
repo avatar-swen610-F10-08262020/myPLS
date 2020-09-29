@@ -14,6 +14,7 @@ public class User {
     private String email;
     private String password;
     private Integer user_type_id;
+    private Integer status;
 
 
     public String getFirst_name() {
@@ -54,6 +55,14 @@ public class User {
 
     public void setUserTypeID(Integer user_type_id) {
         this.user_type_id = user_type_id;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     @Override
