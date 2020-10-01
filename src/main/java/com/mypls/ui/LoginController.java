@@ -158,13 +158,13 @@ public class LoginController {
         Long ID = Long.parseLong(req.params(":id"));
         System.out.println("User ID to activate"+req.params(":id"));
         try{
-        session = HibernateUtil.getSessionFactory().openSession();
+            session = HibernateUtil.getSessionFactory().openSession();
 
-        session.beginTransaction();
-        User user = session.load(User.class, ID);
-        user.setStatus(1);
-        session.update(user);
-        session.getTransaction().commit();
+            session.beginTransaction();
+            User user = session.load(User.class, ID);
+            user.setStatus(1);
+            session.update(user);
+            session.getTransaction().commit();
 
         } catch (HibernateException e) {
             // TODO Auto-generated catch block
@@ -177,6 +177,40 @@ public class LoginController {
         }
 
     }
+
+    public ModelAndView forgot_password(Request req){
+        User user =getAuthenticatedUser(req);
+        Map<String, Object> map = new HashMap<>();
+        if(user!=null){
+            System.out.println(user.getFirst_name());
+            map.put("UserType", user.getUserTypeID());
+            map.put("Username", user.getFirst_name());
+            return new ModelAndView(map , "home.ftl");
+        }
+        return new ModelAndView(map , "forgot_password.ftl");
+    }
+    public ModelAndView forgot_password_user(Request req){
+        Map<String, Object> map = new HashMap<>();
+        User user = new User();
+        String response = "";
+        try {
+            MultiMap<String> params = new MultiMap<String>();
+            UrlEncoded.decodeTo(req.body(), params, "UTF-8");
+            BeanUtils.populate(user, params);
+            response = emailService.sendForgotPasswordEmail(user.getEmail());
+            if(response == null){
+                map.put("error","No User Exist With This Email.");
+                return new ModelAndView(map , "forgot_password.ftl");
+            }
+
+        } catch (Exception e) {
+            halt(501);
+            return null;
+        }
+        map.put("message","Please check Your Email.");
+        return new ModelAndView(map , "login_user.ftl");
+    }
+
 
     private void addAuthenticatedUser(Request request, User u) {
         request.session().attribute(USER_SESSION_ID, u);

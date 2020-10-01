@@ -56,6 +56,9 @@ public class WebServer {
   public static final String Signup_User_URL = "/signup/user";
   public static final String Logout_URL = "/logout";
   public static final String Activate_User_URL = "/activate/user/:id";
+  public static final String FORGOT_PASSWORD_URL = "/forgot/password";
+  public static final String FORGOT_PASSWORD_USER_URL = "/forgot/password/user";
+
 
 
 
@@ -144,11 +147,13 @@ public class WebServer {
     get(Signup_User_URL, (req,res) -> new LoginController().signup_user(req), templateEngine);
     get(Activate_User_URL, (req,res) -> new LoginController().activate_user(req), templateEngine);
     get(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
+    get(FORGOT_PASSWORD_URL, (req,res) -> new LoginController().forgot_password(req), templateEngine);
 
 
     post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);
     post(Login_URL, (req,res) -> new LoginController().authenticateUser(req,res), templateEngine);
-    post(Activate_User_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
+    post(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
+    post(FORGOT_PASSWORD_USER_URL, (req,res) -> new LoginController().forgot_password_user(req), templateEngine);
 
 
 

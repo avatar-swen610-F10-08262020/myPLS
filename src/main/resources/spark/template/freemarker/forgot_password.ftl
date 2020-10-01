@@ -299,16 +299,14 @@
             </#if>
 
             <!-- Login Form -->
-            <form action="/login" method="post">
-              <input type="text" id="login" class="fadeIn second" name="email" placeholder="login" required>
-              <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
-              <input type="submit" class="fadeIn fourth" value="Log In">
+            <form action="/forgot/password/user" method="post">
+              <input type="text" id="login" class="fadeIn second" name="email" placeholder="email" required>
+
+              <input type="submit" class="fadeIn fourth" value="Submit">
             </form>
 
             <!-- Remind Passowrd -->
-            <div id="formFooter">
-              <a class="underlineHover" href="/forgot/password">Forgot Password?</a>
-            </div>
+
 
           </div>
         </div>

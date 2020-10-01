@@ -334,21 +334,21 @@
             </thead>
             <tbody>
               <tr>
-                <td>John</td>
+                <td><a href="#">John</a></td>
                 <td>Doe</td>
                 <td>john@example.com</td>
                 <th>Professor</th>
                 <th>Active</th>
               </tr>
               <tr>
-                <td>John</td>
+                <td><a href="#">John</a></td>
                 <td>Ray</td>
                 <td>johr.ray@example.com</td>
                 <th>Learner</th>
                 <th>Inactive</th>
               </tr>
               <tr>
-                <td>Boris</td>
+                <td><a href="#">Boris</a></td>
                 <td>Johnson</td>
                 <td>boris.john@example.com</td>
                 <th>Learner</th>
@@ -385,21 +385,21 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Computer Architecture</td>
+                    <td><a href="#">Computer Architecture</a></td>
                     <td>1001</td>
                     <td>4</td>
                     <th>Jain Ray</th>
                     <th>Yes</th>
                   </tr>
                   <tr>
-                    <td>Computer Vision</td>
+                    <td><a href="#">Computer Vision</a></td>
                     <td>1020</td>
                     <td>3.5</td>
                     <th>Meng Chao</th>
                     <th>No</th>
                   </tr>
                   <tr>
-                    <td>Game Design</td>
+                    <td><a href="#">Game Design</a></td>
                     <td>2055</td>
                     <td>4.8</td>
                     <th>Boris Johnson</th>
