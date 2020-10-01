@@ -307,7 +307,7 @@
                 One Step to On-board
            <h2>
             <#if (error)??>
-            <div class="alert alert-danger" role="alert">
+            <div style="font-size:1rem" class="alert alert-danger" role="alert">
               ${error}
             </div>
             </#if>
@@ -318,6 +318,8 @@
                 <input type="text" id="lastName" class="fadeIn second" name="lastName" placeholder="last name" required>
                  <input type="text" id="email" class="fadeIn second" name="email" placeholder="email" required>
                  <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
+                 <input type="password" id="repeatPassword" class="fadeIn third" name="repeatPassword" placeholder="Repeat password" required>
+
                  <div class="form-group">
 
                    <select class="fadeIn third" id="userTypeID" name="userTypeID" required>

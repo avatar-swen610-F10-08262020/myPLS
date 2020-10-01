@@ -15,6 +15,8 @@ import spark.Response;
 import spark.TemplateViewRoute;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static spark.Spark.halt;
 
@@ -23,6 +25,10 @@ public class LoginController {
     EmailService emailService = new EmailService();
     private static final String USER_SESSION_ID = "user";
     private static final String ACL_SESSION_ID = "acl";
+    private static final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})";
+    private Pattern pattern;
+    private Matcher matcher;
+
 
     private Map<String, Object> map;
     Session session = null;
@@ -114,12 +120,30 @@ public class LoginController {
             UrlEncoded.decodeTo(req.body(), params, "UTF-8");
 
             BeanUtils.populate(userData, params);
-            user.setFirst_Name(userData.getfirstName());
-            user.setLast_Name(userData.getlastName());
-            user.setEmail(userData.getEmail());
-            user.setPassword(userData.getPassword());
-            user.setUserTypeID(userData.getuserTypeID());
-            user.setStatus(0);
+            System.out.println(userData.getrepeatPassword()+" "+userData.getPassword());
+            if(validate(userData.getPassword())) {
+                if(userData.getPassword().equals(userData.getrepeatPassword())){
+                    user.setFirst_Name(userData.getfirstName());
+                    user.setLast_Name(userData.getlastName());
+                    user.setEmail(userData.getEmail());
+                    user.setPassword(userData.getPassword());
+                    user.setUserTypeID(userData.getuserTypeID());
+                    user.setStatus(0);
+                }
+                else{
+                    map.put("error","Both password should match.");
+                    return new ModelAndView(map , "signup_user.ftl");
+                }
+
+            }
+            else{
+                map.put("error","Password Should Be between 8 and 40 characters long\n" +
+                        "Contain at least one digit.\n" +
+                        "Contain at least one lower case character.\n" +
+                        "Contain at least one upper case character.\n" +
+                        "Contain at least on special character from [ @ # $ % ! . ]");
+                return new ModelAndView(map , "signup_user.ftl");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -231,4 +255,13 @@ public class LoginController {
     private List<Access_Control_List> getACL(Request request) {
         return request.session().attribute(ACL_SESSION_ID);
     }
+
+
+    public boolean validate(final String password) {
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+
+    }
+
 }

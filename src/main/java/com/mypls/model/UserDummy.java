@@ -6,6 +6,7 @@ public class UserDummy {
     private String lastName;
     private String email;
     private String password;
+    private  String repeatPassword;
     private Integer userTypeID;
 
 
@@ -31,6 +32,13 @@ public class UserDummy {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String getrepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setrepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
+    }
 
 
     public String getEmail() {
@@ -48,5 +56,6 @@ public class UserDummy {
     public void setUserTypeID(Integer userTypeID) {
         this.userTypeID = userTypeID;
     }
+
 
 }
