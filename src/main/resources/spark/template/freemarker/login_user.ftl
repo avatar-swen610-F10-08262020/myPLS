@@ -286,8 +286,17 @@
             <h2>
               Welcome to your Learning Space!
             </h2>
+            <#if (error)??>
+            <div class="alert alert-danger" role="alert">
+              ${error}
+            </div>
+            </#if>
 
-
+            <#if (message)??>
+            <div class="alert alert-success" role="alert">
+              ${message}
+            </div>
+            </#if>
 
             <!-- Login Form -->
             <form action="/login" method="post">

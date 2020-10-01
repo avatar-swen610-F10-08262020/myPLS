@@ -43,13 +43,26 @@ public class HomeController implements TemplateViewRoute {
 //      System.out.println("next user: " + user.getFirst_name());
 //      name = user.getFirst_name();
 //    }
-    User currentUser = getAuthenticatedUser(request);
+//    User currentUser = getAuthenticatedUser(request);
 
     Map<String, Object> vm = new HashMap<>();
-    vm.put("Username", "Welcome! "+ currentUser.getFirst_name());
+//    vm.put("Username", "Welcome! "+ currentUser.getFirst_name());
     return new ModelAndView(vm , "home.ftl");
   }
 
+  public ModelAndView home(Request req) {
+    User user =getAuthenticatedUser(req);
+    Map<String, Object> map = new HashMap<>();
+    if(user!=null){
+      System.out.println(user.getFirst_name());
+      map.put("UserType", user.getUserTypeID());
+      map.put("Username", user.getFirst_name());
+      return new ModelAndView(map , "home.ftl");
+    }
+//        return (request, response) -> new ModelAndView(map , "login.ftl");
+    return new ModelAndView(map , "login.ftl");
+
+  }
 
   public TemplateViewRoute handle_data() {
     Map<String, Object> vm = new HashMap<>();

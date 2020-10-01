@@ -306,9 +306,13 @@
            <h2>
                 One Step to On-board
            <h2>
+            <#if (error)??>
+            <div class="alert alert-danger" role="alert">
+              ${error}
+            </div>
+            </#if>
 
-
-            <!-- Login Form -->
+            <!-- Signup Form -->
             <form action="/signup/user" method="post">
                 <input type="text" id="firstName" class="fadeIn second" name="firstName" placeholder="first name" required>
                 <input type="text" id="lastName" class="fadeIn second" name="lastName" placeholder="last name" required>

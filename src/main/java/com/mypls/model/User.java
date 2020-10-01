@@ -1,4 +1,6 @@
 package com.mypls.model;
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.*;
@@ -14,8 +16,16 @@ public class User {
     private String email;
     private String password;
     private Integer user_type_id;
+    @ColumnDefault("0")
     private Integer status;
 
+    public Long getID() {
+        return id;
+    }
+
+    public void setID(Long ID) {
+        this.id = id;
+    }
 
     public String getFirst_name() {
         return first_name;

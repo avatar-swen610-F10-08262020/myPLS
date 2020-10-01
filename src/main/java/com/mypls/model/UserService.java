@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.List;
 
 public class UserService {
-    public User authenticate_user(User user) {
+    public User authenticateUser(User user) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createQuery("From User ");
@@ -21,7 +21,7 @@ public class UserService {
         return null;
     }
 
-    public boolean check_user(User user){
+    public boolean checkUser(User user){
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createQuery("From User ");
 
