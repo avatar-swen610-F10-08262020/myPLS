@@ -2,10 +2,16 @@ package com.mypls.ui;
 
 import static spark.Spark.*;
 
+import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 import spark.TemplateEngine;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.regex.Pattern;
+import org.slf4j.Logger;
 /**
  * The server that initializes the set of HTTP request handlers.
  * This defines the <em>web application interface</em> for this
@@ -36,7 +42,7 @@ import spark.TemplateEngine;
  * </ul>
  * </p>
  *
- * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
+ * @author <a href='mailto:aa7510@rit.edu'>Akhter Al Amin</a>
  */
 public class WebServer {
 
@@ -58,11 +64,7 @@ public class WebServer {
   public static final String Activate_User_URL = "/activate/user/:id";
   public static final String FORGOT_PASSWORD_URL = "/forgot/password";
   public static final String FORGOT_PASSWORD_USER_URL = "/forgot/password/user";
-
-
-
-
-
+  private static final Logger LOGGER = LoggerFactory.getLogger(WebServer.class);
 
 
   //
@@ -70,6 +72,8 @@ public class WebServer {
   //
 
   private final TemplateEngine templateEngine;
+
+
 
   //
   // Constructor
@@ -102,6 +106,10 @@ public class WebServer {
   public void initialize() {
     // Configuration to serve static files
     staticFileLocation("/public");
+
+
+
+
 
     //// Setting any route (or filter) in Spark triggers initialization of the
     //// embedded Jetty web server.

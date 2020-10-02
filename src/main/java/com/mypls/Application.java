@@ -1,6 +1,9 @@
 package com.mypls;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import com.mypls.model.User;
@@ -22,8 +25,6 @@ import static spark.Spark.port;
  */
 public final class Application {
   private static final Logger LOG = Logger.getLogger(Application.class.getName());
-
-  //
   // Application Launch method
   //
 
@@ -96,6 +97,11 @@ public final class Application {
 
     // configure Spark and startup the Jetty web server
     webServer.initialize();
+
+
+
+//    EMAIL_TOKEN = appProps.getProperty("mypls.email.token");
+//    System.out.println("my pls Email Token: "+EMAIL_TOKEN);
 
     // other applications might have additional services to configure
 

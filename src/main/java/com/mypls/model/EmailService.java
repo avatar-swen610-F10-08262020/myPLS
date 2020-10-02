@@ -8,6 +8,9 @@ import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.errors.MailjetSocketTimeoutException;
 //import com.mailjet.client.resource.Emailv31;
 //import com.mypls.util.HibernateUtil;
+import com.mypls.Application;
+import com.mypls.ui.WebServer;
+import com.mypls.util.ConfigUtil;
 import com.mypls.util.HibernateUtil;
 import com.sendgrid.*;
 import com.sendgrid.helpers.mail.Mail;
@@ -29,10 +32,10 @@ import java.util.*;
 
 
 public class EmailService {
-    SendGrid sg = new SendGrid("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");
-    Email from = new Email("farhanbuet09@gmail.com");
+    Properties prop =new ConfigUtil().configuration();
+    SendGrid sg = new SendGrid(prop.getProperty("mypls.email.token"));
+    Email from = new Email(prop.getProperty("mypls.twilio.email"));
     public void sendActivationEmail(User user, Long ID){
-
 
         Email to = new Email(user.getEmail()); // use your own email address here
 
