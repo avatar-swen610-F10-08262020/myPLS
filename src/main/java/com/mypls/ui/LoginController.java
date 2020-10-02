@@ -137,11 +137,11 @@ public class LoginController {
 
             }
             else{
-                map.put("error","Password Should Be between 8 and 40 characters long\n" +
-                        "Contain at least one digit.\n" +
-                        "Contain at least one lower case character.\n" +
-                        "Contain at least one upper case character.\n" +
-                        "Contain at least on special character from [ @ # $ % ! . ]");
+                map.put("error","<ul><li>Password Should Be between 8 and 40 characters long</li>\n" +
+                        "<li>Contain at least one digit.</li>\n" +
+                        "<li>Contain at least one lower case character.</li>\n" +
+                        "<li>Contain at least one upper case character.</li>\n" +
+                        "<li>Contain at least on special character from [ @ # $ % ! . ]</li></ul>");
                 return new ModelAndView(map , "signup_user.ftl");
             }
 

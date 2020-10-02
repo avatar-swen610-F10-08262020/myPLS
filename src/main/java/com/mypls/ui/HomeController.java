@@ -22,28 +22,6 @@ public class HomeController implements TemplateViewRoute {
 
   @Override
   public ModelAndView handle(Request request, Response response) {
-//
-//    session.beginTransaction();
-//
-//    Department department = new Department("java");
-//    session.save(department);
-//
-//    session.save(new Employee("Jakab Gipsz",department));
-//    session.save(new Employee("Captain Nemo",department));
-//
-//    session.getTransaction().commit();
-//    Session session = HibernateUtil.getSessionFactory().openSession();
-//    Query q = session.createQuery("From User ");
-//
-//    List<User> resultList = q.list();
-//    System.out.println("num of user:" + resultList.size());
-//    String name="";
-//    for (int i=0;i<resultList.size();i++) {
-//      User user = resultList.get(i);
-//      System.out.println("next user: " + user.getFirst_name());
-//      name = user.getFirst_name();
-//    }
-//    User currentUser = getAuthenticatedUser(request);
 
     Map<String, Object> vm = new HashMap<>();
 //    vm.put("Username", "Welcome! "+ currentUser.getFirst_name());
