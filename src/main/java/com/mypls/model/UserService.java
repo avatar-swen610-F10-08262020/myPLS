@@ -11,7 +11,7 @@ public class UserService {
     public User authenticateUser(User user) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From User ");
+        Query q = session.createQuery("From User");
 
         List<User> resultList = q.list();
         for (User userData : resultList) {
