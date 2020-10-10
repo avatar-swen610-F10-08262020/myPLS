@@ -32,4 +32,8 @@ public class UserService {
         }
         return false;
     }
+
+    public User updateUser(User user) {
+        return new User();
+    }
 }

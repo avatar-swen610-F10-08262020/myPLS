@@ -51,7 +51,7 @@ public class HomeController implements TemplateViewRoute {
   }
 
   public ModelAndView home(Request req) {
-    User user =getAuthenticatedUser(req);
+    User user = getAuthenticatedUser(req);
     Map<String, Object> map = new HashMap<>();
     if(user!=null){
       System.out.println(user.getFirst_name());

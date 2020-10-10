@@ -57,6 +57,7 @@ public class WebServer {
   public static final String HOME_DASHBOARD_URL = "/home";
 
   public static final String PROFILE_URL = "/profile";
+  public static final String UPDATE_PROFILE_URL = "/profile/update";
   public static final String Login_URL = "/login";
   public static final String Login_User_URL = "/login/user";
   public static final String Signup_User_URL = "/signup/user";
@@ -149,7 +150,7 @@ public class WebServer {
     get(HOME_DASHBOARD_URL, (req,res) -> new HomeController().home(req), templateEngine);
 
 
-    get(PROFILE_URL, new HomeController().handle_data(), templateEngine);
+    get(PROFILE_URL, (req, res) -> new ProfileController().home(req), templateEngine);
     get(Login_URL, (req,res) -> new LoginController().login(req), templateEngine);
     get(Login_User_URL, (req,res) -> new LoginController().login_user(req), templateEngine);
     get(Signup_User_URL, (req,res) -> new LoginController().signup_user(req), templateEngine);
@@ -162,6 +163,7 @@ public class WebServer {
     post(Login_URL, (req,res) -> new LoginController().authenticateUser(req,res), templateEngine);
     post(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
     post(FORGOT_PASSWORD_USER_URL, (req,res) -> new LoginController().forgot_password_user(req), templateEngine);
+    post(UPDATE_PROFILE_URL, (req, res) -> new ProfileController().updateProfile(req), templateEngine);
 
 
 
