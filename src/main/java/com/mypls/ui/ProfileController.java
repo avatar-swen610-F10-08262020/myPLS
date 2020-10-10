@@ -45,7 +45,67 @@ public class ProfileController {
         return new ModelAndView(map , "login.ftl");
     }
 
-    public ModelAndView updateProfile(Request req) {
+    public ModelAndView updatePassword(Request req) {
+        User user = getAuthenticatedUser(req);
+        Map<String, Object> map = new HashMap<>();
+        System.out.println("USER ACTUAL DATA psa: " + user.getFirst_name()+" "+user.getLast_Name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUserTypeID()+" "+user.getID() );
+//        User user = new User();
+//        user.setEmail("pb8294@rit.edu");
+//        user.setPassword("12345678");
+//        User user = service.authenticateUser(user);
+        map.put("firstName", user.getFirst_name());
+        map.put("lastName", user.getLast_Name());
+        String password = req.queryParams("password");
+        String newPassword = req.queryParams("newPassword");
+        String repeatPassword = req.queryParams("repeatPassword");
+
+        System.out.println(newPassword.isEmpty());
+
+        if (!newPassword.isEmpty()) {
+            System.out.println("new Password");
+            if (newPassword.equals(repeatPassword)) {
+                if (password.equals(user.getPassword())) {
+                    try {
+                        session = HibernateUtil.getSessionFactory().openSession();
+                        session.beginTransaction();
+                        user.setPassword(newPassword);
+                        session.update(user);
+                        session.flush();
+                        session.getTransaction().commit();
+                    } catch (HibernateException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } finally {
+                        session.close();
+                    }
+                    System.out.println("Curr password match");
+                } else {
+                    map.put("msg_type", "error");
+                    map.put("message", "Password doesn't match with current password");
+                    System.out.println("Curr password not match");
+
+                    return new ModelAndView(map, "profile/profile.ftl");
+                }
+            } else {
+                System.out.println("Blank new password");
+                map.put("msg_type", "error");
+                map.put("message","New password and repeated password do not match");
+                return new ModelAndView(map , "profile/profile.ftl");
+            }
+        } else if (newPassword.isEmpty()) {
+            System.out.println("Blank new password");
+            map.put("msg_type", "error");
+            map.put("message","Please do not leave new password field empty");
+            return new ModelAndView(map , "profile/profile.ftl");
+        }
+        System.out.println(user.getFirst_name());
+        map.put("msg_type", "notification");
+        map.put("message","Password has been updated");
+        return new ModelAndView(map , "profile/profile.ftl");
+
+    }
+
+    public ModelAndView updateGeneral(Request req) {
         User user = getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
         System.out.println("USER ACTUAL DATA: " + user.getFirst_name()+" "+user.getLast_Name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUserTypeID()+" "+user.getID() );
@@ -53,45 +113,15 @@ public class ProfileController {
 //        user.setEmail("pb8294@rit.edu");
 //        user.setPassword("12345678");
 //        User user = service.authenticateUser(user);
-
-        UserDummy userData = new UserDummy();
-        try {
-            MultiMap<String> params = new MultiMap<String>();
-            UrlEncoded.decodeTo(req.body(), params, "UTF-8");
-
-            BeanUtils.populate(userData, params);
-            System.out.println("USER DATA FROM FORM: " + userData.getfirstName()+" "+userData.getlastName()+" "+userData.getEmail()+" "+userData.getPassword()+" "+userData.getrepeatPassword()+" "+userData.getuserTypeID() + " " + userData.getNewPassword().isEmpty());
-        } catch (Exception e) {
-            e.printStackTrace();
-            halt(501);
-            return null;
-        }
-
-        System.out.println(userData.getPassword().equals(user.getPassword()));
+        String firstName = req.queryParams("firstName");
+        String lastName = req.queryParams("lastName");
+        System.out.println(firstName + " " + lastName);
 
         try{
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            user.setFirst_Name(userData.getfirstName());
-            user.setLast_Name(userData.getlastName());
-
-            if (!userData.getNewPassword().isEmpty()) {
-                System.out.println("new Password");
-                if (userData.getPassword().equals(user.getPassword())) {
-                    user.setPassword(userData.getNewPassword());
-                    System.out.println("Curr password match");
-                } else {
-                    map.put("UserType", user.getUserTypeID());
-                    map.put("firstName", user.getFirst_name());
-                    map.put("lastName", user.getLast_Name());
-                    map.put("password", user.getPassword());
-                    map.put("msg_type", "error");
-                    map.put("message","Current password is wrong");
-                    System.out.println("Curr password not match");
-
-                    return new ModelAndView(map , "profile/profile.ftl");
-                }
-            }
+            user.setFirst_Name(firstName);
+            user.setLast_Name(lastName);
             session.update(user);
             session.flush();
             session.getTransaction().commit();

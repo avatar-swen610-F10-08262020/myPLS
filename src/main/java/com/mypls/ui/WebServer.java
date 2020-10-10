@@ -58,6 +58,8 @@ public class WebServer {
 
   public static final String PROFILE_URL = "/profile";
   public static final String UPDATE_PROFILE_URL = "/profile/update";
+  public static final String UPDATE_PROFILE_GENERAL_URL = "/profile/update-general";
+  public static final String UPDATE_PROFILE_PASSWORD_URL = "/profile/update-password";
   public static final String Login_URL = "/login";
   public static final String Login_User_URL = "/login/user";
   public static final String Signup_User_URL = "/signup/user";
@@ -163,7 +165,8 @@ public class WebServer {
     post(Login_URL, (req,res) -> new LoginController().authenticateUser(req,res), templateEngine);
     post(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
     post(FORGOT_PASSWORD_USER_URL, (req,res) -> new LoginController().forgot_password_user(req), templateEngine);
-    post(UPDATE_PROFILE_URL, (req, res) -> new ProfileController().updateProfile(req), templateEngine);
+    post(UPDATE_PROFILE_PASSWORD_URL, (req, res) -> new ProfileController().updatePassword(req), templateEngine);
+    post(UPDATE_PROFILE_GENERAL_URL, (req, res) -> new ProfileController().updateGeneral(req), templateEngine);
 
 
 
