@@ -12,6 +12,7 @@
             <a class="btn btn-default" href="#">Users</a>
             <a class="btn btn-default" href="#">Announcements</a>
             <a class="btn btn-default" href="#">${firstName}</a>
+            <a class="btn btn-default" href="/logout">Logout</a>
         </div>
     </div>
 
