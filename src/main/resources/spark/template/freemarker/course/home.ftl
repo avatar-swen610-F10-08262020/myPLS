@@ -18,7 +18,8 @@
       <section class="bg-light text-center">
         <div class="container">
            <h2>Course List</h2>
-           <button id="course-create-btn" type="button" data-toggle="modal" data-target="#course-create-modal" class="btn btn-sm btn-primary">Create Course</button>
+           <a href="/course/create" class="btn btn-sm btn-primary">Create Course</a>
+
            <table id="course-index-table" class="table table-hover">
             <thead>
                 <tr>
@@ -51,6 +52,14 @@
             <div class="modal-content">
                <div class="modal-header">
                   <h5 class="modal-title" id="course-create-label">New Course</h5>
+                  <#if msg_type == "error">
+                        <div style="font-size:1rem" class="alert alert-danger" role="alert">
+                           ${message}
+                  <#elseif msg_type == "notification">
+                   <div style="font-size:1rem" class="alert alert-success" role="alert">
+                      ${message}
+                   </div>
+                   </#if>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
@@ -59,33 +68,30 @@
                   <form action="/course/create" method="post">
                      <div class="form-group">
                         <label for="course_name" class="col-form-label">Course Name</label>
-                        <input type="text" class="form-control" id="course_name">
+                        <input type="text" class="form-control" id="course_name" name="course_name">
                      </div>
                      <div class="form-group">
                         <label for="course_code" class="col-form-label">Course Code</label>
-                        <input type="text" class="form-control" id="course_code">
+                        <input type="text" class="form-control" id="course_code" name="course_code">
                      </div>
                      <div class="form-group">
                         <label for="description" class="col-form-label">Description</label>
-                        <textarea class="form-control" id="course_name"></textarea>
+                        <textarea class="form-control" id="description" name="description"></textarea>
                      </div>
                      <div class="form-group">
                         <label for="class_size" class="col-form-label">Class Size</label>
-                        <input type="number" class="form-control" id="class_size" min=0>
+                        <input type="number" class="form-control" id="class_size" min=0 name="class_size">
                      </div>
                      <div class="form-group">
                         <label for="start_date" class="col-form-label">Start Date</label>
-                        <input type="date" class="form-control" id="course_name">
+                        <input type="date" class="form-control" id="start_date" name="start_date">
                      </div>
                      <div class="form-group">
                         <label for="end_date" class="col-form-label">End Date</label>
-                        <input type="date" class="form-control" id="end_date">
+                        <input type="date" class="form-control" id="end_date" name="end_date">
                      </div>
+                     <button type="submit" class="btn btn-primary">Create</button>
                   </form>
-               </div>
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Create</button>
                </div>
             </div>
          </div>

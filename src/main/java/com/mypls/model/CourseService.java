@@ -40,4 +40,29 @@ public class CourseService {
         return null;
     }
 
+    public boolean alreadyAvailable(String courseName, String course_code) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From Course ");
+
+        List<Course> resultList = q.list();
+        for (Course courseData : resultList) {
+            if(courseData.getCourse_name().equals(courseName) || courseData.getCourse_code().equals(course_code))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean deleteIndividualCourse(Long id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From Course ");
+        List<Course> resultList = q.list();
+        for (Course courseData : resultList) {
+            if(courseData.getId().equals(id))
+                session.delete(courseData);
+                session.close();
+                return true;
+        }
+        return false;
+    }
+
 }

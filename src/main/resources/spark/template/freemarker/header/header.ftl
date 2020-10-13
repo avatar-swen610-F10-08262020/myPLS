@@ -112,7 +112,7 @@
       transform: scale(0.95);
     }
 
-    input[type=text], input[type=password] {
+    input[type=text], input[type=password], input[type=number], input[type=date], textarea {
       background-color: #f6f6f6;
       border: none;
       color: #0d0d0d;
@@ -139,6 +139,33 @@
     }
 
     input[type=text]:placeholder {
+      color: #cccccc;
+    }
+
+    input[type=number]:focus {
+      background-color: #fff;
+      border-bottom: 2px solid #5fbae9;
+    }
+
+    input[type=number]:placeholder {
+      color: #cccccc;
+    }
+
+    input[type=date]:focus {
+      background-color: #fff;
+      border-bottom: 2px solid #5fbae9;
+    }
+
+    input[type=date]:placeholder {
+      color: #cccccc;
+    }
+
+    textarea:focus {
+      background-color: #fff;
+      border-bottom: 2px solid #5fbae9;
+    }
+
+    textarea:placeholder {
       color: #cccccc;
     }
 

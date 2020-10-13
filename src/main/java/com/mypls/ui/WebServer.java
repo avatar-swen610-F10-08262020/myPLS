@@ -74,6 +74,7 @@ public class WebServer {
   private static final String COURSE_VIEW_URL = "/course/:id";
   private static final String COURSE_EDIT_URL = "/course/update/:id";
   private static final String COURSE_DELETE_URL = "/course/delete/:id";
+  private static final String COURSE_REGISTER_URL = "/course/register";
 
 
   //
@@ -165,9 +166,12 @@ public class WebServer {
     get(Activate_User_URL, (req,res) -> new LoginController().activate_user(req), templateEngine);
     get(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
     get(FORGOT_PASSWORD_URL, (req,res) -> new LoginController().forgot_password(req), templateEngine);
+
     get(COURSE_URL, (req, res) -> new CourseController().home(req), templateEngine);
     get(COURSE_CREATE_URL, (req, res) -> new CourseController().create(req), templateEngine);
     get(COURSE_VIEW_URL, (req, res) -> new CourseController().singleview(req), templateEngine);
+    get(COURSE_DELETE_URL, (req, res) -> new CourseController().delete(req), templateEngine);
+
 
     post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);
     post(Login_URL, (req,res) -> new LoginController().authenticateUser(req,res), templateEngine);
@@ -176,12 +180,7 @@ public class WebServer {
     post(UPDATE_PROFILE_PASSWORD_URL, (req, res) -> new ProfileController().updatePassword(req), templateEngine);
     post(UPDATE_PROFILE_GENERAL_URL, (req, res) -> new ProfileController().updateGeneral(req), templateEngine);
     post(COURSE_EDIT_URL, (req, res) -> new CourseController().update(req), templateEngine);
-    post(COURSE_DELETE_URL, (req, res) -> new CourseController().delete(req), templateEngine);
-
-
-
-
-
+    post(COURSE_REGISTER_URL, (req, res) -> new CourseController().registerClass(req), templateEngine);
 
   }
 
