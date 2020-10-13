@@ -12,7 +12,7 @@ public class Course {
     private Long id;
     private String course_name;
     private String description;
-    private Integer class_size;
+    private Long class_size;
     private String start_date;
     private String end_date;
 
@@ -40,11 +40,11 @@ public class Course {
         this.description = description;
     }
 
-    public Integer getClass_size() {
+    public Long getClass_size() {
         return class_size;
     }
 
-    public void setClass_size(Integer class_size) {
+    public void setClass_size(Long class_size) {
         this.class_size = class_size;
     }
 
@@ -62,6 +62,12 @@ public class Course {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" + "course_name='" + course_name + '\'' + ", description='" + description + '\'' + ", class_size='" + class_size + '\''
+                + ", start_date='" + start_date + '\'' + ", end_date='" + end_date + '\'' + '}';
     }
 }
 

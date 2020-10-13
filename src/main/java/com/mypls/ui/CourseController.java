@@ -1,7 +1,6 @@
 package com.mypls.ui;
 
 import com.mypls.model.*;
-import com.mypls.model.User;
 import spark.ModelAndView;
 import spark.Request;
 
@@ -13,9 +12,10 @@ public class CourseController {
     CourseService cService = new CourseService();
 
     public ModelAndView home(Request req) {
+        System.out.println("course date");
         Map<String, Object> map = new HashMap<>();
         List<Course> courses = cService.getAllCourses();
-        System.out.println(courses);
+//        System.out.println(courses);
         return new ModelAndView(map , "course/home.ftl");
     }
 

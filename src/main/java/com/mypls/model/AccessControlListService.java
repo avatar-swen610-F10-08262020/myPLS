@@ -20,6 +20,7 @@ public class AccessControlListService {
         for (Access_Control_List userData : resultList) {
             System.out.println(userData.getMenuName());
         }
+        session.close();
         return resultList;
     }
 }
