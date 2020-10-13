@@ -11,6 +11,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String course_name;
+    private String course_code;
     private String description;
     private Long class_size;
     private String start_date;
@@ -30,6 +31,14 @@ public class Course {
 
     public void setCourse_name(String course_name) {
         this.course_name = course_name;
+    }
+
+    public String getCourse_code() {
+        return course_code;
+    }
+
+    public void setCourse_code(String course_code) {
+        this.course_code = course_code;
     }
 
     public String getDescription() {
@@ -66,7 +75,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" + "course_name='" + course_name + '\'' + ", description='" + description + '\'' + ", class_size='" + class_size + '\''
+        return "Course{" + "course_name='" + course_name + '\'' + "course_code='" + course_code + '\'' + ", description='" + description + '\'' + ", class_size='" + class_size + '\''
                 + ", start_date='" + start_date + '\'' + ", end_date='" + end_date + '\'' + '}';
     }
 }

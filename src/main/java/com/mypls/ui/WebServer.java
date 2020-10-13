@@ -70,6 +70,7 @@ public class WebServer {
   private static final Logger LOGGER = LoggerFactory.getLogger(WebServer.class);
 
   private static final String COURSE_URL = "/course";
+  private static final String COURSE_CREATE_URL = "/course/create";
   private static final String COURSE_VIEW_URL = "/course/:id";
   private static final String COURSE_EDIT_URL = "/course/update/:id";
   private static final String COURSE_DELETE_URL = "/course/delete/:id";
@@ -165,6 +166,7 @@ public class WebServer {
     get(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
     get(FORGOT_PASSWORD_URL, (req,res) -> new LoginController().forgot_password(req), templateEngine);
     get(COURSE_URL, (req, res) -> new CourseController().home(req), templateEngine);
+    get(COURSE_CREATE_URL, (req, res) -> new CourseController().create(req), templateEngine);
     get(COURSE_VIEW_URL, (req, res) -> new CourseController().singleview(req), templateEngine);
 
     post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);

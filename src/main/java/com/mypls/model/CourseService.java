@@ -9,15 +9,15 @@ import java.util.List;
 public class CourseService {
 
     public List<Course> getAllCourses() {
-        System.out.println("course collecting");
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createQuery("From Course ");
         List<Course> resultList = null;
         try{
             resultList = q.list();
-            for (Course course : resultList) {
-                System.out.println(course.getCourse_name());
-            }
+            System.out.println(resultList);
+//            for (Course course : resultList) {
+//                System.out.println(course.getCourse_name());
+//            }
 
         }
         catch (Exception e){
@@ -26,18 +26,18 @@ public class CourseService {
         }
         session.close();
         return resultList;
-//        return resultList;
     }
 
-//    public Course getIndividualCourse(int id) {
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        Query q = session.createQuery("From Course ");
-//
-//        List<Course> resultList = q.list();
-//        for (Course courseData : resultList) {
-//            if(courseData.getId().equals(id))
-//                return courseData;
-//        }
-//        return null;
-//    }
+    public Course getIndividualCourse(Long id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From Course ");
+
+        List<Course> resultList = q.list();
+        for (Course courseData : resultList) {
+            if(courseData.getId().equals(id))
+                return courseData;
+        }
+        return null;
+    }
+
 }
