@@ -24,7 +24,7 @@
                  <a class="btn btn-default" href="#">Announcement</a>
             </#if>
 
-            <a class="btn btn-default" href="#">${Username}</a>
+            <a class="btn btn-default" href="/profile">${Username}</a>
             <a class="btn btn-default" href="/logout">Logout</a>
 
         </div>

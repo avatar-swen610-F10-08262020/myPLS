@@ -11,12 +11,17 @@ public class UserService {
     public User authenticateUser(User user) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From User");
 
+        Query q = session.createQuery("From User ");
         List<User> resultList = q.list();
         for (User userData : resultList) {
             if(userData.getEmail().equals(user.getEmail()) && userData.getPassword().equals(user.getPassword()) && userData.getStatus()==1)
+            {
+                session.close();
                 return userData;
+
+            }
+
         }
         return null;
     }
@@ -24,12 +29,21 @@ public class UserService {
     public boolean checkUser(User user){
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createQuery("From User ");
+        session.close();
 
         List<User> resultList = q.list();
         for (User userData : resultList) {
             if(userData.getEmail().equals(user.getEmail()))
+            {
+                session.close();
                 return true;
+            }
+
         }
         return false;
+    }
+
+    public User updateUser(User user) {
+        return new User();
     }
 }

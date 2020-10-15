@@ -6,7 +6,8 @@ public class UserDummy {
     private String lastName;
     private String email;
     private String password;
-    private  String repeatPassword;
+    private String repeatPassword;
+    private String newPassword;
     private Integer userTypeID;
 
 
@@ -57,5 +58,11 @@ public class UserDummy {
         this.userTypeID = userTypeID;
     }
 
+    public String getNewPassword() {
+        return newPassword;
+    }
 
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
 }
