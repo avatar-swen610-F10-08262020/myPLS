@@ -56,7 +56,7 @@
               </div>
                <div class="form-group">
                   <label for="description" class="col-form-label">Description</label>
-                  <textarea class="form-control" id="description" name="description"></textarea>
+                  <textarea class="form-control" id="description" name="description" maxlength="255"></textarea>
                </div>
                <div class="form-group">
                   <label for="start_date" class="col-form-label">Start Date</label>
