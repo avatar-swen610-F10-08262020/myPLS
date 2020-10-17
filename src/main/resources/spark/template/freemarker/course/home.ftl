@@ -46,7 +46,7 @@
                         <td>${course.class_size}</td>
                         <td>
                             <a href="/course/${course.id}" class="btn btn-sm btn-success">Show</a>
-                            <a href="/course/update/${course.id}" class="btn btn-sm btn-warning">Update</a>
+                            <a href="/course/edit/${course.id}" class="btn btn-sm btn-warning">Edit</a>
                             <a href="/course/delete/${course.id}" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
