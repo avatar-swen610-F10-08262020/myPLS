@@ -4,7 +4,7 @@ import com.mypls.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import java.util.List;
+import java.util.*;
 
 public class CourseService {
 
@@ -12,20 +12,23 @@ public class CourseService {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createQuery("From Course ");
         List<Course> resultList = null;
+        ArrayList<Course> nonDeleteResultList = new ArrayList<Course>();
         try{
             resultList = q.list();
             System.out.println(resultList);
-//            for (Course course : resultList) {
-//                System.out.println(course.getCourse_name());
-//            }
-
+            for (Course courseData : resultList) {
+                if (courseData.getStatus().equals(true)) {
+                    System.out.println(courseData);
+                    nonDeleteResultList.add(courseData);
+                }
+            }
         }
         catch (Exception e){
             e.printStackTrace();
             System.out.println(e.toString());
         }
         session.close();
-        return resultList;
+        return nonDeleteResultList;
     }
 
     public Course getIndividualCourse(Long id) {
@@ -53,16 +56,18 @@ public class CourseService {
     }
 
     public boolean deleteIndividualCourse(Long id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From Course ");
-        List<Course> resultList = q.list();
-        for (Course courseData : resultList) {
-            if(courseData.getId().equals(id))
-                session.delete(courseData);
-                session.close();
-                return true;
+        Course currCourse = getIndividualCourse(id);
+        if (currCourse == null) {
+            return false;
+        } else {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            currCourse.setStatus(false);
+            session.update(currCourse);
+            session.flush();
+            session.getTransaction().commit();
+            return true;
         }
-        return false;
     }
 
 }

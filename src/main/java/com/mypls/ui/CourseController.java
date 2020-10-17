@@ -87,8 +87,7 @@ public class CourseController {
 
     public ModelAndView delete(Request req) {
         Long ID = Long.parseLong(req.params(":id"));
-        Course currCourse = cService.getIndividualCourse(ID);
-        if (currCourse == null) {
+        if (!cService.deleteIndividualCourse(ID)) {
             Map<String, Object> map = new HashMap<>();
             List<Course> courses = cService.getAllCourses();
             map.put("courses", courses);
@@ -97,16 +96,6 @@ public class CourseController {
             map.put("msg", "Couldn't delete the course");
             return new ModelAndView(map , "course/home.ftl");
         } else {
-//            try {
-//                Session session = HibernateUtil.getSessionFactory().openSession();
-//                session.delete(currCourse);
-//                session.flush();
-//                session.getTransaction().commit();
-//            } catch (HibernateError e) {
-//                e.printStackTrace();
-//            } finally {
-//                session.close();
-//            }
             Map<String, Object> map = new HashMap<>();
             List<Course> courses = cService.getAllCourses();
             map.put("courses", courses);
