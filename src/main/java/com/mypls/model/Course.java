@@ -16,6 +16,7 @@ public class Course {
     private Long class_size;
     private String start_date;
     private String end_date;
+    private Boolean status;
 
     public Long getId() {
         return id;
@@ -73,10 +74,19 @@ public class Course {
         this.end_date = end_date;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Course{" + "course_name='" + course_name + '\'' + "course_code='" + course_code + '\'' + ", description='" + description + '\'' + ", class_size='" + class_size + '\''
-//                + ", start_date='" + start_date + '\'' + ", end_date='" + end_date + '\'' + '}';
-//    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" + "course_name='" + course_name + '\'' + "course_code='" + course_code + '\'' + ", description='" + description + '\'' + ", class_size='" + class_size + '\'' + ", status='" + status + '\'' +", start_date='" + start_date + '\'' + ", end_date='" + end_date + '\'' + '}';
+    }
+
 }
 

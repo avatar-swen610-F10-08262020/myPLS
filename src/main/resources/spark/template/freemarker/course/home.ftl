@@ -18,6 +18,15 @@
       <section class="bg-light text-center">
         <div class="container">
            <h2>Course List</h2>
+           <#if msg_type == "delerror">
+               <div class="alert alert-danger" role="alert">
+                 ${msg}
+               </div>
+           <#elseif msg_type == "delmsg">
+               <div class="alert alert-success" role="alert">
+                 ${msg}
+               </div>
+           </#if>
            <a href="/course/create" class="btn btn-sm btn-primary">Create Course</a>
 
            <table id="course-index-table" class="table table-hover">
@@ -37,7 +46,7 @@
                         <td>${course.class_size}</td>
                         <td>
                             <a href="/course/${course.id}" class="btn btn-sm btn-success">Show</a>
-                            <a href="/course/update/${course.id}" class="btn btn-sm btn-warning">Update</a>
+                            <a href="/course/edit/${course.id}" class="btn btn-sm btn-warning">Edit</a>
                             <a href="/course/delete/${course.id}" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>

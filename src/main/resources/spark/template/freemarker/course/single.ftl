@@ -24,7 +24,7 @@
                        <div class="row">
                            <div class="col-lg-12 col-md-12">
                                <div class="member_designation">
-                                   <h2>${course.course_name}<a href="/course/update/${course.id}" class="btn btn-sm btn-warning">Update</a>
+                                   <h2>${course.course_name}<a href="/course/edit/${course.id}" class="btn btn-sm btn-warning">Edit</a>
                                                                                         <a href="/course/delete/${course.id}" class="btn btn-sm btn-danger">Delete</a></h2>
                                    <span>${course.course_code}</span>
                                </div>
