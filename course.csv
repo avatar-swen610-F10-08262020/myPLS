@@ -1,0 +1,7 @@
+"id";"course_name";"course_code";"description";"class_size";"start_date";"end_date";"created_date";"status"
+1;"Software";"C1001";"Sotware Engineering Course";10;"2020-02-02";"2020-05-05";"2020-10-13 10:16:59";1
+2;"Statistical Machine Learning";"C1002";"Statistical learning theory is a framework for machine learning drawing from the fields of statistics and functional analysis.[1][2] Statistical learning theory deals with the problem of finding a predictive function based on data.";20;"2020-01-01";"2020-03-31";"2020-10-13 13:24:10";1
+3;"Deep Learning";"C1003";"Deep learning (also known as deep structured learning) is part of a broader family of machine learning methods based on artificial neural networks with representation learning. Learning can be supervised, semi-supervised or unsupervised.";25;"2020-01-01";"2020-04-30";"2020-10-13 13:24:10";1
+4;"Parallel Processing";"C1004";"";17;"";"";"2020-10-13 17:24:27";1
+5;"Colloquium";"C1005";"";50;"";"";"2020-10-13 17:29:38";1
+6;"Some Subject";"X1";" ";20;"";"";"2020-10-17 13:55:28";1
