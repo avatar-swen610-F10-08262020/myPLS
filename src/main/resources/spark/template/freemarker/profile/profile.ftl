@@ -1,21 +1,6 @@
 <#include "/header/header_profile.ftl">
-<body>
-   <!-- Navigation -->
-   <nav class="navbar navbar-light bg-light static-top inline">
-      <div class="container">
-         <a class="navbar-brand" href="/login">MyPLS </a>
-         <div class="float-right">
-            <a class="btn btn-default" href="#">Courses</a>
-            <a class="btn btn-default" href="#">Users</a>
-            <a class="btn btn-default" href="#">Announcements</a>
-            <a class="btn btn-default" href="#">${firstName}</a>
-            <a class="btn btn-default" href="/logout">Logout</a>
-         </div>
-      </div>
-   </nav>
-   <!-- Masthead -->
-   <header class="masthead text-center">
-   </header>
+
+
    <!-- Icons Grid -->
    <section class="features-icons bg-light text-center">
       <div class="container light-style flex-grow-1 container-p-y">

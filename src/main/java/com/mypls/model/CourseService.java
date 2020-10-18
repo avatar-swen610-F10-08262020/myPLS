@@ -10,25 +10,11 @@ public class CourseService {
 
     public List<Course> getAllCourses() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From Course");
-        List<Course> resultList = null;
-        ArrayList<Course> nonDeleteResultList = new ArrayList<Course>();
-        try{
-            resultList = q.list();
-            System.out.println(resultList);
-            for (Course courseData : resultList) {
-                if (courseData.getStatus().equals(true)) {
-                    System.out.println(courseData);
-                    nonDeleteResultList.add(courseData);
-                }
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            System.out.println(e.toString());
-        }
+        Query q = session.createQuery("From Course Where status = '1'");
+        List<Course> courseList = q.list();
+
         session.close();
-        return nonDeleteResultList;
+        return courseList;
     }
 
     public Course getIndividualCourse(Long id) {

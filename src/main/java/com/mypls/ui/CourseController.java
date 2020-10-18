@@ -2,6 +2,7 @@ package com.mypls.ui;
 
 import com.mypls.model.*;
 import com.mypls.util.HibernateUtil;
+import com.mypls.util.SessionUtil;
 import org.hibernate.HibernateError;
 import org.hibernate.Session;
 import spark.ModelAndView;
@@ -18,22 +19,46 @@ import java.util.Map;
 public class CourseController {
     CourseService cService = new CourseService();
     Session session = null;
-
+    SessionUtil sessionUtil = new SessionUtil();
     public ModelAndView home(Request req) {
         Map<String, Object> map = new HashMap<>();
-        List<Course> courses = cService.getAllCourses();
-        map.put("courses", courses);
-        System.out.println(map);
-        map.put("msg_type", "none");
-        map.put("message", "none");
-        return new ModelAndView(map , "course/home.ftl");
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUserTypeID());
+            map.put("Username", user.getFirst_name());
+            List<Course> courses = cService.getAllCourses();
+            try {
+                map.put("courses", courses);
+                System.out.println(map);
+            } catch (NullPointerException ex) {
+                System.out.println(ex.toString());
+            }
+
+            map.put("msg_type", "none");
+            map.put("message", "none");
+            return new ModelAndView(map , "course/home.ftl");
+        }
+        catch (NullPointerException ex)
+        {
+            return new ModelAndView(map , "login.ftl");
+        }
+
     }
 
     public ModelAndView create(Request req) {
         Map<String, Object> map = new HashMap<>();
-        map.put("msg_type", "none");
-        map.put("msg", "none");
-        return new ModelAndView(map , "course/create.ftl");
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUserTypeID());
+            map.put("Username", user.getFirst_name());
+            map.put("msg_type", "none");
+            map.put("msg", "none");
+            return new ModelAndView(map , "course/create.ftl");
+        }
+        catch (NullPointerException ex)
+        {
+            return new ModelAndView(map , "login.ftl");
+        }
     }
 
     public ModelAndView registerClass(Request req) {
@@ -73,24 +98,44 @@ public class CourseController {
     }
 
     public ModelAndView singleview(Request req) {
-        Long ID = Long.parseLong(req.params(":id"));
-        Course currCourse = cService.getIndividualCourse(ID);
         Map<String, Object> map = new HashMap<>();
-        map.put("course", currCourse);
-        map.put("msg_type", "none");
-        map.put("msg", "none");
-        return new ModelAndView(map , "course/single.ftl");
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUserTypeID());
+            map.put("Username", user.getFirst_name());
+            Long ID = Long.parseLong(req.params(":id"));
+            Course currCourse = cService.getIndividualCourse(ID);
+
+            map.put("course", currCourse);
+            map.put("msg_type", "none");
+            map.put("msg", "none");
+            return new ModelAndView(map , "course/single.ftl");
+        }
+        catch (NullPointerException ex)
+        {
+            return new ModelAndView(map , "login.ftl");
+        }
     }
 
     public ModelAndView edit(Request req) {
-        Long ID = Long.parseLong(req.params(":id"));
-        System.out.println(ID);
-        Course course = cService.getIndividualCourse(ID);
         Map<String, Object> map = new HashMap<>();
-        map.put("course", course);
-        map.put("msg_type", "none");
-        map.put("msg", "none");
-        return new ModelAndView(map , "course/edit.ftl");
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUserTypeID());
+            map.put("Username", user.getFirst_name());
+            Long ID = Long.parseLong(req.params(":id"));
+            System.out.println(ID);
+            Course course = cService.getIndividualCourse(ID);
+
+            map.put("course", course);
+            map.put("msg_type", "none");
+            map.put("msg", "none");
+            return new ModelAndView(map , "course/edit.ftl");
+        }
+        catch (NullPointerException ex)
+        {
+            return new ModelAndView(map , "login.ftl");
+        }
     }
 
     public ModelAndView updateClass(Request req) {

@@ -146,3 +146,18 @@
     }
   </script>
 </head>
+
+<body>
+   <!-- Navigation -->
+   <nav class="navbar navbar-light bg-light static-top inline">
+      <div class="container">
+         <a class="navbar-brand" href="/login">MyPLS </a>
+         <div class="float-right">
+            <a class="btn btn-default" href="/course">Courses</a>
+            <a class="btn btn-default" href="/home">Users</a>
+            <a class="btn btn-default" href="#">Announcements</a>
+            <a class="btn btn-default" href="#">${firstName}</a>
+            <a class="btn btn-default" href="/logout">Logout</a>
+         </div>
+      </div>
+   </nav>

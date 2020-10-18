@@ -1,7 +1,7 @@
 package com.mypls.ui;
 
 import com.mypls.model.*;
-
+import com.mypls.util.SessionUtil;
 
 import com.mypls.util.HibernateUtil;
 import org.apache.commons.beanutils.BeanUtils;
@@ -23,7 +23,8 @@ import static spark.Spark.halt;
 public class LoginController {
     UserService service = new UserService();
     EmailService emailService = new EmailService();
-    private static final String USER_SESSION_ID = "user";
+    SessionUtil sessionUtil = new SessionUtil();
+
     private static final String ACL_SESSION_ID = "acl";
     private static final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})";
     private Pattern pattern;
@@ -35,12 +36,20 @@ public class LoginController {
     AccessControlListService accessControlListService = new AccessControlListService();
 
     public ModelAndView login(Request req) {
-        User user =getAuthenticatedUser(req);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
             map.put("UserType", user.getUserTypeID());
             map.put("Username", user.getFirst_name());
+            if(user.getUserTypeID() == 1){
+                List<User> users = service.getAllUser();
+                System.out.println(users.size());
+                map.put("users", users);
+            }
+            else{
+
+            }
             return new ModelAndView(map , "home.ftl");
         }
 //        return (request, response) -> new ModelAndView(map , "login.ftl");
@@ -49,10 +58,18 @@ public class LoginController {
     }
 
     public ModelAndView login_user(Request req) {
-        User user =getAuthenticatedUser(req);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
+            if(user.getUserTypeID() == 1){
+                List<User> users = service.getAllUser();
+                System.out.println(users.size());
+                map.put("users", users);
+            }
+            else{
+
+            }
             map.put("UserType", user.getUserTypeID());
             map.put("Username", user.getFirst_name());
             return new ModelAndView(map , "home.ftl");
@@ -63,12 +80,20 @@ public class LoginController {
 
     public ModelAndView signup_user(Request req) {
 
-        User user =getAuthenticatedUser(req);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
             map.put("UserType", user.getUserTypeID());
             map.put("Username", user.getFirst_name());
+            if(user.getUserTypeID() == 1){
+                List<User> users = service.getAllUser();
+                System.out.println(users.size());
+                map.put("users", users);
+            }
+            else{
+
+            }
             return new ModelAndView(map , "home.ftl");
         }
 //        return (request, response) -> new ModelAndView(map , "signup_user.ftl");
@@ -77,7 +102,7 @@ public class LoginController {
 
     public ModelAndView logout_user(Request req){
         Map<String, Object> map = new HashMap<>();
-        removeAuthenticatedUser(req);
+        sessionUtil.removeAuthenticatedUser(req);
         return new ModelAndView(map , "logout.ftl");
     }
 
@@ -96,7 +121,7 @@ public class LoginController {
         if(result != null) {
             System.out.println("Lenght of ACL: here");
 //            List<Access_Control_List> acl = accessControlListService.accessControlList(result);
-            addAuthenticatedUser(req, result);
+            sessionUtil.addAuthenticatedUser(req, result);
 //            System.out.println("Lenght of ACL:"+ acl.size());
 //            map.put("acl", acl);
 //            List<User> users = null;
@@ -214,7 +239,7 @@ public class LoginController {
     }
 
     public ModelAndView forgot_password(Request req){
-        User user =getAuthenticatedUser(req);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
@@ -247,21 +272,6 @@ public class LoginController {
     }
 
 
-    private void addAuthenticatedUser(Request request, User u) {
-        request.session().attribute(USER_SESSION_ID, u);
-//        request.session().attribute(ACL_SESSION_ID, ACL);
-
-    }
-
-
-
-    private void removeAuthenticatedUser(Request request) {
-        request.session().removeAttribute(USER_SESSION_ID);
-    }
-
-    private User getAuthenticatedUser(Request request) {
-        return request.session().attribute(USER_SESSION_ID);
-    }
 
     private List<Access_Control_List> getACL(Request request) {
         return request.session().attribute(ACL_SESSION_ID);

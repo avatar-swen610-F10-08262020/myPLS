@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
+import com.mypls.model.UserService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -19,6 +20,7 @@ import org.hibernate.*;
  */
 public class HomeController implements TemplateViewRoute {
   private static final String USER_SESSION_ID = "user";
+  UserService service = new UserService();
 
   @Override
   public ModelAndView handle(Request request, Response response) {
@@ -35,6 +37,14 @@ public class HomeController implements TemplateViewRoute {
       System.out.println(user.getFirst_name());
       map.put("UserType", user.getUserTypeID());
       map.put("Username", user.getFirst_name());
+      if(user.getUserTypeID() == 1){
+        List<User> users = service.getAllUser();
+        System.out.println(users.size());
+        map.put("users", users);
+      }
+      else{
+
+      }
       return new ModelAndView(map , "home.ftl");
     }
 //        return (request, response) -> new ModelAndView(map , "login.ftl");

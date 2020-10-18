@@ -1,20 +1,7 @@
-<#include "/header/header.ftl">
-<body>
-   <!-- Navigation -->
-   <nav class="navbar navbar-light bg-light static-top inline">
-      <div class="container">
-         <a class="navbar-brand" href="/login">MyPLS Home</a>
-         <div class="float-right">
-            <a class="btn btn-default" href="/home">Home</a>
-            <a class="btn btn-default" href="/course">Courses</a>
-            <a class="btn btn-default" href="#">Announcement</a>
-            <a class="btn btn-default" href="/profile">Profile</a>
-            <a class="btn btn-default" href="/logout">Logout</a>
-         </div>
-      </div>
-   </nav>
+<#include "/header/header_course.ftl">
+
    <!-- Masthead -->
-   <header class="masthead text-center">
+   <header class="masthead text-center"  style="width:60%; position: absolute; top: 15%; left: 20%;">
       <div class="wrapper fadeInDown">
       <div id="formContent">
          <!-- Tabs Titles -->
@@ -67,6 +54,8 @@
                   <input type="date" class="form-control" id="end_date" name="end_date">
                </div>
                <button type="submit" class="btn btn-primary">Create</button>
+               <a href="/course" class="btn btn-danger">Cancel</a>
+
             </form>
          </div>
       </div>

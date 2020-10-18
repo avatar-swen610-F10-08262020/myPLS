@@ -1,36 +1,6 @@
 <#include "/header/header_home.ftl">
 
-<body>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-light bg-light static-top inline">
-    <div class="container">
-        <a class="navbar-brand" href="/login">MyPLS Home</a>
-
-        <div class="float-right">
-
-            <#if UserType == 1>
-                <a class="btn btn-default" href="/home">Home</a>
-                <a class="btn btn-default" href="#">Courses</a>
-                <a class="btn btn-default" href="#">Users</a>
-                <a class="btn btn-default" href="#">Announcement</a>
-            <#elseif UserType == 2>
-                <a class="btn btn-default" href="/home">Home</a>
-                <a class="btn btn-default" href="#">Courses</a>
-                <a class="btn btn-default" href="#">Announcement</a>
-             <#else>
-                 <a class="btn btn-default" href="/home">Home</a>
-                 <a class="btn btn-default" href="#">Courses</a>
-                 <a class="btn btn-default" href="#">Announcement</a>
-            </#if>
-
-            <a class="btn btn-default" href="/profile">${Username}</a>
-            <a class="btn btn-default" href="/logout">Logout</a>
-
-        </div>
-    </div>
-
-  </nav>
 
   <!-- Masthead -->
    <header class="masthead text-center">

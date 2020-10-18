@@ -1,18 +1,5 @@
 <#include "/header/header_course.ftl">
-<body>
-   <!-- Navigation -->
-   <nav class="navbar navbar-light bg-light static-top inline">
-      <div class="container">
-         <a class="navbar-brand" href="/login">MyPLS Home</a>
-         <div class="float-right">
-            <a class="btn btn-default" href="/home">Home</a>
-            <a class="btn btn-default" href="/course">Courses</a>
-            <a class="btn btn-default" href="#">Announcement</a>
-            <a class="btn btn-default" href="/profile">Profile</a>
-            <a class="btn btn-default" href="/logout">Logout</a>
-         </div>
-      </div>
-   </nav>
+
    <!-- Masthead -->
    <header class="masthead">
       <section class="bg-light">
