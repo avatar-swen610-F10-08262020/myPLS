@@ -75,10 +75,4 @@ public class User {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "email='" + email + '\'' + ", password='" + password + '\'' + ", first_name='" + first_name + '\''
-                + ", email='" + email + '\'' + '}';
-    }
-
 }

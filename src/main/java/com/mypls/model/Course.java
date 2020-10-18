@@ -73,10 +73,10 @@ public class Course {
         this.end_date = end_date;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" + "course_name='" + course_name + '\'' + "course_code='" + course_code + '\'' + ", description='" + description + '\'' + ", class_size='" + class_size + '\''
-                + ", start_date='" + start_date + '\'' + ", end_date='" + end_date + '\'' + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Course{" + "course_name='" + course_name + '\'' + "course_code='" + course_code + '\'' + ", description='" + description + '\'' + ", class_size='" + class_size + '\''
+//                + ", start_date='" + start_date + '\'' + ", end_date='" + end_date + '\'' + '}';
+//    }
 }
 

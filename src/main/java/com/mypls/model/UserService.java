@@ -12,15 +12,17 @@ public class UserService {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Query q = session.createQuery("From User ");
+        Query q = session.createQuery("From User Where email = '" + user.getEmail() + "' And password = '" + user.getPassword() + "' And status = 1 ");
         List<User> resultList = q.list();
+        System.out.println(resultList.size());
         for (User userData : resultList) {
-            if(userData.getEmail().equals(user.getEmail()) && userData.getPassword().equals(user.getPassword()) && userData.getStatus()==1)
-            {
-                session.close();
-                return userData;
-
-            }
+            return userData;
+//            if(userData.getEmail().equals(user.getEmail()) && userData.getPassword().equals(user.getPassword()) && userData.getStatus()==1)
+//            {
+//                session.close();
+//                return userData;
+//
+//            }
 
         }
         return null;
@@ -41,6 +43,27 @@ public class UserService {
 
         }
         return false;
+    }
+
+    public List<User> getAllUser(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From User");
+        List<User> resultList = null;
+        try{
+            resultList = q.list();
+            System.out.println(resultList);
+//            for (Course course : resultList) {
+//                System.out.println(course.getCourse_name());
+//            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        session.close();
+        return resultList;
+
     }
 
     public User updateUser(User user) {

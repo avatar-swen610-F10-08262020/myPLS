@@ -40,7 +40,7 @@
   <!-- Icons Grid -->
   <section class="bg-light text-center">
 
-      <#if UserType == 1>
+
         <div class="container">
           <h2>User List</h2>
              <input type="text" style="width:15%" id="firstName" class="fadeIn second" name="firstName" placeholder="first name" required>
@@ -63,91 +63,26 @@
             <thead>
               <tr>
                 <th>Firstname</th>
-                <th>Lastname</th>
                 <th>Email</th>
-                <th>User Type</th>
                 <th>Status</th>
+
 
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><a href="#">John</a></td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-                <th>Professor</th>
-                <th>Active</th>
-              </tr>
-              <tr>
-                <td><a href="#">John</a></td>
-                <td>Ray</td>
-                <td>johr.ray@example.com</td>
-                <th>Learner</th>
-                <th>Inactive</th>
-              </tr>
-              <tr>
-                <td><a href="#">Boris</a></td>
-                <td>Johnson</td>
-                <td>boris.john@example.com</td>
-                <th>Learner</th>
-                <th>Active</th>
-              </tr>
+               <#list users as user>
+                
+                   <tr>
+                       <td>${user.first_name}</td>
+                       <td>${user.email}</td>
+                       <th>${user.status}</th>
+
+                   </tr>
+               </#list>
             </tbody>
           </table>
         </div>
-      <#elseif UserType == 2 || UserType == 3>
-            <div class="container">
-             <h2>Course List</h2>
-              <input type="text" style="width:15%" id="course_name" class="fadeIn second" name="course_name" placeholder="course name" required>
-              <input type="text" style="width:15%" id="course_code" class="fadeIn second" name="course_code" placeholder="course code" required>
-              <input type="text" style="width:15%" id="user_id" class="fadeIn second" name="user_id" placeholder="instructor" required>
 
-                 <select style="width:15%" lass="fadeIn third" id="enrolled" name="enrolled" required>
-                  <option selected>Enrolled</option>
-                   <option value="0">YES</option>
-                   <option value="1">NO</option>
-                 </select>
-              <a class="btn btn-primary" href="#">Search</a>
-
-
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Course Name</th>
-                    <th>Course Code</th>
-                    <th>Rating</th>
-                    <th>Instructor</th>
-                    <th>Enrolled</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a href="#">Computer Architecture</a></td>
-                    <td>1001</td>
-                    <td>4</td>
-                    <th>Jain Ray</th>
-                    <th>Yes</th>
-                  </tr>
-                  <tr>
-                    <td><a href="#">Computer Vision</a></td>
-                    <td>1020</td>
-                    <td>3.5</td>
-                    <th>Meng Chao</th>
-                    <th>No</th>
-                  </tr>
-                  <tr>
-                    <td><a href="#">Game Design</a></td>
-                    <td>2055</td>
-                    <td>4.8</td>
-                    <th>Boris Johnson</th>
-                    <th>No</th>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-      </#if>
     </section>
 </header>
- <#include "/footer/footer.ftl">
+ <#include "/footer/footer_default.ftl">

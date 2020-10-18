@@ -99,14 +99,25 @@ public class LoginController {
             addAuthenticatedUser(req, result);
 //            System.out.println("Lenght of ACL:"+ acl.size());
 //            map.put("acl", acl);
+//            List<User> users = null;
+            if(result.getUserTypeID() == 1){
+                List<User> users = service.getAllUser();
+                System.out.println(users.size());
+                map.put("users", users);
+            }
+            else{
+
+            }
+            System.out.println(map);
             map.put("UserType", result.getUserTypeID());
             map.put("Username", result.getFirst_name());
+            return new ModelAndView(map , "home.ftl");
 
         } else {
             map.put("error", "User Not Found.");
             return new ModelAndView(map , "login_user.ftl");
         }
-        return new ModelAndView(map , "home.ftl");
+
 
     }
 

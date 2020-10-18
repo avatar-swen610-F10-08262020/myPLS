@@ -10,7 +10,7 @@ public class CourseService {
 
     public List<Course> getAllCourses() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From Course ");
+        Query q = session.createQuery("From Course");
         List<Course> resultList = null;
         try{
             resultList = q.list();
