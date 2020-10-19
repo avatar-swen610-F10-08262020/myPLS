@@ -30,13 +30,13 @@ public class ProfileController {
 //        user.setPassword("12345678");
         User user = getAuthenticatedUser(req);
 
-        System.out.println("USER ACTUAL DATA: " + user.getFirst_name()+" "+user.getLast_Name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUserTypeID()+" "+user.getID() );
+        System.out.println("USER ACTUAL DATA: " + user.getFirst_name()+" "+user.getLast_name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUser_type_id()+" "+user.getId() );
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
-            map.put("uid", user.getUserTypeID());
+            map.put("uid", user.getUser_type_id());
             map.put("firstName", user.getFirst_name());
-            map.put("lastName", user.getLast_Name());
+            map.put("lastName", user.getLast_name());
             map.put("password", user.getPassword());
             map.put("msg_type", "none");
             return new ModelAndView(map , "profile/profile.ftl");
@@ -48,13 +48,13 @@ public class ProfileController {
     public ModelAndView updatePassword(Request req) {
         User user = getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
-        System.out.println("USER ACTUAL DATA psa: " + user.getFirst_name()+" "+user.getLast_Name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUserTypeID()+" "+user.getID() );
+        System.out.println("USER ACTUAL DATA psa: " + user.getFirst_name()+" "+user.getLast_name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUser_type_id()+" "+user.getId() );
 //        User user = new User();
 //        user.setEmail("pb8294@rit.edu");
 //        user.setPassword("12345678");
 //        User user = service.authenticateUser(user);
         map.put("firstName", user.getFirst_name());
-        map.put("lastName", user.getLast_Name());
+        map.put("lastName", user.getLast_name());
         String password = req.queryParams("password");
         String newPassword = req.queryParams("newPassword");
         String repeatPassword = req.queryParams("repeatPassword");
@@ -108,7 +108,7 @@ public class ProfileController {
     public ModelAndView updateGeneral(Request req) {
         User user = getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
-        System.out.println("USER ACTUAL DATA: " + user.getFirst_name()+" "+user.getLast_Name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUserTypeID()+" "+user.getID() );
+        System.out.println("USER ACTUAL DATA: " + user.getFirst_name()+" "+user.getLast_name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUser_type_id()+" "+user.getId() );
 //        User user = new User();
 //        user.setEmail("pb8294@rit.edu");
 //        user.setPassword("12345678");
@@ -120,8 +120,8 @@ public class ProfileController {
         try{
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            user.setFirst_Name(firstName);
-            user.setLast_Name(lastName);
+            user.setFirst_name(firstName);
+            user.setLast_name(lastName);
             session.update(user);
             session.flush();
             session.getTransaction().commit();
@@ -132,9 +132,9 @@ public class ProfileController {
             session.close();
         }
         System.out.println(user.getFirst_name());
-        map.put("UserType", user.getUserTypeID());
+        map.put("UserType", user.getUser_type_id());
         map.put("firstName", user.getFirst_name());
-        map.put("lastName", user.getLast_Name());
+        map.put("lastName", user.getLast_name());
         map.put("password", user.getPassword());
         map.put("msg_type", "notification");
         map.put("message","Profile has been updated");

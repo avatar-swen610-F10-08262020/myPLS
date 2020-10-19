@@ -46,6 +46,117 @@ INSERT INTO `Access_Control_List` VALUES (1,'User Modification','Can update User
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Classlist`
+--
+
+DROP TABLE IF EXISTS `Classlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Classlist` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `course_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `course_grade` varchar(45) DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Classlist`
+--
+
+LOCK TABLES `Classlist` WRITE;
+/*!40000 ALTER TABLE `Classlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Classlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Course`
+--
+
+DROP TABLE IF EXISTS `Course`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Course` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `course_name` mediumtext NOT NULL,
+  `description` longtext NOT NULL,
+  `class_size` varchar(45) DEFAULT NULL,
+  `start_date` varchar(45) DEFAULT NULL,
+  `end_date` varchar(45) DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `course_code` varchar(45) DEFAULT NULL,
+  `status` int DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Course`
+--
+
+LOCK TABLES `Course` WRITE;
+/*!40000 ALTER TABLE `Course` DISABLE KEYS */;
+INSERT INTO `Course` VALUES (1,'SWEN','Foundation of Software Engineering','20','30-03-2020','01-06-2020','2020-10-13 10:55:45','2101',1),(2,'PhD Seminar','seminar on phd','50','01-01-2020','03-03-2020','2020-10-13 12:26:48','3101',1),(3,'Statistical Machine Learning','dsgfsdgsdfgdsfg','34','2020-10-01','2020-10-31','2020-10-18 16:18:12','C1002',1),(4,'Statistical Machine Learning 2','Foundation of Software Engineering','12','2020-10-01','2020-10-31','2020-10-18 16:23:46','C1003',1),(5,'Statistical Machine Learning V4','dsfgsdfgsdfgsdfg','12','2020-10-01','2020-10-31','2020-10-18 16:29:29','C1020',1),(6,'Data Science','gsdfgsfdg sdfgsdfg','100','2020-10-01','2020-11-28','2020-10-18 16:31:24','C1078',1),(7,'HCI Advanced','Deep learning (also known as deep structured learning) is part of a broader family of machine learning methods based on artificial neural networks with representation learning. Learning can be supervised,','23','2020-10-01','','2020-10-18 16:45:16','C1022',1),(8,'HCI Advanced V2','Deep learning (also known as deep structured learning) is part of a broader family of machine learning methods based on artificial neural networks with representation learning. Learning can be supervised,','43','2020-10-01','2021-01-02','2020-10-18 16:47:18','C1079',1),(9,'NLP','or in a better way we can have like this\r\n\r\nLet\'s say your primary key is an Integer and object you save is \"ticket\", then you can get it like this. When you save the object, id is always returned','23','2020-10-01','2021-03-26','2020-10-18 16:51:50','NLP101',1),(10,'NLP Advance','newCourse.getId()','34','2020-10-01','2021-03-19','2020-10-18 16:54:06','C700N',1),(11,'Computer Architecture','Only if you never expect to run any existing software and expect to\r\nwrite everything from assemblers and compilers to process managers and\r\ndevice drivers yourself. The assumptions about power of 2 addressing\r\nand IEEE arithmetic are embedded very deeply in','34','2020-10-01','2021-04-30','2020-10-18 16:57:06','C2002',1),(12,'HCI Advanced V3','Once your are done annotating your image dataset in the Pascal VOC format, you can use ImageAI’s custom detection training code to train a new detectin model on your datasets, using just 6-lines of Python code. See the tutorial and documentations linked b','23','2020-10-01','2021-07-03','2020-10-18 16:59:50','C1029',1),(13,'System Engineering','Once your are done annotating your image dataset in the Pascal VOC format, you can use ImageAI’s custom detection training code to train a new detectin model on your datasets, using just 6-lines of Python code. See the tutorial and documentations linked b','34','2020-10-02','2021-05-29','2020-10-18 17:01:55','E1008',1),(14,'SW','adfadf','23','2020-10-01','2021-04-23','2020-10-18 17:06:54','C601',1),(15,'HCI ','sdfgsdfgsdfgsdfg','12','2020-10-01','2021-04-10','2020-10-18 17:10:46','HCI1001',1);
+/*!40000 ALTER TABLE `Course` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Course_Dependency`
+--
+
+DROP TABLE IF EXISTS `Course_Dependency`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Course_Dependency` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `parent_id` int NOT NULL,
+  `dependent_id` int NOT NULL,
+  `status` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Course_Dependency`
+--
+
+LOCK TABLES `Course_Dependency` WRITE;
+/*!40000 ALTER TABLE `Course_Dependency` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Course_Dependency` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Professor_Course`
+--
+
+DROP TABLE IF EXISTS `Professor_Course`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Professor_Course` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `course_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `status` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Professor_Course`
+--
+
+LOCK TABLES `Professor_Course` WRITE;
+/*!40000 ALTER TABLE `Professor_Course` DISABLE KEYS */;
+INSERT INTO `Professor_Course` VALUES (1,11,2,1,'2020-10-18 16:57:06'),(2,12,4,1,'2020-10-18 16:59:50'),(3,13,4,1,'2020-10-18 17:02:01'),(4,14,2,1,'2020-10-18 17:06:54'),(5,15,2,1,'2020-10-18 17:10:46'),(6,10,2,1,'2020-10-18 18:47:25'),(7,9,4,1,'2020-10-18 18:47:25'),(8,8,2,1,'2020-10-18 18:47:25'),(9,7,4,1,'2020-10-18 18:47:25'),(10,6,4,1,'2020-10-18 18:47:25'),(11,5,4,1,'2020-10-18 18:47:25'),(12,4,2,1,'2020-10-18 18:47:25'),(13,3,4,1,'2020-10-18 18:47:25'),(14,2,4,1,'2020-10-18 18:47:25'),(15,1,2,1,'2020-10-18 18:47:25');
+/*!40000 ALTER TABLE `Professor_Course` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `User`
 --
 
@@ -55,7 +166,7 @@ DROP TABLE IF EXISTS `User`;
 CREATE TABLE `User` (
   `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(16) NOT NULL,
-  `last_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(32) NOT NULL,
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -114,4 +225,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-03 12:08:47
+-- Dump completed on 2020-10-18 20:00:25

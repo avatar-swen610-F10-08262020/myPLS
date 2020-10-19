@@ -33,9 +33,10 @@
             <thead>
               <tr>
                 <th>Firstname</th>
+                <th>Lastname</th>
                 <th>Email</th>
                 <th>Status</th>
-
+                 <th>User Type</th>
 
               </tr>
             </thead>
@@ -44,8 +45,10 @@
                 
                    <tr>
                        <td>${user.first_name}</td>
+                       <td>${user.last_name}</td>
                        <td>${user.email}</td>
                        <th>${user.status}</th>
+                        <th>${user.user_type_id}</th>
 
                    </tr>
                </#list>

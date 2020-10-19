@@ -6,27 +6,11 @@
       <div id="formContent">
          <!-- Tabs Titles -->
          <!-- Icon -->
-         <#if msg_type == "delerror">
-             <div style="font-size:1rem" class="alert alert-danger" role="alert">
-             ${msg}
-             </div>
-         <#elseif msg_type == "delmsg">
-             <div style="font-size:1rem" class="alert alert-success" role="alert">
-                ${msg}
-             </div>
-         </#if>
+
          <h2>
             Create Course
          </h2>
-         <#if msg_type == "error">
-            <div style="font-size:1rem" class="alert alert-danger" role="alert">
-            ${msg}
-            </div>
-        <#elseif msg_type == "notification">
-            <div style="font-size:1rem" class="alert alert-success" role="alert">
-               ${msg}
-            </div>
-        </#if>
+
             <!-- Login Form -->
             <form action="/course/register" method="post">
                <div class="form-group">
@@ -53,6 +37,18 @@
                   <label for="end_date" class="col-form-label">End Date</label>
                   <input type="date" class="form-control" id="end_date" name="end_date">
                </div>
+               <div class="form-group">
+                   <label for="instructor">Course Instructor</label>
+                   <select class="fadeIn third" id="instructor" name="instructor" required>
+                       <option selected>User Name</option>
+                       <#list users>
+                            <#items as user>
+
+                                <option value="${user.id}">${user.first_name}</option>
+                            </#items>
+                        </#list>
+                   </select>
+                 </div>
                <button type="submit" class="btn btn-primary">Create</button>
                <a href="/course" class="btn btn-danger">Cancel</a>
 

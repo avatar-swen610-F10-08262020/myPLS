@@ -7,7 +7,7 @@
          <!-- Tabs Titles -->
          <!-- Icon -->
          <h2>
-            Create Course
+            Update Course
          </h2>
          <#if msg_type == "error">
             <div style="font-size:1rem" class="alert alert-danger" role="alert">
@@ -20,14 +20,13 @@
         </#if>
             <!-- Login Form -->
             <form action="/course/update" method="post">
-                <div class="form-group">
-                  <label for="course_name" class="col-form-label">Course Id</label>
-                  <input type="number" class="form-control" id="course_id" name="course_id" value=${course.id} hidden>
-               </div>
+
+                 <input type="number" class="form-control" id="course_id" name="course_id" value=${course.id} hidden>
+
                <div class="form-group">
-                  <label for="course_name" class="col-form-label">Course Name</label>
-                  <input type="text" class="form-control" id="course_name" name="course_name" value=${course.course_name} required>
-               </div>
+                 <label for="course_name" class="col-form-label">Course Name</label>
+                 <textarea class="form-control" id="course_name" name="course_name" maxlength="255">${course.course_name}</textarea>
+              </div>
                <div class="form-group">
                   <label for="course_code" class="col-form-label">Course Code</label>
                   <input type="text" class="form-control" id="course_code" name="course_code" value=${course.course_code} required>
@@ -48,6 +47,20 @@
                   <label for="end_date" class="col-form-label">End Date</label>
                   <input type="date" class="form-control" id="end_date" name="end_date" value=${course.end_date}>
                </div>
+               <div class="form-group">
+                  <label for="instructor">Course Instructor</label>
+                  <select class="fadeIn third" id="instructor" name="instructor" required>
+                      <option>User Name</option>
+                      <#list users as user>
+                        <#if user.id == current_professor.user_id>
+                            <option value="${user.id}" selected>${user.first_name}</option>
+                        <#else>
+                             <option value="${user.id}">${user.first_name}</option>
+                        </#if>
+
+                       </#list>
+                  </select>
+                </div>
                <button type="submit" class="btn btn-primary">Update</button>
                <a href="/course" class="btn btn-danger">Cancel</a>
 

@@ -1,5 +1,7 @@
 package com.mypls.model;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.*;
@@ -13,10 +15,10 @@ public class Course {
     private String course_name;
     private String course_code;
     private String description;
-    private Long class_size;
+    private String class_size;
     private String start_date;
     private String end_date;
-    private Boolean status;
+    private Integer status;
 
     public Long getId() {
         return id;
@@ -50,11 +52,11 @@ public class Course {
         this.description = description;
     }
 
-    public Long getClass_size() {
+    public String getClass_size() {
         return class_size;
     }
 
-    public void setClass_size(Long class_size) {
+    public void setClass_size(String class_size) {
         this.class_size = class_size;
     }
 
@@ -75,11 +77,11 @@ public class Course {
     }
 
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

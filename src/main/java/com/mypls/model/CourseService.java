@@ -48,7 +48,7 @@ public class CourseService {
         } else {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            currCourse.setStatus(false);
+            currCourse.setStatus(0);
             session.update(currCourse);
             session.flush();
             session.getTransaction().commit();

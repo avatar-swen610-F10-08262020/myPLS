@@ -14,12 +14,15 @@
                                    <h2>${course.course_name}<a href="/course/edit/${course.id}" class="btn btn-sm btn-warning">Edit</a>
                                                                                         <a href="/course/delete/${course.id}" class="btn btn-sm btn-danger">Delete</a></h2>
                                    <span>${course.course_code}</span>
+
                                </div>
                                <div class="member_desc">
                                    <p>
                                        ${course.description}
                                    </p>
                                    <ul class="styled_list">
+                                   ${professor.first_name}
+                                        <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Instructor Name: ${professor.first_name} ${professor.last_name}</li>
                                        <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Class size: ${course.class_size}</li>
                                        <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Start date: ${course.start_date}</li>
                                        <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> End date: ${course.end_date}</li>

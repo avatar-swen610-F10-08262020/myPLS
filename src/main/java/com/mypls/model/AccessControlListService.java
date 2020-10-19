@@ -9,7 +9,7 @@ import java.util.List;
 public class AccessControlListService {
 
     public List<Access_Control_List> accessControlList(User user) {
-        System.out.println(user.getUserTypeID());
+        System.out.println(user.getUser_type_id());
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery("From Access_Control_List");
 //        query.setParameter("tid", user.getUserTypeID().toString());

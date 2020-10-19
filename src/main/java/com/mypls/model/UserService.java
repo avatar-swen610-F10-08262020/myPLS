@@ -52,10 +52,6 @@ public class UserService {
         try{
             resultList = q.list();
             System.out.println(resultList);
-//            for (Course course : resultList) {
-//                System.out.println(course.getCourse_name());
-//            }
-
         }
         catch (Exception e){
             e.printStackTrace();
@@ -64,6 +60,42 @@ public class UserService {
         session.close();
         return resultList;
 
+    }
+
+    public List<User> getProfessors(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From User Where user_type_id = 2");
+        List<User> resultList = null;
+        try{
+            resultList = q.list();
+            System.out.println(resultList);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        session.close();
+        return resultList;
+
+    }
+
+    public User getUserbyId(Long ID){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From User Where id = "+ID+" ");
+        List<User> resultList = null;
+
+        try{
+            resultList = q.list();
+            for(User user:resultList){
+                return user;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        session.close();
+        return null;
     }
 
     public User updateUser(User user) {

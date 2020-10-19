@@ -40,9 +40,9 @@ public class LoginController {
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
-            map.put("UserType", user.getUserTypeID());
+            map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
-            if(user.getUserTypeID() == 1){
+            if(user.getUser_type_id() == 1){
                 List<User> users = service.getAllUser();
                 System.out.println(users.size());
                 map.put("users", users);
@@ -62,7 +62,7 @@ public class LoginController {
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
-            if(user.getUserTypeID() == 1){
+            if(user.getUser_type_id() == 1){
                 List<User> users = service.getAllUser();
                 System.out.println(users.size());
                 map.put("users", users);
@@ -70,7 +70,7 @@ public class LoginController {
             else{
 
             }
-            map.put("UserType", user.getUserTypeID());
+            map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             return new ModelAndView(map , "home.ftl");
         }
@@ -84,9 +84,9 @@ public class LoginController {
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
-            map.put("UserType", user.getUserTypeID());
+            map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
-            if(user.getUserTypeID() == 1){
+            if(user.getUser_type_id() == 1){
                 List<User> users = service.getAllUser();
                 System.out.println(users.size());
                 map.put("users", users);
@@ -125,7 +125,7 @@ public class LoginController {
 //            System.out.println("Lenght of ACL:"+ acl.size());
 //            map.put("acl", acl);
 //            List<User> users = null;
-            if(result.getUserTypeID() == 1){
+            if(result.getUser_type_id() == 1){
                 List<User> users = service.getAllUser();
                 System.out.println(users.size());
                 map.put("users", users);
@@ -134,7 +134,7 @@ public class LoginController {
 
             }
             System.out.println(map);
-            map.put("UserType", result.getUserTypeID());
+            map.put("UserType", result.getUser_type_id());
             map.put("Username", result.getFirst_name());
             return new ModelAndView(map , "home.ftl");
 
@@ -159,11 +159,11 @@ public class LoginController {
             System.out.println(userData.getrepeatPassword()+" "+userData.getPassword());
             if(validate(userData.getPassword())) {
                 if(userData.getPassword().equals(userData.getrepeatPassword())){
-                    user.setFirst_Name(userData.getfirstName());
-                    user.setLast_Name(userData.getlastName());
+                    user.setFirst_name(userData.getfirstName());
+                    user.setLast_name(userData.getlastName());
                     user.setEmail(userData.getEmail());
                     user.setPassword(userData.getPassword());
-                    user.setUserTypeID(userData.getuserTypeID());
+                    user.setUser_type_id(userData.getuserTypeID());
                     user.setStatus(0);
                 }
                 else{
@@ -192,7 +192,7 @@ public class LoginController {
                 session.beginTransaction();
                 session.save(user);
                 session.flush(); // I forgot this from the previous post
-                Long ID = user.getID();
+                Long ID = user.getId();
                 System.out.println("user ID:"+ID.toString());
                 emailService.sendActivationEmail(user, ID);
                 session.getTransaction().commit();
@@ -243,7 +243,7 @@ public class LoginController {
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
-            map.put("UserType", user.getUserTypeID());
+            map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             return new ModelAndView(map , "home.ftl");
         }

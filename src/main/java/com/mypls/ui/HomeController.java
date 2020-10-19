@@ -35,9 +35,9 @@ public class HomeController implements TemplateViewRoute {
     Map<String, Object> map = new HashMap<>();
     if(user!=null){
       System.out.println(user.getFirst_name());
-      map.put("UserType", user.getUserTypeID());
+      map.put("UserType", user.getUser_type_id());
       map.put("Username", user.getFirst_name());
-      if(user.getUserTypeID() == 1){
+      if(user.getUser_type_id() == 1){
         List<User> users = service.getAllUser();
         System.out.println(users.size());
         map.put("users", users);
