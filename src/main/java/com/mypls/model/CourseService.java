@@ -17,6 +17,7 @@ public class CourseService {
         return courseList;
     }
 
+
     public Course getIndividualCourse(Long id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createQuery("From Course ");
@@ -40,6 +41,7 @@ public class CourseService {
         }
         return false;
     }
+
 
     public boolean deleteIndividualCourse(Long id) {
         Course currCourse = getIndividualCourse(id);

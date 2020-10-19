@@ -33,6 +33,7 @@
                         <td>${course.class_size}</td>
                         <td>
                             <a href="/course/${course.id}" class="btn btn-sm btn-success">Show</a>
+                            <a href="/course/prerequisite/${course.id}" class="btn btn-sm btn-info">Prerequisite</a>
                             <a href="/course/edit/${course.id}" class="btn btn-sm btn-warning">Edit</a>
                             <a href="/course/delete/${course.id}" class="btn btn-sm btn-danger">Delete</a>
                         </td>
@@ -94,3 +95,4 @@
       </div>
    </header>
 
+ <#include "/footer/footer_default.ftl">

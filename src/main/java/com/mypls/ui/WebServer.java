@@ -76,6 +76,10 @@ public class WebServer {
   private static final String COURSE_DELETE_URL = "/course/delete/:id";
   private static final String COURSE_REGISTER_URL = "/course/register";
   private static final String COURSE_UPDATE_URL = "/course/update";
+  private static final String COURSE_PREREQUISITE_URL = "/course/prerequisite/:id";
+  private static final String COURSE_CREATE_PREREQUISITE_URL = "/course/prerequisite/create/:id";
+
+
 
   //
   // Attributes
@@ -172,6 +176,8 @@ public class WebServer {
     get(COURSE_VIEW_URL, (req, res) -> new CourseController().singleview(req), templateEngine);
     get(COURSE_DELETE_URL, (req, res) -> new CourseController().delete(req), templateEngine);
     get(COURSE_EDIT_URL, (req, res) -> new CourseController().edit(req), templateEngine);
+    get(COURSE_PREREQUISITE_URL, (req, res) -> new CourseController().prerequisite(req), templateEngine);
+
 
     post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);
     post(Login_URL, (req,res) -> new LoginController().authenticateUser(req,res), templateEngine);
@@ -181,6 +187,8 @@ public class WebServer {
     post(UPDATE_PROFILE_GENERAL_URL, (req, res) -> new ProfileController().updateGeneral(req), templateEngine);
     post(COURSE_REGISTER_URL, (req, res) -> new CourseController().registerClass(req), templateEngine);
     post(COURSE_UPDATE_URL, (req, res) -> new CourseController().updateClass(req), templateEngine);
+    post(COURSE_CREATE_PREREQUISITE_URL, (req, res) -> new CourseController().createPrerequisite(req), templateEngine);
+
   }
 
 }

@@ -3,6 +3,8 @@ package com.mypls.ui;
 import com.mypls.model.*;
 import com.mypls.util.HibernateUtil;
 import com.mypls.util.SessionUtil;
+import org.eclipse.jetty.util.MultiMap;
+import org.eclipse.jetty.util.UrlEncoded;
 import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -12,15 +14,13 @@ import spark.Response;
 
 import java.lang.reflect.Array;
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CourseController {
     CourseService cService = new CourseService();
     UserService userService = new UserService();
     Professor_CourseService professorCourseService = new Professor_CourseService();
+    Course_DependencyService cdService = new Course_DependencyService();
     Session session = null;
     SessionUtil sessionUtil = new SessionUtil();
     public ModelAndView home(Request req) {
@@ -235,6 +235,125 @@ public class CourseController {
 
         map.put("course", currCourse);
         return new ModelAndView(map , "course/home.ftl");
+    }
+
+
+
+    public ModelAndView prerequisite(Request req){
+        Map<String, Object> map = new HashMap<>();
+
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUser_type_id());
+            map.put("Username", user.getFirst_name());
+            Long ID = Long.parseLong(req.params(":id"));
+            List<Course> courseList = cService.getAllCourses();
+            Course individualCourse = new Course();
+            List<Course_Dependency> course_dependencyList = cdService.getCourseDependency(ID);
+            List<Course> assignedCourse = new ArrayList<>();
+            List<Course> otherCourse = new ArrayList<>();
+
+            if (course_dependencyList.size() > 0) {
+                for (Course course : courseList) {
+                    if (course.getId().equals(ID)) {
+                        individualCourse = course;
+                        continue;
+                    }
+                    boolean flag = false;
+                    for (Course_Dependency course_dependency : course_dependencyList) {
+                        if (course.getId().equals(course_dependency.getParent_id())) {
+                            assignedCourse.add(course);
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        otherCourse.add(course);
+                    }
+                    flag = false;
+
+                }
+                map.put("dependentCourse",individualCourse);
+                map.put("courses", otherCourse);
+                map.put("parentCourses", assignedCourse);
+            } else {
+                for (Course course : courseList) {
+                    if (course.getId().equals(ID)) {
+                        individualCourse = course;
+                        continue;
+                    }
+                    otherCourse.add(course);
+                }
+                map.put("dependentCourse",individualCourse);
+                map.put("courses", otherCourse);
+                map.put("parentCourses", assignedCourse);
+            }
+            return new ModelAndView(map, "course/prerequisite.ftl");
+        }
+        catch (NullPointerException ex)
+        {
+            return new ModelAndView(map , "login.ftl");
+        }
+
+    }
+    public ModelAndView  createPrerequisite(Request req){
+        Long dependent_id = Long.parseLong(req.params(":id"));
+        MultiMap<String> params = new MultiMap<String>();
+        UrlEncoded.decodeTo(req.body(), params, "UTF-8");
+        System.out.println(params.toString());
+        ////////Add and Update///////////////////
+        for (String parent_id : params.keySet())
+        {
+            System.out.println(dependent_id);
+            System.out.println(parent_id);
+            Course_Dependency course_dependency = cdService.getIndividualCourseDependency(Long.parseLong(parent_id),dependent_id);
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            if(course_dependency!=null){
+                course_dependency.setStatus(1);
+                session.update(course_dependency);
+            }
+            else {
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                Course_Dependency newCourseDependency = new Course_Dependency();
+                newCourseDependency.setDependent_id(dependent_id);
+                newCourseDependency.setParent_id(Long.parseLong(parent_id));
+                newCourseDependency.setStatus(1);
+
+                session.save(newCourseDependency);
+                System.out.println("Course ID:"+newCourseDependency.getId());
+
+            }
+            session.getTransaction().commit();
+
+        }
+        /////////////////////////////////////////
+        List<Course_Dependency> course_dependencyList = cdService.getCourseDependency(dependent_id);
+        for (Course_Dependency course_dependency: course_dependencyList){
+            boolean flag = false;
+            Long p_id = new Long(0);
+            for( String parent_id : params.keySet()){
+                p_id = Long.parseLong(parent_id);
+                System.out.println(p_id.toString() + " " + course_dependency.getParent_id().toString());
+                if(p_id.equals(course_dependency.getParent_id())){
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                Course_Dependency course_dependency_delete = cdService.getIndividualCourseDependency(p_id,dependent_id);
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                course_dependency.setStatus(0);
+                session.update(course_dependency);
+                session.getTransaction().commit();
+            }
+            flag = false;
+
+        }
+
+        return prerequisite(req);
     }
 
     public ModelAndView delete(Request req) {

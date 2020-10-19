@@ -48,3 +48,4 @@
     </div>
     <!-- container -->
 </div>
+ <#include "/footer/footer_default.ftl">

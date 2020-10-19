@@ -9,7 +9,7 @@ import java.util.List;
 public class Professor_CourseService {
     public Professor_Course getCourseProfessor(Long course_id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From Professor_Course Where course_id = "+course_id.toString()+" ");
+        Query q = session.createQuery("From Professor_Course Where course_id = "+course_id.toString()+" And status = '1' ");
         List<Professor_Course> courseList = q.list();
 
         session.close();
