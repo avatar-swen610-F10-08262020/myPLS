@@ -127,7 +127,7 @@ public class CourseController {
                     map.put("Username", sessionUser.getFirst_name());
                     map.put("msg_type", "notification");
                     map.put("msg", "Course is created");
-                    return new ModelAndView(map , "course/home.ftl");
+                    return home(req);
 
             } catch (HibernateException e) {
                 // TODO Auto-generated catch block
@@ -136,7 +136,7 @@ public class CourseController {
                 map.put("Username", sessionUser.getFirst_name());
                 map.put("msg_type", "error");
                 map.put("msg", "System Error: Course can not be created.");
-                return new ModelAndView(map , "course/home.ftl");
+                return home(req);
             }
 
         }
@@ -234,7 +234,8 @@ public class CourseController {
 //        return new ModelAndView(map , "course/create.ftl");
 
         map.put("course", currCourse);
-        return new ModelAndView(map , "course/home.ftl");
+        return home(req);
+
     }
 
 
