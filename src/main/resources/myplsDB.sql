@@ -117,7 +117,7 @@ CREATE TABLE `Course_Dependency` (
   `status` int DEFAULT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,7 +126,37 @@ CREATE TABLE `Course_Dependency` (
 
 LOCK TABLES `Course_Dependency` WRITE;
 /*!40000 ALTER TABLE `Course_Dependency` DISABLE KEYS */;
+INSERT INTO `Course_Dependency` VALUES (1,4,5,1,'2020-10-19 18:44:34'),(2,6,5,1,'2020-10-19 18:44:34'),(3,7,5,0,'2020-10-19 18:44:34'),(4,8,5,0,'2020-10-19 18:45:02'),(5,9,5,0,'2020-10-19 18:45:02'),(6,11,5,0,'2020-10-19 18:50:35'),(7,12,5,0,'2020-10-19 18:50:36'),(8,13,5,0,'2020-10-19 18:50:36'),(9,2,5,0,'2020-10-19 18:51:02'),(10,3,5,0,'2020-10-19 18:51:02'),(11,14,5,1,'2020-10-19 18:52:42'),(12,15,5,1,'2020-10-19 18:52:42'),(13,11,9,0,'2020-10-19 18:54:14'),(14,8,9,0,'2020-10-19 18:54:14'),(15,10,9,0,'2020-10-19 18:54:14'),(16,7,9,0,'2020-10-19 18:55:06'),(17,13,9,1,'2020-10-19 18:55:30'),(18,14,9,1,'2020-10-19 18:55:30'),(19,7,6,1,'2020-10-19 18:58:23'),(20,8,6,0,'2020-10-19 18:58:23'),(21,5,6,1,'2020-10-19 18:58:28'),(22,9,6,0,'2020-10-19 18:58:28');
 /*!40000 ALTER TABLE `Course_Dependency` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Course_Feedback`
+--
+
+DROP TABLE IF EXISTS `Course_Feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Course_Feedback` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `course_id` int NOT NULL,
+  `feedback` longtext,
+  `rating` int NOT NULL,
+  `created_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Course_Feedback`
+--
+
+LOCK TABLES `Course_Feedback` WRITE;
+/*!40000 ALTER TABLE `Course_Feedback` DISABLE KEYS */;
+INSERT INTO `Course_Feedback` VALUES (1,1,1,'poor teaching',3,'2020-10-20 18:21:50',1),(2,12,1,'Very instructive',5,'2020-10-20 18:21:50',1);
+/*!40000 ALTER TABLE `Course_Feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -225,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-18 20:00:25
+-- Dump completed on 2020-10-20 20:04:51

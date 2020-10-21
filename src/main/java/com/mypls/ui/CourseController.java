@@ -21,6 +21,7 @@ public class CourseController {
     UserService userService = new UserService();
     Professor_CourseService professorCourseService = new Professor_CourseService();
     Course_DependencyService cdService = new Course_DependencyService();
+    Course_FeedbackService cfService = new Course_FeedbackService();
     Session session = null;
     SessionUtil sessionUtil = new SessionUtil();
     public ModelAndView home(Request req) {
@@ -152,7 +153,9 @@ public class CourseController {
             Course currCourse = cService.getIndividualCourse(ID);
             Professor_Course professor_course = professorCourseService.getCourseProfessor(ID);
             User userProfessor = userService.getUserbyId(professor_course.getUser_id());
+            List<Course_Feedback> feedbackList = cfService.getFeedbackByCourse(ID);
 
+            map.put("feedbackList",feedbackList);
             map.put("professor",userProfessor);
             map.put("course", currCourse);
             map.put("msg_type", "none");
