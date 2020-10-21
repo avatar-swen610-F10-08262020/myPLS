@@ -95,4 +95,3 @@
       </div>
    </header>
 
- <#include "/footer/footer_default.ftl">
