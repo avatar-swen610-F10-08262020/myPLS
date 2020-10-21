@@ -79,6 +79,12 @@ public class WebServer {
   private static final String COURSE_PREREQUISITE_URL = "/course/prerequisite/:id";
   private static final String COURSE_CREATE_PREREQUISITE_URL = "/course/prerequisite/create/:id";
 
+  private static final String USER_VIEW_URL = "/user/:id";
+  private static final String USER_EDIT_URL = "/user/edit/:id";
+  private static final String USER_UPDATE_URL = "/user/update/:id";
+
+
+
 
 
   //
@@ -170,6 +176,9 @@ public class WebServer {
     get(Activate_User_URL, (req,res) -> new LoginController().activate_user(req), templateEngine);
     get(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
     get(FORGOT_PASSWORD_URL, (req,res) -> new LoginController().forgot_password(req), templateEngine);
+    get(USER_VIEW_URL, (req, res) -> new UserController().user_details(req), templateEngine);
+    get(USER_EDIT_URL, (req, res) -> new UserController().user_edit(req), templateEngine);
+
 
     get(COURSE_URL, (req, res) -> new CourseController().home(req), templateEngine);
     get(COURSE_CREATE_URL, (req, res) -> new CourseController().create(req), templateEngine);
@@ -177,6 +186,8 @@ public class WebServer {
     get(COURSE_DELETE_URL, (req, res) -> new CourseController().delete(req), templateEngine);
     get(COURSE_EDIT_URL, (req, res) -> new CourseController().edit(req), templateEngine);
     get(COURSE_PREREQUISITE_URL, (req, res) -> new CourseController().prerequisite(req), templateEngine);
+
+
 
 
     post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);
@@ -188,6 +199,8 @@ public class WebServer {
     post(COURSE_REGISTER_URL, (req, res) -> new CourseController().registerClass(req), templateEngine);
     post(COURSE_UPDATE_URL, (req, res) -> new CourseController().updateClass(req), templateEngine);
     post(COURSE_CREATE_PREREQUISITE_URL, (req, res) -> new CourseController().createPrerequisite(req), templateEngine);
+    post(USER_UPDATE_URL, (req, res) -> new UserController().user_update(req), templateEngine);
+
 
   }
 

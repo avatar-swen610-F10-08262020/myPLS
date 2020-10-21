@@ -18,6 +18,7 @@
                ${msg}
             </div>
         </#if>
+           <div class="card" style="padding:1rem">
             <!-- Login Form -->
             <form action="/course/update" method="post">
 
@@ -65,6 +66,7 @@
                <a href="/course" class="btn btn-danger">Cancel</a>
 
             </form>
+           </div>
          </div>
       </div>
    </header>

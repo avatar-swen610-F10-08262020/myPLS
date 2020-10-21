@@ -19,5 +19,14 @@ public class Professor_CourseService {
         return null;
     }
 
+    public List<Professor_Course> getCourseByProfessor(Long user_id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From Professor_Course a, Course b Where a.course_id = b.id And a.user_id = "+user_id.toString());
+        List<Professor_Course> courseList = q.list();
+
+        session.close();
+       return courseList;
+    }
+
 
 }

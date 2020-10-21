@@ -10,7 +10,7 @@
          <h2>
             Create Course
          </h2>
-
+            <div class="card" style="padding:1rem">
             <!-- Login Form -->
             <form action="/course/register" method="post">
                <div class="form-group">
@@ -53,6 +53,7 @@
                <a href="/course" class="btn btn-danger">Cancel</a>
 
             </form>
+            </div>
          </div>
       </div>
    </header>

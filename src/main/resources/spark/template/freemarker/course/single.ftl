@@ -91,8 +91,8 @@
                  <#list feedbackList as feedbackData>
                      <#list feedbackData as feedback>
 
-                         <div id="feedback" class="tab-pane">
-                             <div class="comment_body">
+                         <div class="card" style="padding: 1rem;">
+                             <div class="card-body">
                                  ${feedback.rating}.0/5.0
                                  </br>
                                  <b>${feedback.feedback}</b>

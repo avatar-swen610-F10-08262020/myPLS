@@ -16,6 +16,10 @@ public class Professor_Course {
     @ColumnDefault("0")
     private Integer status;
 
+    @ManyToOne
+    @JoinColumn(name="course_id", referencedColumnName="id", insertable = false, updatable = false)
+    private Course course;
+
     public Long getId() {
         return id;
     }
@@ -44,6 +48,10 @@ public class Professor_Course {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public Course getCourse(){ return course;}
+
+    public void setCourse(Course course){ this.course = course;}
 
 
 }
