@@ -369,7 +369,7 @@ public class CourseController {
             System.out.println(map);
             map.put("msg_type", "delerror");
             map.put("msg", "Couldn't delete the course");
-            return new ModelAndView(map , "course/home.ftl");
+            return home(req);
         } else {
             Map<String, Object> map = new HashMap<>();
             List<Course> courses = cService.getAllCourses();
@@ -377,7 +377,7 @@ public class CourseController {
             System.out.println(map);
             map.put("msg_type", "delmsg");
             map.put("msg", "Successfully deleted a course");
-            return new ModelAndView(map, "course/home.ftl");
+            return home(req);
         }
     }
 }
