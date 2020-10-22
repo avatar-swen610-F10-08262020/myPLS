@@ -28,6 +28,7 @@
 
                                    </div>
                                    <div class="member_desc">
+                                        <img src="/profile/profile.jpeg" alt="Profile Picture" width="150" height="150">
 
                                        <ul class="styled_list">
                                            <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> User Type: <#if UserType ==2 > Professor <#elseif UserType ==3 > Learner <#else> Admin</#if></li>

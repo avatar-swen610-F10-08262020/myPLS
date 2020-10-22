@@ -9,8 +9,8 @@
         <span>Code: ${course.course_code}</span>
         <ul class="nav nav-tabs">
             <li class="active bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#course" style="color:white;">Course Details</a></li>
+            <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#material" style="color:white;">Course Material</a></li>
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#feedback" style="color:white;">Course Feedback</a></li>
-            <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#feedback" style="color:white;">Lesson Feedback</a></li>
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#feedback" style="color:white;">Discussion</a></li>
 
           </ul>
@@ -114,6 +114,34 @@
 
                  </#list>
                </div>
+            </div>
+            <div id="material" class="tab-pane fade">
+              <div class="container">
+                 <div class="card" style="padding: 1rem;">
+                   <div class="card-body">
+                    <head3>Week 1</head>
+                    <div>No Item added yet.</div>
+                   </div>
+                 </div>
+                 <div class="card" style="padding: 1rem;">
+                    <div class="card-body">
+                     <head3>Week 2</head>
+                     <div>No Item added yet.</div>
+                    </div>
+                  </div>
+                  <div class="card" style="padding: 1rem;">
+                     <div class="card-body">
+                      <head3>Week 3</head>
+                      <div>No Item added yet.</div>
+                     </div>
+                   </div>
+                   <div class="card" style="padding: 1rem;">
+                      <div class="card-body">
+                       <head3>Week 4</head>
+                       <div>No Item added yet.</div>
+                      </div>
+                    </div>
+              </div>
             </div>
           </div>
         </div>
