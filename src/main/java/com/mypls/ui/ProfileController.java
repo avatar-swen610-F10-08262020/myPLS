@@ -4,6 +4,7 @@ import com.mypls.model.User;
 import com.mypls.model.UserDummy;
 import com.mypls.model.UserService;
 import com.mypls.util.HibernateUtil;
+import com.mypls.util.SessionUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.eclipse.jetty.util.MultiMap;
 import org.eclipse.jetty.util.UrlEncoded;
@@ -22,16 +23,20 @@ public class ProfileController {
     private static final String USER_SESSION_ID = "user";
     UserService service = new UserService();
     Session session = null;
+    SessionUtil sessionUtil = new SessionUtil();
 
     public ModelAndView home(Request req) {
         //User user = getAuthenticatedUser(req);
 //        User user = new User();
 //        user.setEmail("pb8294@rit.edu");
 //        user.setPassword("12345678");
-        User user = getAuthenticatedUser(req);
+        User user = sessionUtil.getAuthenticatedUser(req);
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("UserType", user.getUser_type_id());
+        map.put("Username", user.getFirst_name());
 
         System.out.println("USER ACTUAL DATA: " + user.getFirst_name()+" "+user.getLast_name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUser_type_id()+" "+user.getId() );
-        Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
             map.put("uid", user.getUser_type_id());
@@ -46,8 +51,11 @@ public class ProfileController {
     }
 
     public ModelAndView updatePassword(Request req) {
-        User user = getAuthenticatedUser(req);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
+
+        map.put("UserType", user.getUser_type_id());
+        map.put("Username", user.getFirst_name());
         System.out.println("USER ACTUAL DATA psa: " + user.getFirst_name()+" "+user.getLast_name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUser_type_id()+" "+user.getId() );
 //        User user = new User();
 //        user.setEmail("pb8294@rit.edu");
@@ -106,8 +114,11 @@ public class ProfileController {
     }
 
     public ModelAndView updateGeneral(Request req) {
-        User user = getAuthenticatedUser(req);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
+
+        map.put("UserType", user.getUser_type_id());
+        map.put("Username", user.getFirst_name());
         System.out.println("USER ACTUAL DATA: " + user.getFirst_name()+" "+user.getLast_name()+" "+user.getEmail()+" "+user.getPassword()+" "+user.getUser_type_id()+" "+user.getId() );
 //        User user = new User();
 //        user.setEmail("pb8294@rit.edu");
@@ -140,10 +151,6 @@ public class ProfileController {
         map.put("message","Profile has been updated");
         return new ModelAndView(map , "profile/profile.ftl");
 
-    }
-
-    private User getAuthenticatedUser(Request request) {
-        return request.session().attribute(USER_SESSION_ID);
     }
 
 

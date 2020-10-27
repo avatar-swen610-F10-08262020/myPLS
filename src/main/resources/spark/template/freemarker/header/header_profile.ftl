@@ -153,9 +153,21 @@
       <div class="container">
          <a class="navbar-brand" href="/login">MyPLS </a>
          <div class="float-right">
-            <a class="btn btn-default" href="/course">Courses</a>
-            <a class="btn btn-default" href="/home">Users</a>
-            <a class="btn btn-default" href="#">Announcements</a>
+             <#if UserType == 1>
+                            <a class="btn btn-default" href="/home">Home</a>
+                            <a class="btn btn-default" href="/course">Courses</a>
+                            <a class="btn btn-default" href="/course">Users</a>
+                            <a class="btn btn-default" href="#">Announcement</a>
+                        <#elseif UserType == 2>
+                            <a class="btn btn-default" href="/course">Home</a>
+                            <a class="btn btn-default" href="/course/assigned">Courses</a>
+                            <a class="btn btn-default" href="/course">Announcement</a>
+                         <#else>
+                             <a class="btn btn-default" href="/course">Home</a>
+                             <a class="btn btn-default" href="/course">Courses</a>
+                             <a class="btn btn-default" href="#">Announcement</a>
+                        </#if>
+
             <a class="btn btn-default" href="#">${firstName}</a>
             <a class="btn btn-default" href="/logout">Logout</a>
          </div>

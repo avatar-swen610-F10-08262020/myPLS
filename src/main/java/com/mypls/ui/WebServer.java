@@ -70,6 +70,7 @@ public class WebServer {
   private static final Logger LOGGER = LoggerFactory.getLogger(WebServer.class);
 
   private static final String COURSE_URL = "/course";
+  private static final String COURSE_ASSIGNED_URL = "/course/assigned";
   private static final String COURSE_CREATE_URL = "/course/create";
   private static final String COURSE_VIEW_URL = "/course/:id";
   private static final String COURSE_EDIT_URL = "/course/edit/:id";
@@ -186,12 +187,12 @@ public class WebServer {
     get(COURSE_DELETE_URL, (req, res) -> new CourseController().delete(req), templateEngine);
     get(COURSE_EDIT_URL, (req, res) -> new CourseController().edit(req), templateEngine);
     get(COURSE_PREREQUISITE_URL, (req, res) -> new CourseController().prerequisite(req), templateEngine);
-
+    get(COURSE_ASSIGNED_URL, (req, res) -> new CourseController().assignedCourseList(req), templateEngine);
 
 
 
     post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);
-    post(Login_URL, (req,res) -> new LoginController().authenticateUser(req,res), templateEngine);
+    post(Login_URL, (req,res) -> new LoginController().authenticateUser(req), templateEngine);
     post(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
     post(FORGOT_PASSWORD_USER_URL, (req,res) -> new LoginController().forgot_password_user(req), templateEngine);
     post(UPDATE_PROFILE_PASSWORD_URL, (req, res) -> new ProfileController().updatePassword(req), templateEngine);

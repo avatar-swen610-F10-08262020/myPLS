@@ -16,7 +16,7 @@ import java.lang.reflect.Array;
 import java.sql.Date;
 import java.util.*;
 
-public class CourseController {
+public class CourseController extends LoginController{
     CourseService cService = new CourseService();
     UserService userService = new UserService();
     Professor_CourseService professorCourseService = new Professor_CourseService();
@@ -28,25 +28,54 @@ public class CourseController {
         Map<String, Object> map = new HashMap<>();
         try {
             User user = sessionUtil.getAuthenticatedUser(req);
+            if(user.getUser_type_id() == 1) {
+                map.put("UserType", user.getUser_type_id());
+                map.put("Username", user.getFirst_name());
+                List<Course> courses = cService.getAllCourses();
+                try {
+                    map.put("courses", courses);
+                    System.out.println(map);
+                } catch (NullPointerException ex) {
+                    System.out.println(ex.toString());
+                }
+
+                map.put("msg_type", "none");
+                map.put("message", "none");
+                return new ModelAndView(map, "course/home.ftl");
+            }
+            else if(user.getUser_type_id() == 2) {
+                return assignedCourseList(req);
+            }
+            else return assignedCourseList(req);
+        }
+        catch (NullPointerException ex)
+        {
+            return login(req);
+        }
+
+    }
+
+    public ModelAndView assignedCourseList(Request req){
+        Map<String, Object> map = new HashMap<>();
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
-            List<Course> courses = cService.getAllCourses();
+            List<Professor_Course> courses = professorCourseService.getCourseByProfessor(user.getId());
             try {
                 map.put("courses", courses);
                 System.out.println(map);
             } catch (NullPointerException ex) {
                 System.out.println(ex.toString());
             }
-
             map.put("msg_type", "none");
             map.put("message", "none");
-            return new ModelAndView(map , "course/home.ftl");
+            return new ModelAndView(map , "course/assigned_course_list.ftl");
         }
         catch (NullPointerException ex)
         {
-            return new ModelAndView(map , "login.ftl");
+            return login(req);
         }
-
     }
 
     public ModelAndView create(Request req) {
@@ -65,7 +94,7 @@ public class CourseController {
         }
         catch (NullPointerException ex)
         {
-            return new ModelAndView(map , "login.ftl");
+            return login(req);
         }
     }
 
@@ -137,7 +166,7 @@ public class CourseController {
                 map.put("Username", sessionUser.getFirst_name());
                 map.put("msg_type", "error");
                 map.put("msg", "System Error: Course can not be created.");
-                return home(req);
+                return login(req);
             }
 
         }
@@ -164,7 +193,7 @@ public class CourseController {
         }
         catch (NullPointerException ex)
         {
-            return new ModelAndView(map , "login.ftl");
+            return login(req);
         }
     }
 
@@ -190,7 +219,7 @@ public class CourseController {
         }
         catch (NullPointerException ex)
         {
-            return new ModelAndView(map , "login.ftl");
+            return login(req);
         }
     }
 
@@ -296,7 +325,7 @@ public class CourseController {
         }
         catch (NullPointerException ex)
         {
-            return new ModelAndView(map , "login.ftl");
+            return login(req);
         }
 
     }

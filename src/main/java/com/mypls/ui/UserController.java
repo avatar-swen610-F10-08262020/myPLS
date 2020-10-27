@@ -1,5 +1,7 @@
 package com.mypls.ui;
 
+import com.mypls.appl.Authenticate;
+import com.mypls.appl.UserAuthentication;
 import com.mypls.model.*;
 import com.mypls.util.HibernateUtil;
 import com.mypls.util.SessionUtil;
@@ -11,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserController {
+public class UserController extends LoginController{
     CourseService cService = new CourseService();
     UserService userService = new UserService();
     Professor_CourseService professorCourseService = new Professor_CourseService();
@@ -19,7 +21,6 @@ public class UserController {
     Course_FeedbackService cfService = new Course_FeedbackService();
     Session session = null;
     SessionUtil sessionUtil = new SessionUtil();
-    LoginController loginController = new LoginController();
 
     public ModelAndView user_details(Request req) {
         Map<String, Object> map = new HashMap<>();
@@ -46,7 +47,7 @@ public class UserController {
         }
         catch (NullPointerException ex)
         {
-            return new ModelAndView(map , "login.ftl");
+            return login(req);
         }
     }
 
@@ -69,7 +70,7 @@ public class UserController {
         }
         catch (NullPointerException ex)
         {
-            return loginController.login(req);
+            return login(req);
         }
     }
 

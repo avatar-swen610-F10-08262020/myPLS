@@ -487,7 +487,7 @@
                 <a class="btn btn-default" href="#">Users</a>
                 <a class="btn btn-default" href="#">Announcement</a>
             <#elseif UserType == 2>
-                <a class="btn btn-default" href="/login/user">Home</a>
+                <a class="btn btn-default" href="/course">Home</a>
                 <a class="btn btn-default" href="/course">Courses</a>
                 <a class="btn btn-default" href="#">Announcement</a>
              <#else>

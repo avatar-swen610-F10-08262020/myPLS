@@ -20,10 +20,12 @@ import java.util.regex.Pattern;
 
 import static spark.Spark.halt;
 
-public class LoginController {
+public class LoginController{
     UserService service = new UserService();
     EmailService emailService = new EmailService();
     SessionUtil sessionUtil = new SessionUtil();
+    Professor_CourseService professorCourseService = new Professor_CourseService();
+
 
     private static final String ACL_SESSION_ID = "acl";
     private static final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})";
@@ -48,7 +50,7 @@ public class LoginController {
                 map.put("users", users);
             }
             else{
-
+                return new CourseController().assignedCourseList(req);
             }
             return new ModelAndView(map , "home.ftl");
         }
@@ -62,16 +64,17 @@ public class LoginController {
         Map<String, Object> map = new HashMap<>();
         if(user!=null){
             System.out.println(user.getFirst_name());
+            map.put("UserType", user.getUser_type_id());
+            map.put("Username", user.getFirst_name());
             if(user.getUser_type_id() == 1){
                 List<User> users = service.getAllUser();
                 System.out.println(users.size());
                 map.put("users", users);
             }
-            else{
-
+            else if(user.getUser_type_id() == 2){
+                return new CourseController().assignedCourseList(req);
             }
-            map.put("UserType", user.getUser_type_id());
-            map.put("Username", user.getFirst_name());
+
             return new ModelAndView(map , "home.ftl");
         }
 
@@ -92,7 +95,7 @@ public class LoginController {
                 map.put("users", users);
             }
             else{
-
+                return new CourseController().assignedCourseList(req);
             }
             return new ModelAndView(map , "home.ftl");
         }
@@ -106,7 +109,7 @@ public class LoginController {
         return new ModelAndView(map , "logout.ftl");
     }
 
-    public  ModelAndView authenticateUser(Request req, Response res){
+    public  ModelAndView authenticateUser(Request req){
         Map<String, Object> map = new HashMap<>();
         User user = new User();
         try {
@@ -120,19 +123,16 @@ public class LoginController {
         User result = service.authenticateUser(user);
         if(result != null) {
             System.out.println("Lenght of ACL: here");
-//            List<Access_Control_List> acl = accessControlListService.accessControlList(result);
             sessionUtil.addAuthenticatedUser(req, result);
-//            System.out.println("Lenght of ACL:"+ acl.size());
-//            map.put("acl", acl);
-//            List<User> users = null;
+
             if(result.getUser_type_id() == 1){
                 List<User> users = service.getAllUser();
                 System.out.println(users.size());
                 map.put("users", users);
             }
-            else{
-
-            }
+            else if(result.getUser_type_id() == 2){
+                    return new CourseController().assignedCourseList(req);
+                }
             System.out.println(map);
             map.put("UserType", result.getUser_type_id());
             map.put("Username", result.getFirst_name());
@@ -145,6 +145,7 @@ public class LoginController {
 
 
     }
+
 
     public ModelAndView register_user(Request req, Response res){
         Map<String, Object> map = new HashMap<>();
