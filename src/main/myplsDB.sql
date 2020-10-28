@@ -160,6 +160,61 @@ INSERT INTO `Course_Feedback` VALUES (1,1,1,'poor teaching',3,'2020-10-20 18:21:
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Course_Week`
+--
+
+DROP TABLE IF EXISTS `Course_Week`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Course_Week` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `week_number` int DEFAULT NULL,
+  `week_name` varchar(45) DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Course_Week`
+--
+
+LOCK TABLES `Course_Week` WRITE;
+/*!40000 ALTER TABLE `Course_Week` DISABLE KEYS */;
+INSERT INTO `Course_Week` VALUES (1,1,'Week 1','2020-10-26 20:19:12'),(2,2,'Week 2','2020-10-26 20:19:12'),(3,3,'Week 3','2020-10-26 20:19:12'),(4,4,'Week 4','2020-10-26 20:19:12'),(5,5,'Week 5','2020-10-26 20:19:12'),(6,6,'Week 6','2020-10-26 20:19:12'),(7,7,'Week 7','2020-10-26 20:19:12'),(8,8,'Week 8','2020-10-26 20:19:12'),(9,9,'Week 9','2020-10-26 20:19:12'),(10,10,'Week 10','2020-10-26 20:19:12'),(11,11,'Week 11','2020-10-26 20:19:12'),(12,12,'Week 12','2020-10-26 20:19:12'),(13,13,'Week 13','2020-10-26 20:19:12');
+/*!40000 ALTER TABLE `Course_Week` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Lesson`
+--
+
+DROP TABLE IF EXISTS `Lesson`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Lesson` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `course_id` int DEFAULT NULL,
+  `week_id` int DEFAULT NULL,
+  `lesson_content_path` text,
+  `content_type` varchar(45) DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Lesson`
+--
+
+LOCK TABLES `Lesson` WRITE;
+/*!40000 ALTER TABLE `Lesson` DISABLE KEYS */;
+INSERT INTO `Lesson` VALUES (1,1,1,'SWEN.pdf','pdf',1,'2020-10-26 20:42:48'),(2,1,2,'swen_2','docx',1,'2020-10-26 20:45:14'),(3,1,3,'audio.mp3','mp3',1,'2020-10-26 20:45:14'),(4,1,4,'video.mov','mov',1,'2020-10-26 20:45:14'),(6,11,2,'CA_1603904245849.pdf','application/pdf',1,'2020-10-28 12:57:25'),(7,11,1,'CA_1603904371796.pdf','application/pdf',1,'2020-10-28 12:59:31');
+/*!40000 ALTER TABLE `Lesson` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Professor_Course`
 --
 
@@ -255,4 +310,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-22  9:48:06
+-- Dump completed on 2020-10-28 13:01:16
