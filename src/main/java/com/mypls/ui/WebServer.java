@@ -80,6 +80,9 @@ public class WebServer {
   private static final String COURSE_PREREQUISITE_URL = "/course/prerequisite/:id";
   private static final String COURSE_CREATE_PREREQUISITE_URL = "/course/prerequisite/create/:id";
 
+  private static final String LESSON_CREATE_URL = "/lesson/add/:id";
+
+
   private static final String USER_VIEW_URL = "/user/:id";
   private static final String USER_EDIT_URL = "/user/edit/:id";
   private static final String USER_UPDATE_URL = "/user/update/:id";
@@ -201,6 +204,7 @@ public class WebServer {
     post(COURSE_UPDATE_URL, (req, res) -> new CourseController().updateClass(req), templateEngine);
     post(COURSE_CREATE_PREREQUISITE_URL, (req, res) -> new CourseController().createPrerequisite(req), templateEngine);
     post(USER_UPDATE_URL, (req, res) -> new UserController().user_update(req), templateEngine);
+    post(LESSON_CREATE_URL, (req, res) -> new LessonController().lesson_add(req), templateEngine);
 
 
   }

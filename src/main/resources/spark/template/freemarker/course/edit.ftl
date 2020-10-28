@@ -50,7 +50,7 @@
                </div>
                <div class="form-group">
                   <label for="instructor">Course Instructor</label>
-                  <select class="fadeIn third" id="instructor" name="instructor" required>
+                  <select class="form-control" id="instructor" name="instructor" required>
                       <option>User Name</option>
                       <#list users as user>
                         <#if user.id == current_professor.user_id>

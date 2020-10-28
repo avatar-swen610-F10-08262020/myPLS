@@ -22,11 +22,13 @@
                        <div class="container">
                            <div class="row">
                                <div class="col-lg-12 col-md-12">
+                                   <#if UserType==1>
                                    <div class="member_designation">
                                        <h2><a href="/course/edit/${course.id}" class="btn btn-sm btn-warning">Edit</a>
-                                                                                            <a href="/course/delete/${course.id}" class="btn btn-sm btn-danger">Delete</a></h2>
+                                       <a href="/course/delete/${course.id}" class="btn btn-sm btn-danger">Delete</a></h2>
 
                                    </div>
+                                   </#if>
                                    <div class="member_desc">
                                        <p>
                                            ${course.description}
@@ -116,32 +118,7 @@
                </div>
             </div>
             <div id="material" class="tab-pane fade">
-              <div class="container">
-                 <div class="card" style="padding: 1rem;">
-                   <div class="card-body">
-                    <head3>Week 1</head>
-                    <div>No Item added yet.</div>
-                   </div>
-                 </div>
-                 <div class="card" style="padding: 1rem;">
-                    <div class="card-body">
-                     <head3>Week 2</head>
-                     <div>No Item added yet.</div>
-                    </div>
-                  </div>
-                  <div class="card" style="padding: 1rem;">
-                     <div class="card-body">
-                      <head3>Week 3</head>
-                      <div>No Item added yet.</div>
-                     </div>
-                   </div>
-                   <div class="card" style="padding: 1rem;">
-                      <div class="card-body">
-                       <head3>Week 4</head>
-                       <div>No Item added yet.</div>
-                      </div>
-                    </div>
-              </div>
+              <#include "lesson.ftl">
             </div>
           </div>
         </div>

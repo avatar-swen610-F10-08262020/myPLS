@@ -39,7 +39,7 @@
                </div>
                <div class="form-group">
                    <label for="instructor">Course Instructor</label>
-                   <select class="fadeIn third" id="instructor" name="instructor" required>
+                   <select class="form-control" id="instructor" name="instructor" required>
                        <option selected>User Name</option>
                        <#list users>
                             <#items as user>

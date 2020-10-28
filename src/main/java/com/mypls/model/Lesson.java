@@ -26,7 +26,7 @@ public class Lesson {
         return course_id;
     }
 
-    public void setCourse_id(Long course_name) {
+    public void setCourse_id(Long course_id) {
         this.course_id = course_id;
     }
 

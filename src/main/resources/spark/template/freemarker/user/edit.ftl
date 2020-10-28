@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                      <label for="userTypeID" class="col-form-label">User Type</label>
-                  <select class="fadeIn third" id="userTypeID" name="userTypeID" required>
+                  <select class="form-control" id="userTypeID" name="userTypeID" required>
                    <option>User Type</option>
                    <#if user.user_type_id == 1>
                        <option value="1" selected>Admin</option>
@@ -62,7 +62,7 @@
 
                 <div class="form-group">
                 <label for="status" class="col-form-label">User Status</label>
-                  <select class="fadeIn third" id="status" name="status" required>
+                  <select class="form-control" id="status" name="status" required>
                    <option>User Status</option>
                    <#if user.status == 1>
                        <option value="1" selected>Active</option>

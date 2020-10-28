@@ -24,6 +24,7 @@ public class CourseController extends LoginController{
     Course_FeedbackService cfService = new Course_FeedbackService();
     Session session = null;
     SessionUtil sessionUtil = new SessionUtil();
+    LessonService lessonService = new LessonService();
     public ModelAndView home(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
@@ -184,6 +185,9 @@ public class CourseController extends LoginController{
             User userProfessor = userService.getUserbyId(professor_course.getUser_id());
             List<Course_Feedback> feedbackList = cfService.getFeedbackByCourse(ID);
 
+            List<Lesson> lessonList = lessonService.getLessonByCourse(ID);
+
+            map.put("lessonList", lessonList);
             map.put("feedbackList",feedbackList);
             map.put("professor",userProfessor);
             map.put("course", currCourse);
