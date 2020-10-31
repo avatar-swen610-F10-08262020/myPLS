@@ -2,11 +2,16 @@
  <#list lessonList as lesson>
  <div class="card" style="padding: 1rem;">
     <head>Week ${lesson.week_id}</head>
-   <div class="card-body">
-
+  <div class="card-body">
     <a href="/lesson/${lesson.lesson_content_path}" download>${lesson.lesson_content_path}</a>
-   </div>
+    <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small">
+         <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
+            Share
+         </a>
+    </div>
+  </div>
  </div>
+
  <#else>
   <div class="card" style="padding: 1rem;">
      <head>Week 1</head>

@@ -19,6 +19,11 @@
 <mapping class="com.mypls.model.Course_Feedback"/>
 <mapping class="com.mypls.model.Lesson"/>
 <mapping class="com.mypls.model.Course_Week"/>
+<mapping class="com.mypls.model.Quiz"/>
+<mapping class="com.mypls.model.Quiz_Questions"/>
+<mapping class="com.mypls.model.Quiz_Options"/>
+
+
 
 
 </session-factory>

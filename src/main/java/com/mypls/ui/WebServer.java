@@ -82,6 +82,8 @@ public class WebServer {
 
   private static final String LESSON_CREATE_URL = "/lesson/add/:id";
 
+  private static final String QUIZ_CREATE_URL = "/quiz/add/:id";
+
 
   private static final String USER_VIEW_URL = "/user/:id";
   private static final String USER_EDIT_URL = "/user/edit/:id";
@@ -205,6 +207,7 @@ public class WebServer {
     post(COURSE_CREATE_PREREQUISITE_URL, (req, res) -> new CourseController().createPrerequisite(req), templateEngine);
     post(USER_UPDATE_URL, (req, res) -> new UserController().user_update(req), templateEngine);
     post(LESSON_CREATE_URL, (req, res) -> new LessonController().lesson_add(req), templateEngine);
+    post(QUIZ_CREATE_URL, (req, res) -> new QuizController().quiz_add(req), templateEngine);
 
 
   }
