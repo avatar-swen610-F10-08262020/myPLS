@@ -25,6 +25,7 @@ public class CourseController extends LoginController{
     Session session = null;
     SessionUtil sessionUtil = new SessionUtil();
     LessonService lessonService = new LessonService();
+    QuizService quizService =new QuizService();
     public ModelAndView home(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
@@ -184,9 +185,10 @@ public class CourseController extends LoginController{
             Professor_Course professor_course = professorCourseService.getCourseProfessor(ID);
             User userProfessor = userService.getUserbyId(professor_course.getUser_id());
             List<Course_Feedback> feedbackList = cfService.getFeedbackByCourse(ID);
-
+            List<Quiz> quizList = quizService.getQuizByCourseID(ID);
             List<Lesson> lessonList = lessonService.getLessonByCourse(ID);
 
+            map.put("quizList",quizList);
             map.put("lessonList", lessonList);
             map.put("feedbackList",feedbackList);
             map.put("professor",userProfessor);

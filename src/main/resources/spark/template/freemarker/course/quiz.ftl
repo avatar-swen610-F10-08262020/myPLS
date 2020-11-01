@@ -1,18 +1,20 @@
 <div class="container">
- <#list lessonList as lesson>
+ <#list quizList as quiz>
  <div class="card" style="padding: 1rem;">
-    <head>Week ${lesson.week_id}</head>
+    <head>Quiz Title: <a href="/quiz/details${quiz.id}" >${quiz.quiz_description}</a></head>
   <div class="card-body">
-    <a href="/lesson/${lesson.lesson_content_path}" download>${lesson.lesson_content_path}</a>
+    Quiz Start Date: ${quiz.start_date} </br>
+    Quiz End Date: ${quiz.end_date} </br>
+    Time Length: ${quiz.quiz_length} Minute
 
   </div>
  </div>
 
  <#else>
   <div class="card" style="padding: 1rem;">
-     <head>Week 1</head>
+     <headQuiz</head>
     <div class="card-body">
-        No Item added yet.
+        No Quiz added yet.
     </div>
   </div>
  </#list>
