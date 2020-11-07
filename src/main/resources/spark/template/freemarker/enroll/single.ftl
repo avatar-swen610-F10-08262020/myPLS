@@ -8,6 +8,7 @@
          <span>Code: ${course.course_code}</span>
          <ul class="nav nav-tabs">
             <li class="active bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#course" style="color:white;">Course Details</a></li>
+            <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#dependents" style="color:white;">Prerequisites</a></li>
          </ul>
       </div>
       <div class="tab-content">
@@ -27,7 +28,7 @@
                                  <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> End date: ${course.end_date}</li>
                               </ul>
                            </div>
-                           <div class="bg-image " style="background-image: url('https://www.bootdey.com/img/Content/bg_element.jpg');">
+                           <div class="bg-image" style="background-image: url('https://www.bootdey.com/img/Content/bg_element.jpg');">
                               <div class="member_contact">
                                  <div class="row">
                                     <div class="col-lg-4  mb-3 mb-lg-0">
@@ -100,6 +101,9 @@
                </#list>
                </#list>
             </div>
+         </div>
+         <div id="dependents" class="tab-pane fade">
+           <#include "prerequisite.ftl">
          </div>
       </div>
       </div>

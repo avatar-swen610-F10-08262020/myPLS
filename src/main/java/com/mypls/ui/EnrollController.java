@@ -47,11 +47,15 @@ public class EnrollController {
     public ModelAndView show(Request req) {
         Map<String, Object> map = new HashMap<>();
         Long ID = Long.parseLong(req.params(":id"));
-        System.out.println(ID);
+//        System.out.println(ID);
         Course currCourse = cService.getIndividualCourse(ID);
         Professor_Course professor_course = professorCourseService.getCourseProfessor(ID);
         User userProfessor = userService.getUserbyId(professor_course.getUser_id());
         List<Course_Feedback> feedbackList = cfService.getFeedbackByCourse(ID);
+        List<Course> dependentCourses = cdService.getDependentCourses(ID);
+        System.out.println(dependentCourses.size());
+        map.put("dependent_course", dependentCourses);
+        map.put("dependent_size", dependentCourses.size());
         map.put("course", currCourse);
         map.put("professor",userProfessor);
         map.put("feedbackList",feedbackList);
