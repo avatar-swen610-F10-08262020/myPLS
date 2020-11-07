@@ -4,6 +4,7 @@ import com.mypls.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CourseService {
@@ -17,6 +18,34 @@ public class CourseService {
         return courseList;
     }
 
+    public List<Course> getAllOfferedCourses() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Calendar today = Calendar.getInstance();
+        Calendar stoday = Calendar.getInstance();
+//        System.out.println(today.get);
+        Query q = session.createQuery("From Course Where status = '1'");
+        List<Course> courseList = q.list();
+        ArrayList<Course> offeredList = new ArrayList<Course>();
+        for (Course courseData : courseList) {
+            if (courseData.getStart_date().isEmpty()) {
+                continue;
+            } else {
+                String stDate = courseData.getStart_date();
+                String[] splitDate = stDate.split("-");
+                stoday.set(Integer.parseInt(splitDate[0]), Integer.parseInt(splitDate[1]) - 1, Integer.parseInt(splitDate[2]));
+                Float diff = (float)(stoday.getTimeInMillis() - today.getTimeInMillis())/(24 * 60 * 60 * 1000);
+                if ((diff > 0 && diff <= 30) || (diff < 0 && -diff <=15)) {
+//                    System.out.println(courseData);
+                    offeredList.add(courseData);
+                }
+
+            }
+        }
+        session.close();
+//        System.out.println(offeredList);
+        return offeredList;
+    }
+
 
     public Course getIndividualCourse(Long id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -24,8 +53,10 @@ public class CourseService {
 
         List<Course> resultList = q.list();
         for (Course courseData : resultList) {
-            if(courseData.getId().equals(id))
+            if(courseData.getId().equals(id)) {
+//                System.out.print(courseData);
                 return courseData;
+            }
         }
         return null;
     }
