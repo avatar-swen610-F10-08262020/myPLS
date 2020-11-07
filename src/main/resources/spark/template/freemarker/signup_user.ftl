@@ -41,7 +41,7 @@
 
                  <div class="form-group">
 
-                   <select class="fadeIn third" id="userTypeID" name="userTypeID" required>
+                   <select class="form-control" id="userTypeID" name="userTypeID" required>
                     <option selected>User Type</option>
                      <option value="3">Learner</option>
                      <option value="2">Professor</option>

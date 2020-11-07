@@ -57,6 +57,9 @@ public class WebServer {
   public static final String HOME_DASHBOARD_URL = "/home";
 
   public static final String PROFILE_URL = "/profile";
+  public static final String UPDATE_PROFILE_URL = "/profile/update";
+  public static final String UPDATE_PROFILE_GENERAL_URL = "/profile/update-general";
+  public static final String UPDATE_PROFILE_PASSWORD_URL = "/profile/update-password";
   public static final String Login_URL = "/login";
   public static final String Login_User_URL = "/login/user";
   public static final String Signup_User_URL = "/signup/user";
@@ -65,6 +68,40 @@ public class WebServer {
   public static final String FORGOT_PASSWORD_URL = "/forgot/password";
   public static final String FORGOT_PASSWORD_USER_URL = "/forgot/password/user";
   private static final Logger LOGGER = LoggerFactory.getLogger(WebServer.class);
+
+  private static final String COURSE_URL = "/course";
+  private static final String COURSE_ASSIGNED_URL = "/course/assigned";
+  private static final String COURSE_CREATE_URL = "/course/create";
+  private static final String COURSE_VIEW_URL = "/course/:id";
+  private static final String COURSE_EDIT_URL = "/course/edit/:id";
+  private static final String COURSE_DELETE_URL = "/course/delete/:id";
+  private static final String COURSE_REGISTER_URL = "/course/register";
+  private static final String COURSE_UPDATE_URL = "/course/update";
+  private static final String COURSE_PREREQUISITE_URL = "/course/prerequisite/:id";
+  private static final String COURSE_CREATE_PREREQUISITE_URL = "/course/prerequisite/create/:id";
+
+  private static final String LESSON_CREATE_URL = "/lesson/add/:id";
+  private static final String LESSON_DELETE_URL = "/course/:id/delete/:lesson_id";
+
+
+  private static final String QUIZ_CREATE_URL = "/quiz/add/:id";
+  private static final String QUIZ_DETAILS_URL ="/quiz/details/:id";
+  private static final String QUIZ_EDIT_URL ="/quiz/edit/:id";
+  private static final String QUIZ_UPDATE_URL ="/quiz/update/:id";
+  private static final String QUIZ_QUESTION_UPDATE_URL ="/quiz/question/update/:id/:question_id";
+  private static final String QUIZ_OPTION_UPDATE_URL ="/quiz/option/update/:id/:question_id";
+  private static final String QUIZ_QUESTION_DELETE_URL ="/quiz/question/delete/:id/:question_id";
+  private static final String QUIZ_QUESTION_ADD_URL ="/quiz/question/add/:id";
+
+
+
+
+  private static final String USER_VIEW_URL = "/user/:id";
+  private static final String USER_EDIT_URL = "/user/edit/:id";
+  private static final String USER_UPDATE_URL = "/user/update/:id";
+
+
+
 
 
   //
@@ -149,20 +186,47 @@ public class WebServer {
     get(HOME_DASHBOARD_URL, (req,res) -> new HomeController().home(req), templateEngine);
 
 
-    get(PROFILE_URL, new HomeController().handle_data(), templateEngine);
+    get(PROFILE_URL, (req, res) -> new ProfileController().home(req), templateEngine);
     get(Login_URL, (req,res) -> new LoginController().login(req), templateEngine);
     get(Login_User_URL, (req,res) -> new LoginController().login_user(req), templateEngine);
     get(Signup_User_URL, (req,res) -> new LoginController().signup_user(req), templateEngine);
     get(Activate_User_URL, (req,res) -> new LoginController().activate_user(req), templateEngine);
     get(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
     get(FORGOT_PASSWORD_URL, (req,res) -> new LoginController().forgot_password(req), templateEngine);
+    get(USER_VIEW_URL, (req, res) -> new UserController().user_details(req), templateEngine);
+    get(USER_EDIT_URL, (req, res) -> new UserController().user_edit(req), templateEngine);
+
+
+    get(COURSE_URL, (req, res) -> new CourseController().home(req), templateEngine);
+    get(COURSE_CREATE_URL, (req, res) -> new CourseController().create(req), templateEngine);
+    get(COURSE_VIEW_URL, (req, res) -> new CourseController().singleview(req), templateEngine);
+    get(COURSE_DELETE_URL, (req, res) -> new CourseController().delete(req), templateEngine);
+    get(COURSE_EDIT_URL, (req, res) -> new CourseController().edit(req), templateEngine);
+    get(COURSE_PREREQUISITE_URL, (req, res) -> new CourseController().prerequisite(req), templateEngine);
+    get(COURSE_ASSIGNED_URL, (req, res) -> new CourseController().assignedCourseList(req), templateEngine);
+    get(QUIZ_DETAILS_URL, (req, res) -> new QuizController().quiz_details(req), templateEngine);
+    get(QUIZ_EDIT_URL, (req, res) -> new QuizController().quiz_edit(req), templateEngine);
+    get(LESSON_DELETE_URL, (req, res) -> new LessonController().lesson_delete(req), templateEngine);
+
 
 
     post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);
-    post(Login_URL, (req,res) -> new LoginController().authenticateUser(req,res), templateEngine);
+    post(Login_URL, (req,res) -> new LoginController().authenticateUser(req), templateEngine);
     post(Logout_URL, (req,res) -> new LoginController().logout_user(req), templateEngine);
     post(FORGOT_PASSWORD_USER_URL, (req,res) -> new LoginController().forgot_password_user(req), templateEngine);
-
+    post(UPDATE_PROFILE_PASSWORD_URL, (req, res) -> new ProfileController().updatePassword(req), templateEngine);
+    post(UPDATE_PROFILE_GENERAL_URL, (req, res) -> new ProfileController().updateGeneral(req), templateEngine);
+    post(COURSE_REGISTER_URL, (req, res) -> new CourseController().registerClass(req), templateEngine);
+    post(COURSE_UPDATE_URL, (req, res) -> new CourseController().updateClass(req), templateEngine);
+    post(COURSE_CREATE_PREREQUISITE_URL, (req, res) -> new CourseController().createPrerequisite(req), templateEngine);
+    post(USER_UPDATE_URL, (req, res) -> new UserController().user_update(req), templateEngine);
+    post(LESSON_CREATE_URL, (req, res) -> new LessonController().lesson_add(req), templateEngine);
+    post(QUIZ_CREATE_URL, (req, res) -> new QuizController().quiz_add(req), templateEngine);
+    post(QUIZ_UPDATE_URL, (req, res) -> new QuizController().quiz_update(req), templateEngine);
+    post(QUIZ_QUESTION_UPDATE_URL, (req, res) -> new QuizController().quiz_question_update(req), templateEngine);
+    post(QUIZ_OPTION_UPDATE_URL, (req, res) -> new QuizController().quiz_option_update(req), templateEngine);
+    post(QUIZ_QUESTION_DELETE_URL, (req, res) -> new QuizController().quiz_question_delete(req), templateEngine);
+    post(QUIZ_QUESTION_ADD_URL, (req, res) -> new QuizController().quiz_question_add(req), templateEngine);
 
 
 

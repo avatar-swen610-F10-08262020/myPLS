@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
+import com.mypls.model.UserService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -19,31 +20,10 @@ import org.hibernate.*;
  */
 public class HomeController implements TemplateViewRoute {
   private static final String USER_SESSION_ID = "user";
+  UserService service = new UserService();
 
   @Override
   public ModelAndView handle(Request request, Response response) {
-//
-//    session.beginTransaction();
-//
-//    Department department = new Department("java");
-//    session.save(department);
-//
-//    session.save(new Employee("Jakab Gipsz",department));
-//    session.save(new Employee("Captain Nemo",department));
-//
-//    session.getTransaction().commit();
-//    Session session = HibernateUtil.getSessionFactory().openSession();
-//    Query q = session.createQuery("From User ");
-//
-//    List<User> resultList = q.list();
-//    System.out.println("num of user:" + resultList.size());
-//    String name="";
-//    for (int i=0;i<resultList.size();i++) {
-//      User user = resultList.get(i);
-//      System.out.println("next user: " + user.getFirst_name());
-//      name = user.getFirst_name();
-//    }
-//    User currentUser = getAuthenticatedUser(request);
 
     Map<String, Object> vm = new HashMap<>();
 //    vm.put("Username", "Welcome! "+ currentUser.getFirst_name());
@@ -51,12 +31,20 @@ public class HomeController implements TemplateViewRoute {
   }
 
   public ModelAndView home(Request req) {
-    User user =getAuthenticatedUser(req);
+    User user = getAuthenticatedUser(req);
     Map<String, Object> map = new HashMap<>();
     if(user!=null){
       System.out.println(user.getFirst_name());
-      map.put("UserType", user.getUserTypeID());
+      map.put("UserType", user.getUser_type_id());
       map.put("Username", user.getFirst_name());
+      if(user.getUser_type_id() == 1){
+        List<User> users = service.getAllUser();
+        System.out.println(users.size());
+        map.put("users", users);
+      }
+      else{
+
+      }
       return new ModelAndView(map , "home.ftl");
     }
 //        return (request, response) -> new ModelAndView(map , "login.ftl");

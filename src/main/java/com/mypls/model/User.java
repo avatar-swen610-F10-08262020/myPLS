@@ -16,14 +16,13 @@ public class User {
     private String email;
     private String password;
     private Integer user_type_id;
-    @ColumnDefault("0")
     private Integer status;
 
-    public Long getID() {
+    public Long getId() {
         return id;
     }
 
-    public void setID(Long ID) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,15 +30,15 @@ public class User {
         return first_name;
     }
 
-    public void setFirst_Name(String first_name) {
+    public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }
 
-    public String getLast_Name() {
+    public String getLast_name() {
         return last_name;
     }
 
-    public void setLast_Name(String last_name) {
+    public void setLast_name(String last_name) {
         this.last_name = last_name;
     }
     public String getPassword() {
@@ -59,11 +58,11 @@ public class User {
         this.email = email;
     }
 
-    public Integer getUserTypeID() {
+    public Integer getUser_type_id() {
         return user_type_id;
     }
 
-    public void setUserTypeID(Integer user_type_id) {
+    public void setUser_type_id(Integer user_type_id) {
         this.user_type_id = user_type_id;
     }
 
@@ -77,8 +76,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "email='" + email + '\'' + ", password='" + password + '\'' + ", first_name='" + first_name + '\''
-                + ", email='" + email + '\'' + '}';
+        return "User{" + "id='" + id + '\'' + ", first_name='" + first_name + '\'' + ", last_name='" + last_name + '\'' + ", email='" + email + '\'' + ", status='" + status + '\'' +", user_type_id='" + user_type_id + '\'' + '}';
     }
 
 }
