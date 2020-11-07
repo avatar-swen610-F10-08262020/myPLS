@@ -22,6 +22,7 @@ public class EnrollController {
     Course_DependencyService cdService = new Course_DependencyService();
     Professor_CourseService professorCourseService = new Professor_CourseService();
     Course_FeedbackService cfService = new Course_FeedbackService();
+    Learner_courseService learner_courseService = new Learner_courseService();
 
     public ModelAndView home(Request req) {
         Map<String, Object> map = new HashMap<>();
@@ -61,7 +62,21 @@ public class EnrollController {
         map.put("feedbackList",feedbackList);
         map.put("msg_type", "none");
         map.put("msg", "none");
+        if (learner_courseService.registrationAvailable(currCourse)) {
+            map.put("regis_available", "yes");
+        } else {
+            map.put("regis_available", "no");
+        }
         System.out.println(map);
         return new ModelAndView(map , "enroll/single.ftl");
+    }
+
+    public ModelAndView enroll(Request req) {
+        Map<String, Object> map = new HashMap<>();
+        Long ID = Long.parseLong(req.params(":id"));
+        User user = userService.getUserbyId((long) 2);
+        Course course = cService.getIndividualCourse(ID);
+
+        return null;
     }
 }

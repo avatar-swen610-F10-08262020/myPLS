@@ -14,6 +14,7 @@
 <mapping class="com.mypls.model.User"/>
 <mapping class="com.mypls.model.Course"/>
 <mapping class="com.mypls.model.Access_Control_List"/>
+<mapping class="com.mypls.model.Learner_course"/>
 <mapping class="com.mypls.model.Professor_Course"/>
 <mapping class="com.mypls.model.Course_Dependency"/>
 <mapping class="com.mypls.model.Course_Feedback"/>

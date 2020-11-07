@@ -6,11 +6,17 @@
       <div class="container">
          <h2>Course: ${course.course_name}</h2>
          <span>Code: ${course.course_code}</span>
+         <#if (regis_available == "yes")>
+         <a style="float: right" href="/offeredcourse/enroll/${course.id}" class="btn btn-sm btn-info">Enroll</a>
+         <#else>
+         <span style="color: red; float: right"><b>Registration closed... Class full</b></span>
+         </#if>
          <ul class="nav nav-tabs">
             <li class="active bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#course" style="color:white;">Course Details</a></li>
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#dependents" style="color:white;">Prerequisites</a></li>
          </ul>
       </div>
+
       <div class="tab-content">
          <div id="course" class="tab-pane in active">
             <div class="container">
@@ -18,6 +24,7 @@
                   <div class="container">
                      <div class="row">
                         <div class="col-lg-12 col-md-12">
+
                            <div class="member_desc">
                               <p>
                                  ${course.description}
@@ -75,6 +82,7 @@
                   </div>
                </section>
             </div>
+
          </div>
          <div id="feedback" class="tab-pane fade">
             <div class="container">
@@ -107,5 +115,6 @@
          </div>
       </div>
       </div>
+
    </section>
 </header>

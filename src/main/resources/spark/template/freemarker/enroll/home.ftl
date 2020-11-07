@@ -17,11 +17,11 @@
             <tbody>
                 <#list courses as course>
                     <tr>
-                        <td><a href="/course/${course.id}" >${course.course_name}</a></td>
+                        <td><a href="/offeredcourse/${course.id}" >${course.course_name}</a></td>
                         <td>${course.course_code}</td>
                         <td>${course.class_size}</td>
                         <td>
-                            <a href="/enroll/${course.id}" class="btn btn-sm btn-success">Details</a>
+                            <a href="/offeredcourse/${course.id}" class="btn btn-sm btn-success">Details</a>
                             <a href="#" class="btn btn-sm btn-info">Enroll</a>
                         </td>
                     </tr>
