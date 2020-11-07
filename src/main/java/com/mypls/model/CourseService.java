@@ -18,7 +18,7 @@ public class CourseService {
         return courseList;
     }
 
-    public List<Course> getAllOfferedCourses() {
+    public List<Course> getAllOfferedCourses(ArrayList<Course> preRegisteredCourse) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Calendar today = Calendar.getInstance();
         Calendar stoday = Calendar.getInstance();
@@ -41,9 +41,25 @@ public class CourseService {
 
             }
         }
+
+        ArrayList<Course> finalOfferedList = new ArrayList<Course>();
+        for (Course courseData : offeredList) {
+            Integer flag = 0;
+            for (Course pre_course: preRegisteredCourse) {
+                if (courseData.getId() == pre_course.getId()) {
+                    flag = 1;
+                }
+            }
+            if (flag == 0) {
+                finalOfferedList.add(courseData);
+            }
+        }
         session.close();
 //        System.out.println(offeredList);
-        return offeredList;
+
+
+
+        return finalOfferedList;
     }
 
 

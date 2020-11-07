@@ -25,6 +25,7 @@ public class EnrollController {
     Learner_courseService learner_courseService = new Learner_courseService();
 
     public ModelAndView home(Request req) {
+        User user = userService.getUserbyId((long) 2);
         Map<String, Object> map = new HashMap<>();
         Calendar today = Calendar.getInstance();
         if (today.get(Calendar.MONTH) <=5) {
@@ -32,7 +33,8 @@ public class EnrollController {
         } else {
             map.put("semester", "Fall");
         }
-        List<Course> allCourses = cService.getAllOfferedCourses();
+        ArrayList<Course> preRegisteredCourses = learner_courseService.getRegisteredCourses(user);
+        List<Course> allCourses = cService.getAllOfferedCourses(preRegisteredCourses);
 //        System.out.println(allCourses);
         try {
             map.put("courses", allCourses);
@@ -76,7 +78,32 @@ public class EnrollController {
         Long ID = Long.parseLong(req.params(":id"));
         User user = userService.getUserbyId((long) 2);
         Course course = cService.getIndividualCourse(ID);
-
-        return null;
+        List<Course> dependentCourses = cdService.getDependentCourses(course.getId());
+        if (dependentCourses.size() == 0) {
+            Boolean enrolled = learner_courseService.enroll(user, course);
+            if (enrolled) {
+                map.put("msg_type", "notification");
+                map.put("msg", "Enrolled to the course");
+            } else {
+                map.put("msg_type", "error");
+                map.put("msg", "Couldn't enroll. Database error!");
+            }
+            return home(req);
+        } else {
+            if (learner_courseService.checkEnrollCriteria(user.getId(), dependentCourses)) {
+                Boolean enrolled = learner_courseService.enroll(user, course);
+                if (enrolled) {
+                    map.put("msg_type", "notification");
+                    map.put("msg", "Enrolled to the course");
+                } else {
+                    map.put("msg_type", "error");
+                    map.put("msg", "Couldn't enroll. Database error!");
+                }
+            } else {
+                map.put("msg_type", "error");
+                map.put("msg", "Couldn't enroll. Prerequisite not complete!");
+            }
+            return home(req);
+        }
     }
 }
