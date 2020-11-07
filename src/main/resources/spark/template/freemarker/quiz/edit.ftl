@@ -132,51 +132,8 @@
                                 <a href="/quiz/details/${quiz.id}" class="btn btn-sm btn-danger" style= "margin:1.7em">Cancel</a>
                             </div>
 
-                            <div id="question_add" class="collapse">
-                                <div class="card" style="padding:1rem;width:50%">
-                                    <form action="/quiz/question/add/${quiz.id}" method="post">
-                                       <div class="form-group">
-                                          <label for="file_name" class="col-form-label">Question</label>
-                                          <input type="text" name='question'  placeholder='Question' class="form-control" required/>
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="file_name" class="col-form-label">Answer Option 1</label>
-                                          <input type="text" name='options1'  placeholder='Option' class="form-control" required/>
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="file_name" class="col-form-label">Answer Option 2</label>
-                                          <input type="text" name='options2'  placeholder='Option' class="form-control" required/>
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="file_name" class="col-form-label">Answer Option 3</label>
-                                          <input type="text" name='options3'  placeholder='Option' class="form-control" required/>
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="file_name" class="col-form-label">Answer Option 4</label>
-                                          <input type="text" name='options4'  placeholder='Option' class="form-control" required/>
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="file_name" class="col-form-label">Answer Option 5</label>
-                                          <input type="text" name='options5'  placeholder='Option' class="form-control" required/>
-                                       </div>
+                            <#include "/quiz/quiz_question_add.ftl">
 
-
-                                       <div class="form-group">
-                                           <label for="correct_answer">Correct Answer</label>
-                                           <select class="form-control" id="correct_ans" name="correct_ans" required>
-                                               <option selected>Select Answer</option>
-                                               <#list 1..5 as x>
-                                               <option value="${x}">${x}</option>
-                                               </#list>
-                                           </select>
-                                         </div>
-
-                                       <button type="submit" class="btn btn-sm btn-primary">Add</button>
-                                       <button data-toggle="collapse" data-target="#question_add" class="btn btn-sm btn-danger" >Cancel</button>
-
-                                    </form>
-                                </div>
-                            </div>
 
 
 
@@ -192,21 +149,3 @@
         </div>
    </header>
 <script>
-$(document).ready(function(){
-      var i= Number(document.getElementById("length").value);
-     $("#add_row").click(function(){b=i-1;
-
-     var correct_ans='<td id="option5"><div class="form-group"> <select class="form-control" id="correct_ans" name="correct_ans_'+(i+1)+'" required> <option selected>Correct Ans</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> </select> </div> </td>';
-      $('#tab_logic').append('<tr id="addr'+(i+1)+'"><td>'+(i+1)+'</td><td><input type="text" name="question'+(i+1)+'"  placeholder="Question" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'1"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'2"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'3"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'4"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'5"  placeholder="Option" class="form-control"/></td>'+correct_ans+'</tr>');
-
-      i++;
-  });
-     $("#delete_row").click(function(){
-    	 if(i>1){
-		 $("#addr"+(i-1)).html('');
-		 i--;
-	    }
-	 });
-
-});
-</script>
