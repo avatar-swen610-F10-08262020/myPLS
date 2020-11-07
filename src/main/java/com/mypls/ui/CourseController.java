@@ -20,6 +20,7 @@ public class CourseController extends LoginController{
     CourseService cService = new CourseService();
     UserService userService = new UserService();
     Professor_CourseService professorCourseService = new Professor_CourseService();
+    Learner_courseService learner_courseService = new Learner_courseService();
     Course_DependencyService cdService = new Course_DependencyService();
     Course_FeedbackService cfService = new Course_FeedbackService();
     Session session = null;
@@ -48,7 +49,7 @@ public class CourseController extends LoginController{
             else if(user.getUser_type_id() == 2) {
                 return assignedCourseList(req);
             }
-            else return assignedCourseList(req);
+            else return registeredCourseList(req);
         }
         catch (NullPointerException ex)
         {
@@ -73,6 +74,29 @@ public class CourseController extends LoginController{
             map.put("msg_type", "none");
             map.put("message", "none");
             return new ModelAndView(map , "course/assigned_course_list.ftl");
+        }
+        catch (NullPointerException ex)
+        {
+            return login(req);
+        }
+    }
+
+    public ModelAndView registeredCourseList(Request req){
+        Map<String, Object> map = new HashMap<>();
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUser_type_id());
+            map.put("Username", user.getFirst_name());
+            ArrayList<Course> courses = learner_courseService.getRegisteredCourses(user);
+            try {
+                map.put("courses", courses);
+                System.out.println(map);
+            } catch (NullPointerException ex) {
+                System.out.println(ex.toString());
+            }
+            map.put("msg_type", "none");
+            map.put("message", "none");
+            return new ModelAndView(map , "course/registered_course_list.ftl");
         }
         catch (NullPointerException ex)
         {

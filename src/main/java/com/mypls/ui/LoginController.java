@@ -131,8 +131,11 @@ public class LoginController{
                 map.put("users", users);
             }
             else if(result.getUser_type_id() == 2){
-                    return new CourseController().assignedCourseList(req);
-                }
+                return new CourseController().assignedCourseList(req);
+            }
+            else if(result.getUser_type_id() == 3){
+                return new CourseController().registeredCourseList(req);
+            }
             System.out.println(map);
             map.put("UserType", result.getUser_type_id());
             map.put("Username", result.getFirst_name());
