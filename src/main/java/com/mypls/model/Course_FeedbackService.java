@@ -9,7 +9,7 @@ import java.util.List;
 public class Course_FeedbackService {
     public List<Course_Feedback> getFeedbackByCourse(Long course_id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From Course_Feedback a, User b Where a.user_id = b.id And a.course_id = "+course_id.toString()+" ");
+        Query q = session.createQuery("From Course_Feedback a, User b Where a.user_id = b.id And a.course_id = "+course_id.toString()+" And a.status = '1'");
 //        Query q = session.createQuery("From Course_Feedback course_id = "+course_id.toString());
 
         List<Course_Feedback> resultList = q.list();

@@ -1,7 +1,7 @@
 <div class="container">
  <#list quizList as quiz>
  <div class="card" style="padding: 1rem;">
-    <head>Quiz Title: <a href="/quiz/details${quiz.id}" >${quiz.quiz_description}</a></head>
+    <head>Quiz Title: <a href="/quiz/details/${quiz.id}" >${quiz.quiz_description}</a></head>
   <div class="card-body">
     Quiz Start Date: ${quiz.start_date} </br>
     Quiz End Date: ${quiz.end_date} </br>
@@ -12,7 +12,7 @@
 
  <#else>
   <div class="card" style="padding: 1rem;">
-     <headQuiz</head>
+     <head>Quiz</head>
     <div class="card-body">
         No Quiz added yet.
     </div>

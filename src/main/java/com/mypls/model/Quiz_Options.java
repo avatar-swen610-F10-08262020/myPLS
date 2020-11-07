@@ -13,6 +13,9 @@ public class Quiz_Options {
     private String description;
     private Integer option_status;
     private Integer status;
+    @ManyToOne
+    @JoinColumn(name="question_id", referencedColumnName="id", insertable = false, updatable = false)
+    private Quiz_Questions quiz_questions;
 
     public Long getId() {
         return id;
@@ -41,6 +44,10 @@ public class Quiz_Options {
     public Integer getStatus(){return status;}
 
     public void setStatus(Integer status){this.status = status;}
+
+    public Quiz_Questions getQuiz_questions(){ return quiz_questions;}
+
+    public void setQuiz_questions(Quiz_Questions quiz_questions){ this.quiz_questions = quiz_questions;}
 
 
 }

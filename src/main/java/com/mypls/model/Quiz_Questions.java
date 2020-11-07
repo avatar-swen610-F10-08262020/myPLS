@@ -12,6 +12,9 @@ public class Quiz_Questions {
     private Long question_number;
     private String question_description;
     private Integer status;
+    @ManyToOne
+    @JoinColumn(name="quiz_id", referencedColumnName="id", insertable = false, updatable = false)
+    private Quiz quiz;
 
     public Long getId() {
         return id;
@@ -36,4 +39,8 @@ public class Quiz_Questions {
     public Integer getStatus(){return status;}
 
     public void setStatus(Integer status){ this.status = status;}
+
+    public Quiz getQuiz(){ return quiz;}
+
+    public void setQuiz(Quiz quiz){ this.quiz = quiz;}
 }

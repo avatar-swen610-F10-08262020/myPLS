@@ -15,4 +15,14 @@ public class QuizService {
         session.close();
         return quizList;
     }
+
+    public Quiz getQuizByID(Long id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From Quiz Where id = "+id.toString()+" ");
+        List<Quiz> quizList = q.list();
+
+        session.close();
+        return quizList.get(0);
+    }
+
 }

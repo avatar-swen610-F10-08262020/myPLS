@@ -122,7 +122,7 @@ public class LoginController{
         }
         User result = service.authenticateUser(user);
         if(result != null) {
-            System.out.println("Lenght of ACL: here");
+            System.out.println("Length of ACL: here");
             sessionUtil.addAuthenticatedUser(req, result);
 
             if(result.getUser_type_id() == 1){

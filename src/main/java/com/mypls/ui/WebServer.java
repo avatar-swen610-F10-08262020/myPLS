@@ -83,6 +83,15 @@ public class WebServer {
   private static final String LESSON_CREATE_URL = "/lesson/add/:id";
 
   private static final String QUIZ_CREATE_URL = "/quiz/add/:id";
+  private static final String QUIZ_DETAILS_URL ="/quiz/details/:id";
+  private static final String QUIZ_EDIT_URL ="/quiz/edit/:id";
+  private static final String QUIZ_UPDATE_URL ="/quiz/update/:id";
+  private static final String QUIZ_QUESTION_UPDATE_URL ="/quiz/question/update/:id/:question_id";
+  private static final String QUIZ_OPTION_UPDATE_URL ="/quiz/option/update/:id/:question_id";
+  private static final String QUIZ_QUESTION_DELETE_URL ="/quiz/question/delete/:id/:question_id";
+  private static final String QUIZ_QUESTION_ADD_URL ="/quiz/question/add/:id";
+
+
 
 
   private static final String USER_VIEW_URL = "/user/:id";
@@ -193,6 +202,8 @@ public class WebServer {
     get(COURSE_EDIT_URL, (req, res) -> new CourseController().edit(req), templateEngine);
     get(COURSE_PREREQUISITE_URL, (req, res) -> new CourseController().prerequisite(req), templateEngine);
     get(COURSE_ASSIGNED_URL, (req, res) -> new CourseController().assignedCourseList(req), templateEngine);
+    get(QUIZ_DETAILS_URL, (req, res) -> new QuizController().quiz_details(req), templateEngine);
+    get(QUIZ_EDIT_URL, (req, res) -> new QuizController().quiz_edit(req), templateEngine);
 
 
 
@@ -208,6 +219,14 @@ public class WebServer {
     post(USER_UPDATE_URL, (req, res) -> new UserController().user_update(req), templateEngine);
     post(LESSON_CREATE_URL, (req, res) -> new LessonController().lesson_add(req), templateEngine);
     post(QUIZ_CREATE_URL, (req, res) -> new QuizController().quiz_add(req), templateEngine);
+    post(QUIZ_UPDATE_URL, (req, res) -> new QuizController().quiz_update(req), templateEngine);
+    post(QUIZ_QUESTION_UPDATE_URL, (req, res) -> new QuizController().quiz_question_update(req), templateEngine);
+    post(QUIZ_OPTION_UPDATE_URL, (req, res) -> new QuizController().quiz_option_update(req), templateEngine);
+    post(QUIZ_QUESTION_DELETE_URL, (req, res) -> new QuizController().quiz_question_delete(req), templateEngine);
+    post(QUIZ_QUESTION_ADD_URL, (req, res) -> new QuizController().quiz_question_add(req), templateEngine);
+
+
+
 
 
   }

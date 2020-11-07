@@ -201,7 +201,7 @@ CREATE TABLE `Lesson` (
   `status` int DEFAULT NULL,
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +210,7 @@ CREATE TABLE `Lesson` (
 
 LOCK TABLES `Lesson` WRITE;
 /*!40000 ALTER TABLE `Lesson` DISABLE KEYS */;
-INSERT INTO `Lesson` VALUES (1,1,1,'SWEN.pdf','pdf',1,'2020-10-26 20:42:48'),(2,1,2,'swen_2','docx',1,'2020-10-26 20:45:14'),(3,1,3,'audio.mp3','mp3',1,'2020-10-26 20:45:14'),(4,1,4,'video.mov','mov',1,'2020-10-26 20:45:14'),(6,11,2,'CA_1603904245849.pdf','application/pdf',1,'2020-10-28 12:57:25'),(7,11,1,'CA_1603904371796.pdf','application/pdf',1,'2020-10-28 12:59:31');
+INSERT INTO `Lesson` VALUES (1,1,1,'SWEN.pdf','pdf',1,'2020-10-26 20:42:48'),(2,1,2,'swen_2','docx',1,'2020-10-26 20:45:14'),(3,1,3,'audio.mp3','mp3',1,'2020-10-26 20:45:14'),(4,1,4,'video.mov','mov',1,'2020-10-26 20:45:14'),(6,11,2,'CA_1603904245849.pdf','application/pdf',1,'2020-10-28 12:57:25'),(7,11,1,'CA_1603904371796.pdf','application/pdf',1,'2020-10-28 12:59:31'),(8,6,2,'DS_1604152069732.pdf','application/pdf',1,'2020-10-31 09:47:49'),(9,6,1,'DS_1_1604152109162.mov','video/quicktime',1,'2020-10-31 09:48:29'),(10,6,1,'DS_1604152165590.png','image/png',1,'2020-10-31 09:49:25');
 /*!40000 ALTER TABLE `Lesson` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,6 +239,93 @@ LOCK TABLES `Professor_Course` WRITE;
 /*!40000 ALTER TABLE `Professor_Course` DISABLE KEYS */;
 INSERT INTO `Professor_Course` VALUES (1,11,2,1,'2020-10-18 16:57:06'),(2,12,4,1,'2020-10-18 16:59:50'),(3,13,4,1,'2020-10-18 17:02:01'),(4,14,2,1,'2020-10-18 17:06:54'),(5,15,2,1,'2020-10-18 17:10:46'),(6,10,2,1,'2020-10-18 18:47:25'),(7,9,4,1,'2020-10-18 18:47:25'),(8,8,2,1,'2020-10-18 18:47:25'),(9,7,4,1,'2020-10-18 18:47:25'),(10,6,4,1,'2020-10-18 18:47:25'),(11,5,4,1,'2020-10-18 18:47:25'),(12,4,2,1,'2020-10-18 18:47:25'),(13,3,4,1,'2020-10-18 18:47:25'),(14,2,4,1,'2020-10-18 18:47:25'),(15,1,2,1,'2020-10-18 18:47:25');
 /*!40000 ALTER TABLE `Professor_Course` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Quiz`
+--
+
+DROP TABLE IF EXISTS `Quiz`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Quiz` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `course_id` varchar(45) DEFAULT NULL,
+  `quiz_description` mediumtext,
+  `quiz_length` int DEFAULT NULL,
+  `start_date` varchar(45) DEFAULT NULL,
+  `end_date` varchar(45) DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Quiz`
+--
+
+LOCK TABLES `Quiz` WRITE;
+/*!40000 ALTER TABLE `Quiz` DISABLE KEYS */;
+INSERT INTO `Quiz` VALUES (1,'11','midterm',30,'2020-11-01','2020-12-18',1,'2020-11-01 11:25:14');
+/*!40000 ALTER TABLE `Quiz` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Quiz_Options`
+--
+
+DROP TABLE IF EXISTS `Quiz_Options`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Quiz_Options` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `question_id` int DEFAULT NULL,
+  `option_number` int DEFAULT NULL,
+  `description` longtext,
+  `option_status` int DEFAULT '0',
+  `status` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Quiz_Options`
+--
+
+LOCK TABLES `Quiz_Options` WRITE;
+/*!40000 ALTER TABLE `Quiz_Options` DISABLE KEYS */;
+INSERT INTO `Quiz_Options` VALUES (1,1,1,'computer',0,1,'2020-11-01 11:25:14'),(2,1,2,'architecture',1,1,'2020-11-01 11:25:14'),(3,1,3,'value 3',0,1,'2020-11-01 11:25:14'),(4,1,4,'specific',0,1,'2020-11-01 11:25:14'),(5,1,5,'value 5',0,1,'2020-11-01 11:25:14'),(6,2,1,'layer 7',0,1,'2020-11-01 11:25:14'),(7,2,2,'information disk layer',1,1,'2020-11-01 11:25:14'),(8,2,3,'operating system',0,1,'2020-11-01 11:25:14'),(9,2,4,'database',0,1,'2020-11-01 11:25:14'),(10,2,5,'dataset 2',0,1,'2020-11-01 11:25:14'),(11,3,1,'1',0,1,'2020-11-01 11:25:14'),(12,3,2,'2',1,1,'2020-11-01 11:25:14'),(13,3,3,'4',0,1,'2020-11-01 11:25:14'),(14,3,4,'5',0,1,'2020-11-01 11:25:14'),(15,3,5,'7',0,1,'2020-11-01 11:25:14'),(16,4,1,'3',1,0,'2020-11-06 02:36:13'),(17,4,1,'Design 1',0,1,'2020-11-06 18:45:17'),(18,4,2,'Design 2',0,1,'2020-11-06 18:45:17'),(19,4,3,'Design 3',0,1,'2020-11-06 18:45:17'),(20,4,4,'Design 4',1,1,'2020-11-06 18:45:17'),(21,4,5,'Design 5',0,1,'2020-11-06 18:45:18');
+/*!40000 ALTER TABLE `Quiz_Options` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Quiz_Questions`
+--
+
+DROP TABLE IF EXISTS `Quiz_Questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Quiz_Questions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `quiz_id` int DEFAULT NULL,
+  `question_number` int DEFAULT NULL,
+  `question_description` longtext,
+  `status` int DEFAULT NULL,
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Quiz_Questions`
+--
+
+LOCK TABLES `Quiz_Questions` WRITE;
+/*!40000 ALTER TABLE `Quiz_Questions` DISABLE KEYS */;
+INSERT INTO `Quiz_Questions` VALUES (1,1,1,'What is computer architecture level 1?',1,'2020-11-01 11:25:14'),(2,1,2,'How to connect OS with network layer?',1,'2020-11-01 11:25:14'),(3,1,3,'How many Layers OS version have?',1,'2020-11-01 11:25:14'),(4,1,4,'What is system design?',1,'2020-11-06 18:45:17');
+/*!40000 ALTER TABLE `Quiz_Questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -310,4 +397,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-28 13:01:16
+-- Dump completed on 2020-11-06 19:00:30

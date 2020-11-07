@@ -5,10 +5,13 @@ import com.mypls.util.HibernateUtil;
 import spark.ModelAndView;
 import spark.Request;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class QuizController extends CourseController{
+    Quiz_OptionsService quiz_optionsService = new Quiz_OptionsService();
+    QuizService quizService = new QuizService();
+    Quiz_QuestionsService quiz_questionsService = new Quiz_QuestionsService();
+
     public ModelAndView quiz_add( Request req){
         System.out.println(req.queryParams());
         String quiz_description = req.queryParams("quiz_description");
@@ -34,12 +37,7 @@ public class QuizController extends CourseController{
            count++;
         }
 
-//        System.out.println(quiz_description);
-//        System.out.println(quiz_length);
-//        System.out.println(start_date);
-//        System.out.println(end_date);
-//        System.out.println(questions);
-//        System.out.println(options);
+
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
@@ -103,4 +101,226 @@ public class QuizController extends CourseController{
         return singleview(req);
 
     }
+    public ModelAndView quiz_details( Request req){
+        Map<String, Object> map = new HashMap<>();
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUser_type_id());
+            map.put("Username", user.getFirst_name());
+            Long quiz_id = Long.parseLong(req.params(":id"));
+            List<Quiz_Options> quiz_options_list = quiz_optionsService.getQuizOptionByQuizId(quiz_id);
+//            List<Quiz_Questions> quiz_questions = new ArrayList<>();
+            Set<Quiz_Questions> quiz_questions = new HashSet<>();
+            List<Quiz_Questions_Options> quiz_questions_options_list = new ArrayList<>();
+            for(Quiz_Options quiz_options:quiz_options_list){
+                quiz_questions.add(quiz_options.getQuiz_questions());
+            }
+            for(Quiz_Questions quizQuestion:quiz_questions){
+                List<Quiz_Options> quiz_optionsList = new ArrayList<>();
+                Integer correct_ans=0;
+                for(Quiz_Options quiz_options:quiz_options_list){
+                    if(!quizQuestion.getId().equals(quiz_options.getQuiz_questions().getId()))
+                        continue;
+                    quiz_optionsList.add(quiz_options);
+                    if(quiz_options.getOption_status().equals(1))
+                        correct_ans = Math.toIntExact(quiz_options.getOption_number());
+                }
+                Quiz_Questions_Options quiz_questions_options = new Quiz_Questions_Options(quizQuestion,quiz_optionsList);
+                quiz_questions_options.setResult(correct_ans);
+                quiz_questions_options_list.add(quiz_questions_options);
+            }
+            Collections.sort(quiz_questions_options_list);
+
+            map.put("QuizQuestionOptions", quiz_questions_options_list);
+            map.put("quizId", quiz_id);
+
+
+
+            return new ModelAndView(map, "quiz/quiz_details.ftl");
+        }
+         catch (NullPointerException ex)
+        {
+            return login(req);
+        }
+    }
+    public ModelAndView quiz_edit( Request req){
+        Map<String, Object> map = new HashMap<>();
+        try {
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUser_type_id());
+            map.put("Username", user.getFirst_name());
+            Long quiz_id = Long.parseLong(req.params(":id"));
+            Quiz quiz = quizService.getQuizByID(quiz_id);
+            List<Quiz_Options> quiz_options_list = quiz_optionsService.getQuizOptionByQuizId(quiz_id);
+//            List<Quiz_Questions> quiz_questions = new ArrayList<>();
+            Set<Quiz_Questions> quiz_questions = new HashSet<>();
+            List<Quiz_Questions_Options> quiz_questions_options_list = new ArrayList<>();
+            for(Quiz_Options quiz_options:quiz_options_list){
+                quiz_questions.add(quiz_options.getQuiz_questions());
+            }
+
+
+            for(Quiz_Questions quizQuestion:quiz_questions){
+                List<Quiz_Options> quiz_optionsList = new ArrayList<>();
+                Integer correct_ans=0;
+                for(Quiz_Options quiz_options:quiz_options_list){
+                    if(!quizQuestion.getId().equals(quiz_options.getQuiz_questions().getId()))
+                        continue;
+                    quiz_optionsList.add(quiz_options);
+                    if(quiz_options.getOption_status().equals(1))
+                        correct_ans = Math.toIntExact(quiz_options.getOption_number());
+                }
+                Quiz_Questions_Options quiz_questions_options = new Quiz_Questions_Options(quizQuestion,quiz_optionsList);
+                quiz_questions_options.setResult(correct_ans);
+                quiz_questions_options_list.add(quiz_questions_options);
+            }
+            Collections.sort(quiz_questions_options_list);
+            map.put("QuizQuestionOptions", quiz_questions_options_list);
+            map.put("quiz", quiz);
+            map.put("question_length", quiz_questions.size());
+
+
+            return new ModelAndView(map, "quiz/edit.ftl");
+        }
+        catch (NullPointerException ex)
+        {
+            return login(req);
+        }
+    }
+
+    public ModelAndView quiz_update( Request req){
+        Long quiz_id = Long.parseLong(req.params(":id"));
+        Quiz currQuiz = quizService.getQuizByID(quiz_id);
+        System.out.println(currQuiz);
+        String quiz_description = req.queryParams("quiz_description");
+        String quiz_length = req.queryParams("quiz_length");
+        String start_date = req.queryParams("start_date");
+        String end_date = req.queryParams("end_date");
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        currQuiz.setQuiz_description(quiz_description);
+        currQuiz.setQuiz_length(Integer.parseInt(quiz_length));
+        currQuiz.setStart_date(start_date);
+        currQuiz.setEnd_date(end_date);
+        session.update(currQuiz);
+        session.getTransaction().commit();
+
+        return quiz_edit(req);
+    }
+
+    public ModelAndView quiz_question_update( Request req){
+        Long question_id = Long.parseLong(req.params(":question_id"));
+        Quiz_Questions currQuestion = quiz_questionsService.getQuizQuestionsByID(question_id);
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        currQuestion.setQuestion_description(req.queryParams("question"+question_id.toString()));
+        session.update(currQuestion);
+        session.getTransaction().commit();
+
+        return quiz_edit(req);
+    }
+
+    public ModelAndView quiz_option_update( Request req){
+//        String option11 = req.queryParams("options11");
+//        System.out.println(option11);
+        Long question_id = Long.parseLong(req.params(":question_id"));
+
+        List<String> correct_ans = new ArrayList<String>();
+
+
+        correct_ans.add(req.queryParams("correct_ans_"+question_id.toString()));
+        Integer optionCount =1;
+        List<String> option = new ArrayList<String>();
+        while (optionCount<6)
+        {
+            option.add(req.queryParams("options"+question_id.toString()+optionCount.toString()));
+            optionCount++;
+        }
+
+        Long option_count = Long.valueOf(0);
+        for(String optionValue:option){
+            Quiz_Options quiz_options = quiz_optionsService.getQuizOptionByQuestionIdAndOptionNumber(question_id,option_count+1);
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            quiz_options.setDescription(optionValue);
+            if(option_count.equals(Long.parseLong(req.queryParams("correct_ans_"+question_id.toString()))-1))
+                quiz_options.setOption_status(1);
+            else quiz_options.setOption_status(0);
+
+            session.update(quiz_options);
+
+            session.getTransaction().commit();
+            option_count++;
+        }
+
+        return quiz_edit(req);
+    }
+
+    public ModelAndView quiz_question_delete(Request req){
+        Long question_id = Long.parseLong(req.params(":question_id"));
+        Quiz_Questions currQuestion = quiz_questionsService.getQuizQuestionsByID(question_id);
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        currQuestion.setStatus(0);
+        session.update(currQuestion);
+        session.getTransaction().commit();
+
+
+        return quiz_edit(req);
+    }
+
+    public ModelAndView quiz_question_add(Request req){
+        Long quiz_id = Long.parseLong(req.params(":id"));
+
+        String correct_ans = req.queryParams("correct_ans");
+        String question = req.queryParams("question");
+        Integer optionCount =1;
+        List<String> option = new ArrayList<String>();
+        while (optionCount<6)
+        {
+            option.add(req.queryParams("options"+optionCount.toString()));
+            optionCount++;
+        }
+        List<Quiz_Questions> quizQuestions = quiz_questionsService.getQuizQuestionsByQuizID(quiz_id);
+
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Quiz_Questions new_quiz_questions = new Quiz_Questions();
+        new_quiz_questions.setQuiz_id(quiz_id);
+        new_quiz_questions.setQuestion_description(question);
+        new_quiz_questions.setQuestion_number(Long.valueOf(quizQuestions.size()+1));
+        new_quiz_questions.setStatus(1);
+
+        session.save(new_quiz_questions);
+        System.out.println("Course ID:" + new_quiz_questions.getId());
+        Long question_id = new_quiz_questions.getId();
+
+        session.getTransaction().commit();
+
+        Long option_count = Long.valueOf(0);
+        for(String optionValue:option){
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Quiz_Options new_quiz_options = new Quiz_Options();
+            new_quiz_options.setQuestion_id(question_id);
+            new_quiz_options.setOption_number(option_count+1);
+            new_quiz_options.setDescription(optionValue);
+            new_quiz_options.setStatus(1);
+            if(option_count == Long.parseLong(String.valueOf(correct_ans)))
+                new_quiz_options.setOption_status(1);
+            else new_quiz_options.setOption_status(0);
+
+            session.save(new_quiz_options);
+            System.out.println("Option ID:" + new_quiz_options.getId());
+            Long option_id = new_quiz_options.getId();
+
+            session.getTransaction().commit();
+            option_count++;
+        }
+
+
+
+        return quiz_edit(req);
+    }
+
 }
