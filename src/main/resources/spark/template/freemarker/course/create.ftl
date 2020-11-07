@@ -10,6 +10,11 @@
          <h2>
             Create Course
          </h2>
+         <#if msg_type == "error">
+            <div class="alert alert-danger" role="alert">
+              ${msg}
+            </div>
+        </#if>
             <div class="card" style="padding:1rem">
             <!-- Login Form -->
             <form action="/course/register" method="post">
@@ -40,7 +45,7 @@
                <div class="form-group">
                    <label for="instructor">Course Instructor</label>
                    <select class="form-control" id="instructor" name="instructor" required>
-                       <option selected>User Name</option>
+                       <option value="" selected>User Name</option>
                        <#list users>
                             <#items as user>
 

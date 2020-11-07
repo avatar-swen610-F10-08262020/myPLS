@@ -139,9 +139,12 @@ public class CourseController extends LoginController{
         System.out.println(courseName + description + course_code + class_size + start_date + end_date + courseName.isEmpty() + course_code.isEmpty());
 
         System.out.println(cService.alreadyAvailable(courseName, course_code));
+//        return null;
         if (cService.alreadyAvailable(courseName, course_code)) {
             map.put("msg_type", "error");
             map.put("msg", "Course has already been created");
+            List<User> userList =  userService.getProfessors();
+            map.put("users", userList);
             map.put("UserType", sessionUser.getUser_type_id());
             map.put("Username", sessionUser.getFirst_name());
             System.out.println("Not Available");
@@ -296,6 +299,7 @@ public class CourseController extends LoginController{
 //        return new ModelAndView(map , "course/create.ftl");
 
         map.put("course", currCourse);
+//        req.attribute("id", courseId);
         return home(req);
 
     }
