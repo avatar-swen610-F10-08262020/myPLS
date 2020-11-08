@@ -98,6 +98,9 @@ public class WebServer {
   private static final String USER_EDIT_URL = "/user/edit/:id";
   private static final String USER_UPDATE_URL = "/user/update/:id";
 
+  private static final String OFFERED_URL = "/offeredcourse";
+  private static final String OFFERED_VIEW_URL = "/offeredcourse/:id";
+  private static final String ENROLL_URL = "/offeredcourse/enroll/:id";
 
 
 
@@ -205,7 +208,9 @@ public class WebServer {
     get(QUIZ_DETAILS_URL, (req, res) -> new QuizController().quiz_details(req), templateEngine);
     get(QUIZ_EDIT_URL, (req, res) -> new QuizController().quiz_edit(req), templateEngine);
 
-
+    get(OFFERED_URL, (req, res) -> new EnrollController().home(req), templateEngine);
+    get(OFFERED_VIEW_URL, (req, res) -> new EnrollController().show(req), templateEngine);
+    get(ENROLL_URL, (req, res) -> new EnrollController().enroll(req), templateEngine);
 
     post(Signup_User_URL, (req,res) -> new LoginController().register_user(req,res), templateEngine);
     post(Login_URL, (req,res) -> new LoginController().authenticateUser(req), templateEngine);

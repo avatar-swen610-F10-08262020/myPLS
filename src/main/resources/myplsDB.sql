@@ -186,6 +186,35 @@ INSERT INTO `Course_Week` VALUES (1,1,'Week 1','2020-10-26 20:19:12'),(2,2,'Week
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Learner_course`
+--
+
+DROP TABLE IF EXISTS `Learner_course`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Learner_course` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `course_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `status` int DEFAULT '1',
+  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `completed` int DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `course_id_UNIQUE` (`course_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Learner_course`
+--
+
+LOCK TABLES `Learner_course` WRITE;
+/*!40000 ALTER TABLE `Learner_course` DISABLE KEYS */;
+INSERT INTO `Learner_course` VALUES (1,7,1,1,'2020-11-07 13:05:27',0);
+/*!40000 ALTER TABLE `Learner_course` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Lesson`
 --
 
@@ -348,7 +377,7 @@ CREATE TABLE `User` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `user_type_id_idx` (`user_type_id`),
   CONSTRAINT `user_type_id` FOREIGN KEY (`user_type_id`) REFERENCES `User_Type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,7 +386,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'Mahdi','Khurrana','mahdi@gmail.com','12345678','2020-09-28 21:37:12',3,1),(2,'shakil','zaman','shakil@gmail.com','12345678','2020-09-28 21:37:53',2,1),(3,'Akhter','amin','farhanbuet09@gmail.com','12345678','2020-09-28 21:38:24',1,1),(4,'Pradeep','Bajracharya','pb8294@rit.edu','12345678','2020-09-28 21:39:48',2,1),(5,'Ahmedul','toslim','toslim@gmail.com','123456789','2020-09-29 03:57:38',3,0),(9,'jhau','meng','jharu3432@gmail.com','12345678','2020-10-01 01:05:19',3,1),(12,'avatar','swen','swenavatar@gmail.com','12345678','2020-10-01 03:57:25',3,0),(13,'jake','maine','jake@gmail.com','Jake@610','2020-10-01 13:24:40',3,0),(14,'jake','anne','jakea@gmail.com','Far@1234','2020-10-01 13:45:41',3,1),(15,'Akhter','Amin','jaja@gmail.com','Farhan@56','2020-10-02 03:27:04',3,0),(16,'admin','admin','admin@gmail.com','Admin@2020','2020-11-08 00:40:41',3,0);
+INSERT INTO `User` VALUES (1,'Mahdi','Khurrana','mahdi@gmail.com','12345678','2020-09-28 21:37:12',3,1),(2,'shakil','zaman','shakil@gmail.com','12345678','2020-09-28 21:37:53',2,1),(3,'Akhter','amin','farhanbuet09@gmail.com','12345678','2020-09-28 21:38:24',1,1),(4,'Pradeep','Bajracharya','pb8294@rit.edu','12345678','2020-09-28 21:39:48',2,1),(5,'Ahmedul','toslim','toslim@gmail.com','123456789','2020-09-29 03:57:38',3,0),(9,'jhau','meng','jharu3432@gmail.com','12345678','2020-10-01 01:05:19',3,1),(12,'avatar','swen','swenavatar@gmail.com','12345678','2020-10-01 03:57:25',3,0),(13,'jake','maine','jake@gmail.com','Jake@610','2020-10-01 13:24:40',3,0),(14,'jake','anne','jakea@gmail.com','Far@1234','2020-10-01 13:45:41',3,1),(15,'Akhter','Amin','jaja@gmail.com','Farhan@56','2020-10-02 03:27:04',3,0),(16,'admin','admin','admin@gmail.com','Admin@2020','2020-11-08 00:40:41',3,0),(17,'jenny','clinton','jenny@gmail.com','Jenny@1234','2020-11-08 00:56:08',2,1);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,4 +426,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-07 19:45:48
+-- Dump completed on 2020-11-07 20:12:45
