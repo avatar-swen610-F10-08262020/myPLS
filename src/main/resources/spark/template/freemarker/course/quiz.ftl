@@ -15,7 +15,7 @@
  </div>
  </#list>
 
-<h3>New quiz</h3>
+<h3>New Quiz</h3>
  <#list quizList as quiz>
  <div class="card" style="padding: 1rem;">
     <div>
