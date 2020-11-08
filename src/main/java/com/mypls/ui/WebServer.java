@@ -84,6 +84,8 @@ public class WebServer {
 
   private static final String QUIZ_CREATE_URL = "/quiz/add/:id";
   private static final String QUIZ_DETAILS_URL ="/quiz/details/:id";
+  private static final String QUIZ_ATTEMPT_URL ="/quiz/attempt/:id";
+  private static final String QUIZ_SUBMIT_URL ="/quiz/submit/:id";
   private static final String QUIZ_EDIT_URL ="/quiz/edit/:id";
   private static final String QUIZ_UPDATE_URL ="/quiz/update/:id";
   private static final String QUIZ_QUESTION_UPDATE_URL ="/quiz/question/update/:id/:question_id";
@@ -206,6 +208,9 @@ public class WebServer {
     get(COURSE_PREREQUISITE_URL, (req, res) -> new CourseController().prerequisite(req), templateEngine);
     get(COURSE_ASSIGNED_URL, (req, res) -> new CourseController().assignedCourseList(req), templateEngine);
     get(QUIZ_DETAILS_URL, (req, res) -> new QuizController().quiz_details(req), templateEngine);
+    get(QUIZ_ATTEMPT_URL, (req, res) -> new QuizController().quiz_attempt(req), templateEngine);
+
+
     get(QUIZ_EDIT_URL, (req, res) -> new QuizController().quiz_edit(req), templateEngine);
 
     get(OFFERED_URL, (req, res) -> new EnrollController().home(req), templateEngine);
@@ -229,7 +234,7 @@ public class WebServer {
     post(QUIZ_OPTION_UPDATE_URL, (req, res) -> new QuizController().quiz_option_update(req), templateEngine);
     post(QUIZ_QUESTION_DELETE_URL, (req, res) -> new QuizController().quiz_question_delete(req), templateEngine);
     post(QUIZ_QUESTION_ADD_URL, (req, res) -> new QuizController().quiz_question_add(req), templateEngine);
-
+    post(QUIZ_SUBMIT_URL, (req, res) -> new QuizController().quiz_submit(req, res), templateEngine);
 
 
 

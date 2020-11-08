@@ -19,6 +19,20 @@
 5. Begin with sign in or sign up.
 
 
+============== PART 3. SOME DUMMY LOGINS TO TEST ==============
+ADMIN
+Email: farhanbuet09@gmail.com 
+Password: 12345678
+
+PROFESSOR
+Email: shakil@gmail.com
+Password: 12345678
+
+LEARNER
+Email: mahdi@gmail.com
+Password: 12345678
+
+
 ============== APPENDIX: PROJECT STRUCTURE ==============
 Note: (D) = Directory and (F) = File
 
