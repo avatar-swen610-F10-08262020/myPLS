@@ -8,7 +8,8 @@
 <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 <property name="hibernate.connection.username">root</property>
 <property name="hibernate.connection.password">adminroot</property>
-<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/myplsDB</property>
+<!--<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/myplsDB</property>-->
+<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/myplsDB?createDatabaseIfNotExist=true</property>
 <property name="show_sql">true</property>
 <property name="format_sql">false</property>
 <mapping class="com.mypls.model.User"/>
