@@ -41,10 +41,10 @@
                  </div>
                  <div class="form-group">
                      <label for="document">Select Class Document</label>
-                     <input type="file" class="form-control-file" name="lesson_content_path" id="lesson_content_path">
+                     <input type="file" class="form-control-file" name="lesson_content_path" id="lesson_content_path" required>
                    </div>
-               <button type="submit" class="btn btn-primary">Add</button>
-               <a href="/course" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <button style="margin:2em" class="btn btn-danger" data-toggle="collapse" data-target="#lesson_add">Cancel</button>
 
             </form>
         </div>

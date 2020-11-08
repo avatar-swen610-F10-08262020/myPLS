@@ -27,6 +27,7 @@ public class CourseController extends LoginController{
     SessionUtil sessionUtil = new SessionUtil();
     LessonService lessonService = new LessonService();
     QuizService quizService =new QuizService();
+    String regex = "\\d+";
     public ModelAndView home(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
@@ -300,7 +301,7 @@ public class CourseController extends LoginController{
 
         map.put("course", currCourse);
 //        req.attribute("id", courseId);
-        return home(req);
+        return singleview(req);
 
     }
 
@@ -369,55 +370,68 @@ public class CourseController extends LoginController{
         UrlEncoded.decodeTo(req.body(), params, "UTF-8");
         System.out.println(params.toString());
         ////////Add and Update///////////////////
-        for (String parent_id : params.keySet())
-        {
-            System.out.println(dependent_id);
-            System.out.println(parent_id);
-            Course_Dependency course_dependency = cdService.getIndividualCourseDependency(Long.parseLong(parent_id),dependent_id);
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            if(course_dependency!=null){
-                course_dependency.setStatus(1);
-                session.update(course_dependency);
-            }
-            else {
+        try{
+            for (String parent_id : params.keySet())
+            {
+
+                if(!parent_id.matches(regex))
+                    continue;
+                System.out.println(dependent_id);
+                System.out.println(parent_id);
+                List<Course_Dependency> course_dependency = cdService.getIndividualCourseDependency(Long.parseLong(parent_id),dependent_id);
                 session = HibernateUtil.getSessionFactory().openSession();
                 session.beginTransaction();
-                Course_Dependency newCourseDependency = new Course_Dependency();
-                newCourseDependency.setDependent_id(dependent_id);
-                newCourseDependency.setParent_id(Long.parseLong(parent_id));
-                newCourseDependency.setStatus(1);
-
-                session.save(newCourseDependency);
-                System.out.println("Course ID:"+newCourseDependency.getId());
-
-            }
-            session.getTransaction().commit();
-
-        }
-        /////////////////////////////////////////
-        List<Course_Dependency> course_dependencyList = cdService.getCourseDependency(dependent_id);
-        for (Course_Dependency course_dependency: course_dependencyList){
-            boolean flag = false;
-            Long p_id = new Long(0);
-            for( String parent_id : params.keySet()){
-                p_id = Long.parseLong(parent_id);
-                System.out.println(p_id.toString() + " " + course_dependency.getParent_id().toString());
-                if(p_id.equals(course_dependency.getParent_id())){
-                    flag = true;
-                    break;
+                if(course_dependency.size()>0){
+                    Course_Dependency currCourse_Dependency = course_dependency.get(0);
+                    currCourse_Dependency.setStatus(1);
+                    session.update(currCourse_Dependency);
                 }
-            }
-            if(!flag){
-                Course_Dependency course_dependency_delete = cdService.getIndividualCourseDependency(p_id,dependent_id);
-                session = HibernateUtil.getSessionFactory().openSession();
-                session.beginTransaction();
-                course_dependency.setStatus(0);
-                session.update(course_dependency);
-                session.getTransaction().commit();
-            }
-            flag = false;
+                else {
+                    session = HibernateUtil.getSessionFactory().openSession();
+                    session.beginTransaction();
+                    Course_Dependency newCourseDependency = new Course_Dependency();
+                    newCourseDependency.setDependent_id(dependent_id);
+                    newCourseDependency.setParent_id(Long.parseLong(parent_id));
+                    newCourseDependency.setStatus(1);
 
+                    session.save(newCourseDependency);
+                    System.out.println("Course ID:"+newCourseDependency.getId());
+
+                }
+                session.getTransaction().commit();
+
+            }
+            /////////////////////////////////////////
+            List<Course_Dependency> course_dependencyList = cdService.getCourseDependency(dependent_id);
+            for (Course_Dependency course_dependency: course_dependencyList){
+                boolean flag = false;
+                Long p_id = new Long(0);
+                for( String parent_id : params.keySet()){
+                    if(!parent_id.matches(regex))
+                        break;
+                    p_id = Long.parseLong(parent_id);
+                    System.out.println(p_id.toString() + " " + course_dependency.getParent_id().toString());
+                    if(p_id.equals(course_dependency.getParent_id())){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+
+                    session = HibernateUtil.getSessionFactory().openSession();
+                    session.beginTransaction();
+                    course_dependency.setStatus(0);
+                    session.update(course_dependency);
+                    session.getTransaction().commit();
+                }
+
+
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            return prerequisite(req);
         }
 
         return prerequisite(req);

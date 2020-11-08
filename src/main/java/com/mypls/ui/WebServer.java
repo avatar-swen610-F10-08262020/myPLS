@@ -76,7 +76,7 @@ public class WebServer {
   private static final String COURSE_EDIT_URL = "/course/edit/:id";
   private static final String COURSE_DELETE_URL = "/course/delete/:id";
   private static final String COURSE_REGISTER_URL = "/course/register";
-  private static final String COURSE_UPDATE_URL = "/course/update";
+  private static final String COURSE_UPDATE_URL = "/course/update/:id";
   private static final String COURSE_PREREQUISITE_URL = "/course/prerequisite/:id";
   private static final String COURSE_CREATE_PREREQUISITE_URL = "/course/prerequisite/create/:id";
 

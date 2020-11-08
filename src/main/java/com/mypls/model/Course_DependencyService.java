@@ -17,15 +17,14 @@ public class Course_DependencyService {
         return courseList;
     }
 
-    public Course_Dependency getIndividualCourseDependency(Long parent_id, Long dependent_id){
+    public List<Course_Dependency> getIndividualCourseDependency(Long parent_id, Long dependent_id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createQuery("From Course_Dependency Where dependent_id = "+dependent_id.toString()+" And status = '1' And parent_id = "+parent_id.toString());
         List<Course_Dependency> courseList = q.list();
 
-        for(Course_Dependency course_dependency:courseList){
-            return course_dependency;
-        }
-        return null;
+
+        return courseList;
+
     }
 
     public List<Course> getDependentCourses(Long course_id) {

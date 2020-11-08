@@ -20,9 +20,9 @@
         </#if>
            <div class="card" style="padding:1rem">
             <!-- Login Form -->
-            <form action="/course/update" method="post">
+            <form action="/course/update/${course.id}" method="post">
 
-                 <input type="number" class="form-control" id="course_id" name="course_id" value=${course.id} hidden>
+                 <input type="number" class="form-control" id="course_id" name="course_id" value="${course.id}" hidden>
 
                <div class="form-group">
                  <label for="course_name" class="col-form-label">Course Name</label>
