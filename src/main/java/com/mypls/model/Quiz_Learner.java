@@ -4,6 +4,8 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
+@Entity
+@Table
 public class Quiz_Learner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +19,7 @@ public class Quiz_Learner {
     private Integer total_questions;
     @ManyToOne
     @JoinColumn(name="quiz_id", referencedColumnName="id", insertable = false, updatable = false)
+    private Quiz quiz;
 
     public Long getId() {
         return id;

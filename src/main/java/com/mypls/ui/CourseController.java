@@ -230,7 +230,7 @@ public class CourseController extends LoginController{
                 map.put("quizList", offeredQuiz);
                 ArrayList<Quiz> pastQuiz = quizService.getPastQuizByCourseID(ID);
                 map.put("pastQuiz", pastQuiz);
-                System.out.println(pastQuiz.get(0).getCourse_id());
+//                System.out.println(pastQuiz.get(0).getCourse_id());
             }
             List<Lesson> lessonList = lessonService.getLessonByCourse(ID);
 

@@ -1,5 +1,6 @@
 <div class="container">
 
+<h3>Past Quiz</h3>
 <#list pastQuiz as quiz>
  <div class="card" style="padding: 1rem;">
     <div>
@@ -14,6 +15,7 @@
  </div>
  </#list>
 
+<h3>New quiz</h3>
  <#list quizList as quiz>
  <div class="card" style="padding: 1rem;">
     <div>

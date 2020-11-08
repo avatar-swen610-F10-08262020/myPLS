@@ -78,6 +78,8 @@ public class QuizService {
 
         }
         return offeredQuiz;
+
+
     }
 
     public ArrayList<Quiz> getPastQuizByCourseID(Long course_id) {
