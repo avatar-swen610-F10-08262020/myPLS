@@ -164,8 +164,8 @@ public class CourseController extends LoginController{
             } catch (HibernateException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                map.put("UserType", sessionUser.getUser_type_id());
-                map.put("Username", sessionUser.getFirst_name());
+//                map.put("UserType", sessionUser.getUser_type_id());
+//                map.put("Username", sessionUser.getFirst_name());
                 map.put("msg_type", "error");
                 map.put("msg", "System Error: Course can not be created.");
                 return login(req);

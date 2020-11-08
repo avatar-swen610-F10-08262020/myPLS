@@ -97,7 +97,6 @@ public class LoginController{
             else{
                 return new CourseController().assignedCourseList(req);
             }
-            return new ModelAndView(map , "home.ftl");
         }
 //        return (request, response) -> new ModelAndView(map , "signup_user.ftl");
         return new ModelAndView(map , "signup_user.ftl");
@@ -185,7 +184,7 @@ public class LoginController{
         } catch (Exception e) {
             e.printStackTrace();
             halt(501);
-            return null;
+            return new ModelAndView(map , "signup_user.ftl");
         }
         if(!service.checkUser(user)){
             try{
@@ -197,16 +196,14 @@ public class LoginController{
                 System.out.println("user ID:"+ID.toString());
                 emailService.sendActivationEmail(user, ID);
                 session.getTransaction().commit();
-
+                map.put("message","You account has been successfully created. Please check your email. We have sent an activation link to your email. If you do not receive the email, contact admin to activate your account.");
+                return new ModelAndView(map , "login_user.ftl");
 
 
             } catch (HibernateException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            } finally {
-                session.close();
-                map.put("message","You account has been successfully created. Please check your email. We have sent an activation link to your email.");
-                return new ModelAndView(map , "login_user.ftl");
+                return new ModelAndView(map , "signup_user.ftl");
             }
 
         }
@@ -230,12 +227,12 @@ public class LoginController{
         } catch (HibernateException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } finally {
-            session.close();
-            Map<String, Object> map = new HashMap<>();
-//        return (request, response) -> new ModelAndView(map , "login_user.ftl");
-            return new ModelAndView(map , "login_user.ftl");
+            login(req);
         }
+        Map<String, Object> map = new HashMap<>();
+//        return (request, response) -> new ModelAndView(map , "login_user.ftl");
+        return new ModelAndView(map , "login_user.ftl");
+
 
     }
 

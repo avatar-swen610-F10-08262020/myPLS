@@ -17,31 +17,16 @@ public class UserService {
         System.out.println(resultList.size());
         for (User userData : resultList) {
             return userData;
-//            if(userData.getEmail().equals(user.getEmail()) && userData.getPassword().equals(user.getPassword()) && userData.getStatus()==1)
-//            {
-//                session.close();
-//                return userData;
-//
-//            }
-
         }
         return null;
     }
 
     public boolean checkUser(User user){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From User ");
-        session.close();
+        Query q = session.createQuery("From User Where email = '"+ user.getEmail()+"' ");
 
-        List<User> resultList = q.list();
-        for (User userData : resultList) {
-            if(userData.getEmail().equals(user.getEmail()))
-            {
-                session.close();
-                return true;
-            }
-
-        }
+        if(q.list().size()>0)
+            return true;
         return false;
     }
 
@@ -57,7 +42,6 @@ public class UserService {
             e.printStackTrace();
             System.out.println(e.toString());
         }
-        session.close();
         return resultList;
 
     }
@@ -74,7 +58,6 @@ public class UserService {
             e.printStackTrace();
             System.out.println(e.toString());
         }
-        session.close();
         return resultList;
 
     }
@@ -94,7 +77,6 @@ public class UserService {
             e.printStackTrace();
             System.out.println(e.toString());
         }
-        session.close();
         return null;
     }
 
