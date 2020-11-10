@@ -1,6 +1,8 @@
 <div class="container">
 <br />
+<#if pastQuiz?size gt 0>
 <h3>Past Quiz</h3>
+</#if>
 <#list pastQuiz as quiz>
  <div class="card" style="padding: 1rem;">
     <div>

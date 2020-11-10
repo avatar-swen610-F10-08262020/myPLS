@@ -167,7 +167,7 @@ public class QuizController extends CourseController{
             for (Quiz_Questions_Options qqo: quiz_questions_options_list) {
                 Integer correct_answer = -1;
                 String submitted_answer = req.queryParams("q_"+qqo.getQuiz_questions().getQuestion_number());
-                System.out.println("Submiteed " + submitted_answer);
+                System.out.println("Submitted " + submitted_answer);
                 List<Quiz_Options> options = qqo.getQuiz_optionslist();
                 for (Quiz_Options qo: options) {
                     if (qo.getOption_status() == 1) {

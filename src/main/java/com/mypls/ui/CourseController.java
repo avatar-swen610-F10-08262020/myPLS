@@ -263,7 +263,7 @@ public class CourseController extends LoginController{
                 map.put("quizList", attemptableQuiz);
                 map.put("pastQuiz", notAttemptedQuiz);
                 map.put("attemptedQuiz", attemptedQuiz);
-                System.out.println(pastQuiz.get(0).getCourse_id());
+//                System.out.println(pastQuiz.get(0).getCourse_id());
             }
             List<Lesson> lessonList = lessonService.getLessonByCourse(ID);
 

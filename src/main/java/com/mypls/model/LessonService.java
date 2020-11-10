@@ -12,6 +12,7 @@ public class LessonService {
 
         Query q = session.createQuery("From Lesson Where course_id = '" + course_id.toString()+"' And status = 1 ORDER BY week_id ");
         List<Lesson> resultList = q.list();
+//        System.out.println("Here");
         return resultList;
 
     }
