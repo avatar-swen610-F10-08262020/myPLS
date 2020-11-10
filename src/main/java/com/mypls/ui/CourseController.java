@@ -27,11 +27,12 @@ public class CourseController extends LoginController{
     SessionUtil sessionUtil = new SessionUtil();
     LessonService lessonService = new LessonService();
     QuizService quizService =new QuizService();
+    QuizLearnerService quizLearnerService = new QuizLearnerService();
     public ModelAndView home(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             if(user.getUser_type_id() == 1) {
                 map.put("UserType", user.getUser_type_id());
                 map.put("Username", user.getFirst_name());
@@ -62,8 +63,8 @@ public class CourseController extends LoginController{
     public ModelAndView assignedCourseList(Request req){
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             List<Professor_Course> courses = professorCourseService.getCourseByProfessor(user.getId());
@@ -86,8 +87,8 @@ public class CourseController extends LoginController{
     public ModelAndView registeredCourseList(Request req){
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             ArrayList<Course> courses = learner_courseService.getRegisteredCourses(user);
@@ -110,8 +111,8 @@ public class CourseController extends LoginController{
     public ModelAndView create(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             List<User> userList =  userService.getProfessors();
 
 
@@ -130,8 +131,8 @@ public class CourseController extends LoginController{
 
     public ModelAndView registerClass(Request req) {
         Map<String, Object> map = new HashMap<>();
-        User sessionUser = userService.getUserbyId((long) 1);
-//        User sessionUser = sessionUtil.getAuthenticatedUser(req);
+//        User sessionUser = userService.getUserbyId((long) 1);
+        User sessionUser = sessionUtil.getAuthenticatedUser(req);
 
         String courseName = req.queryParams("course_name");
         String description = req.queryParams("description");
@@ -209,8 +210,8 @@ public class CourseController extends LoginController{
     public ModelAndView singleview(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long ID = Long.parseLong(req.params(":id"));
@@ -222,15 +223,47 @@ public class CourseController extends LoginController{
             if (user.getUser_type_id() != 3) {
                 List<Quiz> quizList = quizService.getQuizByCourseID(ID);
                 ArrayList<Quiz> pastQuiz = new ArrayList<Quiz>();
+                ArrayList<Quiz_Learner> attemptedQuiz = new ArrayList<Quiz_Learner>();
                 map.put("quizList", quizList);
+                map.put("attemptedQuiz", attemptedQuiz);
                 map.put("pastQuiz", pastQuiz);
             } else {
+                // All past quizzes and all available quizzes
                 ArrayList<Quiz> offeredQuiz = quizService.getAttemptableQuizByCourseID(ID);
-
-                map.put("quizList", offeredQuiz);
                 ArrayList<Quiz> pastQuiz = quizService.getPastQuizByCourseID(ID);
-                map.put("pastQuiz", pastQuiz);
-//                System.out.println(pastQuiz.get(0).getCourse_id());
+
+                // Get Attemptable, Not attempted and Attempted Quizzes
+                ArrayList<Quiz> attemptableQuiz = new ArrayList<Quiz>();
+                ArrayList<Quiz_Learner> attemptedQuiz = new ArrayList<Quiz_Learner>();
+                ArrayList<Quiz> notAttemptedQuiz = new ArrayList<Quiz>();
+
+                for (int i = 0; i < pastQuiz.size(); i++) {
+                    System.out.println(String.valueOf(i) + "-" + quizLearnerService.alreadyAttempted(user.getId(), pastQuiz.get(i).getId()));
+                    if (quizLearnerService.alreadyAttempted(user.getId(), pastQuiz.get(i).getId())) {
+                        List<Quiz_Learner> quiz_learners = quizLearnerService.getQuizLearner(user.getId(), pastQuiz.get(i).getId());
+                        for (Quiz_Learner ql_i: quiz_learners) {
+                            attemptedQuiz.add(ql_i);
+                        }
+                    } else {
+                        notAttemptedQuiz.add(pastQuiz.get(i));
+                    }
+                }
+
+                for (int i = 0; i < offeredQuiz.size(); i++) {
+                    System.out.println(String.valueOf(i) + "-" + quizLearnerService.alreadyAttempted(user.getId(), offeredQuiz.get(i).getId()));
+                    if (quizLearnerService.alreadyAttempted(user.getId(), offeredQuiz.get(i).getId())) {
+                        List<Quiz_Learner> quiz_learners = quizLearnerService.getQuizLearner(user.getId(), offeredQuiz.get(i).getId());
+                        for (Quiz_Learner ql_i: quiz_learners) {
+                            attemptedQuiz.add(ql_i);
+                        }
+                    } else {
+                        attemptableQuiz.add(offeredQuiz.get(i));
+                    }
+                }
+                map.put("quizList", attemptableQuiz);
+                map.put("pastQuiz", notAttemptedQuiz);
+                map.put("attemptedQuiz", attemptedQuiz);
+                System.out.println(pastQuiz.get(0).getCourse_id());
             }
             List<Lesson> lessonList = lessonService.getLessonByCourse(ID);
 
@@ -253,8 +286,8 @@ public class CourseController extends LoginController{
     public ModelAndView edit(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long ID = Long.parseLong(req.params(":id"));
@@ -331,8 +364,8 @@ public class CourseController extends LoginController{
         Map<String, Object> map = new HashMap<>();
 
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long ID = Long.parseLong(req.params(":id"));

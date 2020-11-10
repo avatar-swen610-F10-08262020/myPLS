@@ -76,4 +76,12 @@ public class Quiz_Learner {
     public void setTotal_questions(Integer total_questions) {
         this.total_questions = total_questions;
     }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
 }

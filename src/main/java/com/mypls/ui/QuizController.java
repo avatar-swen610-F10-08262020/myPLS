@@ -109,8 +109,8 @@ public class QuizController extends CourseController{
     public ModelAndView quiz_details( Request req){
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long quiz_id = Long.parseLong(req.params(":id"));
@@ -132,8 +132,8 @@ public class QuizController extends CourseController{
     public ModelAndView quiz_attempt ( Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long quiz_id = Long.parseLong(req.params(":id"));
@@ -155,8 +155,8 @@ public class QuizController extends CourseController{
     public ModelAndView quiz_submit(Request req, Response res){
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long quiz_id = Long.parseLong(req.params(":id"));

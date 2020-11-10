@@ -78,8 +78,6 @@ public class QuizService {
 
         }
         return offeredQuiz;
-
-
     }
 
     public ArrayList<Quiz> getPastQuizByCourseID(Long course_id) {
@@ -123,7 +121,7 @@ public class QuizService {
             }
 
         }
-        System.out.println(pastQuiz);
+//        System.out.println(pastQuiz);
         return pastQuiz;
     }
 

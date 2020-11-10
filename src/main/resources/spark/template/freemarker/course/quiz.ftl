@@ -1,20 +1,33 @@
 <div class="container">
-
+<br />
 <h3>Past Quiz</h3>
 <#list pastQuiz as quiz>
  <div class="card" style="padding: 1rem;">
     <div>
-        <span>Past Quiz Title: ${quiz.quiz_description}</span>
+        <span>Past Quiz: ${quiz.quiz_description}</span>
     </div>
   <div class="card-body">
     Quiz Start Date: ${quiz.start_date} </br>
     Quiz End Date: ${quiz.end_date} </br>
-    Time Length: ${quiz.quiz_length} Minute
-
   </div>
  </div>
  </#list>
 
+ <#list attemptedQuiz as quiz>
+  <div class="card" style="padding: 1rem;">
+     <div>
+         <span>Attempted Quiz: ${quiz.quiz.quiz_description}</span>
+     </div>
+   <div class="card-body">
+     Quiz Start Date: ${quiz.quiz.start_date} </br>
+     Quiz End Date: ${quiz.quiz.end_date} </br>
+     Score: ${quiz.percentage} %
+
+   </div>
+  </div>
+  </#list>
+
+<br />
 <h3>New Quiz</h3>
  <#list quizList as quiz>
  <div class="card" style="padding: 1rem;">
@@ -30,7 +43,6 @@
   <div class="card-body">
     Quiz Start Date: ${quiz.start_date} </br>
     Quiz End Date: ${quiz.end_date} </br>
-    Time Length: ${quiz.quiz_length} Minute
 
   </div>
  </div>
