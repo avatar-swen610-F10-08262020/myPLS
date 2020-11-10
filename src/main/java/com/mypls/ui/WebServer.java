@@ -81,6 +81,10 @@ public class WebServer {
   private static final String COURSE_CREATE_PREREQUISITE_URL = "/course/prerequisite/create/:id";
 
   private static final String LESSON_CREATE_URL = "/lesson/add/:id";
+  private static final String LESSON_UPDATE_URL = "/lesson/update/:id/:lesson_id";
+  private static final String LESSON_DELETE_URL = "/lesson/delete/:id/:lesson_id";
+
+
 
   private static final String QUIZ_CREATE_URL = "/quiz/add/:id";
   private static final String QUIZ_DETAILS_URL ="/quiz/details/:id";
@@ -223,12 +227,17 @@ public class WebServer {
     post(COURSE_CREATE_PREREQUISITE_URL, (req, res) -> new CourseController().createPrerequisite(req), templateEngine);
     post(USER_UPDATE_URL, (req, res) -> new UserController().user_update(req), templateEngine);
     post(LESSON_CREATE_URL, (req, res) -> new LessonController().lesson_add(req), templateEngine);
+    post(LESSON_UPDATE_URL, (req, res) -> new LessonController().lesson_update(req), templateEngine);
+    post(LESSON_DELETE_URL, (req, res) -> new LessonController().lesson_delete(req), templateEngine);
+
     post(QUIZ_CREATE_URL, (req, res) -> new QuizController().quiz_add(req), templateEngine);
     post(QUIZ_UPDATE_URL, (req, res) -> new QuizController().quiz_update(req), templateEngine);
     post(QUIZ_QUESTION_UPDATE_URL, (req, res) -> new QuizController().quiz_question_update(req), templateEngine);
     post(QUIZ_OPTION_UPDATE_URL, (req, res) -> new QuizController().quiz_option_update(req), templateEngine);
     post(QUIZ_QUESTION_DELETE_URL, (req, res) -> new QuizController().quiz_question_delete(req), templateEngine);
     post(QUIZ_QUESTION_ADD_URL, (req, res) -> new QuizController().quiz_question_add(req), templateEngine);
+
+
 
 
 

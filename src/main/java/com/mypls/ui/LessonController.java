@@ -84,4 +84,93 @@ public class LessonController extends CourseController{
         }
         return singleview(req);
     }
-}
+
+    public ModelAndView lesson_update(Request req){
+
+        Long course_id = Long.parseLong(req.params(":id"));
+        Long lesson_id = Long.parseLong(req.params(":lesson_id"));
+        List<Lesson> lesson_list = lessonService.getLessonByCourseAndLesson(course_id,lesson_id);
+        if(lesson_list.size()>0)
+        {
+            Lesson lessonData = lesson_list.get(0);
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            lessonData.setStatus(0);
+            session.update(lessonData);
+            session.getTransaction().commit();
+            req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/tmp"));
+
+            Map<String, String[]> parameterMap = req.raw().getParameterMap();
+            Set<String> parameterSet = parameterMap.keySet();
+            List<String> metaData = new ArrayList<String>();
+            parameterSet.stream().forEach(each->{
+                String join = String.join(",",parameterMap.get(each));
+                System.out.println("this is the key: " + each);
+                System.out.println("this is value: " + join);
+                metaData.add(join);
+            });
+            System.out.println("file name value is: " + metaData.get(0));
+            System.out.println("week id is: " + metaData.get(1));
+
+            Part uploadFile = null;
+            try{
+                uploadFile = req.raw().getPart("lesson_content_path");
+                System.out.println("content type:"+uploadFile.getContentType());
+                System.out.println("file name:"+uploadFile.getSubmittedFileName().substring(uploadFile.getSubmittedFileName().lastIndexOf('.'), uploadFile.getSubmittedFileName().length()));
+
+            }
+            catch (IOException | ServletException e){
+                e.printStackTrace();
+
+            }
+            try(InputStream inStream = uploadFile.getInputStream()){
+
+                byte[] buffer = new byte[inStream.available()];
+                inStream.read(buffer);
+
+                String extensions = uploadFile.getSubmittedFileName().substring(uploadFile.getSubmittedFileName().lastIndexOf('.'), uploadFile.getSubmittedFileName().length());
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+                String filePath = metaData.get(0)+"_" + timestamp.getTime() + extensions;
+                File targetFile = new File("src/main/resources/public/lesson/"+filePath);
+                OutputStream outStream = new FileOutputStream(targetFile);
+                outStream.write(buffer);
+
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                Lesson lesson = new Lesson();
+                lesson.setContent_type(uploadFile.getContentType());
+                lesson.setCourse_id(course_id);
+                lesson.setLesson_content_path(filePath);
+                lesson.setWeek_id(Long.parseLong(metaData.get(1)));
+                lesson.setStatus(1);
+
+                session.save(lesson);
+                session.getTransaction().commit();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return singleview(req);
+    }
+    public ModelAndView lesson_delete(Request req){
+        Long course_id = Long.parseLong(req.params(":id"));
+        Long lesson_id = Long.parseLong(req.params(":lesson_id"));
+        List<Lesson> lesson_list = lessonService.getLessonByCourseAndLesson(course_id,lesson_id);
+        if(lesson_list.size()>0){
+            Lesson lessonData = lesson_list.get(0);
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            lessonData.setStatus(0);
+            session.update(lessonData);
+            session.getTransaction().commit();
+
+        }
+        return singleview(req);
+    }
+
+
+    }

@@ -214,10 +214,29 @@ public class CourseController extends LoginController{
             User userProfessor = userService.getUserbyId(professor_course.getUser_id());
             List<Course_Feedback> feedbackList = cfService.getFeedbackByCourse(ID);
             List<Quiz> quizList = quizService.getQuizByCourseID(ID);
-            List<Lesson> lessonList = lessonService.getLessonByCourse(ID);
 
+            List<Lesson> lessonList = lessonService.getLessonByCourse(ID);
+            List<Lesson_Week> lesson_weekList = new ArrayList<>();
+            Set<Long> week_id = new HashSet<>();
+            for(Lesson lesson:lessonList){
+                week_id.add(lesson.getWeek_id());
+            }
+            for(Long week_number:week_id){
+                List<Lesson> content_lesson = new ArrayList<>();
+                Lesson lessonData = new Lesson();
+                for(Lesson lesson:lessonList){
+                    if(lesson.getWeek_id().equals(week_number))
+                        content_lesson.add(lesson);
+                }
+                Lesson_Week lesson_week = new Lesson_Week(week_number,content_lesson);
+                lesson_weekList.add(lesson_week);
+            }
+            Collections.sort(lesson_weekList);
+            List<Learner_course> userList = learner_courseService.getLearnerByCourse(ID);
+
+            map.put("userList", userList);
             map.put("quizList",quizList);
-            map.put("lessonList", lessonList);
+            map.put("lessonList", lesson_weekList);
             map.put("feedbackList",feedbackList);
             map.put("professor",userProfessor);
             map.put("course", currCourse);

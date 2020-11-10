@@ -23,6 +23,11 @@ public class Learner_course {
     @JoinColumn(name="course_id", referencedColumnName="id", insertable = false, updatable = false)
     private Course course;
 
+    @ManyToOne
+    @JoinColumn(name="user_id", referencedColumnName="id", insertable = false, updatable = false)
+    private User user;
+
+
     public Long getId() {
         return id;
     }
@@ -69,5 +74,13 @@ public class Learner_course {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

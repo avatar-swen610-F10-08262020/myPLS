@@ -12,6 +12,8 @@
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#material" style="color:white;">Course Material</a></li>
              <#if UserType!=3>
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#quiz" style="color:white;">Course Quiz</a></li>
+            <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#enrolled" style="color:white;">Enrolled Student</a></li>
+
             </#if>
             <#if UserType==1>
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#feedback" style="color:white;">Course Feedback</a></li>
@@ -129,6 +131,10 @@
             <div id="quiz" class="tab-pane fade">
               <#include "quiz.ftl">
             </div>
+             <div id="enrolled" class="tab-pane fade">
+              <#include "/user/list.ftl">
+             </div>
+
           </div>
         </div>
       </section>

@@ -23,6 +23,13 @@ public class Learner_courseService {
         }
     }
 
+    public List<Learner_course> getLearnerByCourse(Long course_id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query q = session.createQuery("From Learner_course Where course_id = "+course_id.toString()+" And status = '1'");
+        List<Learner_course> learner_courseList = q.list();
+        return learner_courseList;
+    }
+
     public Boolean registrationAvailable(Course course) {
         Integer totalSeats = Integer.parseInt(course.getClass_size());
         Integer alreadyRegistered = getRegisteredCount(course);
