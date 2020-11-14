@@ -143,7 +143,7 @@ public class CourseController extends LoginController{
 //        return null;
         if (cService.alreadyAvailable(courseName, course_code)) {
             map.put("msg_type", "error");
-            map.put("msg", "Course has already been created");
+            map.put("msg", "This Course has already been created. Try different course name and code.");
             List<User> userList =  userService.getProfessors();
             map.put("users", userList);
             map.put("UserType", sessionUser.getUser_type_id());

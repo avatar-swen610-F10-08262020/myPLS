@@ -18,7 +18,9 @@
     </div>
   </div>
  </#list>
-<button style="margin:2em" class="btn btn-info" data-toggle="collapse" data-target="#quiz_add">Add Quiz</button>
+ <#if lessonList?size gt 0>
+    <button style="margin:2em" class="btn btn-info" data-toggle="collapse" data-target="#quiz_add">Add Quiz</button>
+ </#if>
 
     <div id="quiz_add" class="collapse">
         <h1>Add Quiz</h1>
