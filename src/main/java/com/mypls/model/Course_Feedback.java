@@ -39,7 +39,7 @@ public class Course_Feedback {
     }
 
     public void setUser_id(Long user_id) {
-        this.course_id = user_id;
+        this.user_id = user_id;
     }
 
     public String getFeedback() {
