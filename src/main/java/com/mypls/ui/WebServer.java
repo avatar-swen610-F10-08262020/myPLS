@@ -102,7 +102,8 @@ public class WebServer {
   private static final String QUIZ_QUESTION_ADD_URL ="/quiz/question/add/:id";
   private static final String QUIZ_PERFORMANCE_VIEW_URL ="/quiz/performance/:id/:learner_id";
 
-
+  private static final String COURSE_FEEDBACK_URL = "/feedback/:id";
+//  private static final String COURSE_FEEDBACK_URL = "/offered/:id"
 
 
   private static final String USER_VIEW_URL = "/user/:id";
@@ -252,7 +253,7 @@ public class WebServer {
     post(QUIZ_QUESTION_DELETE_URL, (req, res) -> new QuizController().quiz_question_delete(req), templateEngine);
     post(QUIZ_QUESTION_ADD_URL, (req, res) -> new QuizController().quiz_question_add(req), templateEngine);
     post(QUIZ_SUBMIT_URL, (req, res) -> new QuizController().quiz_submit(req, res), templateEngine);
-
+    post(COURSE_FEEDBACK_URL, (req, res) -> new FeedbackController().feedbackview(req, res), templateEngine);
 
 
 

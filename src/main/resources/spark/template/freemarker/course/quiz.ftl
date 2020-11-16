@@ -86,7 +86,7 @@
                </div>
                <div class="row clearfix">
                		<div class="col-md-12 column">
-               			<table class="table table-bordered table-hover" id="tab_logic">
+               			<table class="table table-bordered table-hover" id="tab_logic_quiz">
                				<thead>
                					<tr>
                						<th class="text-center">
@@ -176,13 +176,13 @@ $(document).ready(function(){
      $("#add_row").click(function(){b=i-1;
 
      var correct_ans='<td id="option5"><div class="form-group"> <select class="form-control" id="correct_ans" name="correct_ans_'+(i+1)+'" required> <option selected>Correct Ans</option> <option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option> <option value="5">5</option> </select> </div> </td>';
-      $('#tab_logic').append('<tr id="addr'+(i+1)+'"><td>'+(i+1)+'</td><td><input type="text" name="question'+(i+1)+'"  placeholder="Question" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'1"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'2"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'3"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'4"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'5"  placeholder="Option" class="form-control"/></td>'+correct_ans+'</tr>');
+      $('#tab_logic_quiz').append('<tr id="addr'+(i+1)+'"><td>'+(i+1)+'</td><td><input type="text" name="question'+(i+1)+'"  placeholder="Question" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'1"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'2"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'3"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'4"  placeholder="Option" class="form-control"/></td><td id="option0"> <input type="text" name="options'+(i+1)+'5"  placeholder="Option" class="form-control"/></td>'+correct_ans+'</tr>');
 
       i++;
   });
      $("#delete_row").click(function(){
     	 if(i>1){
-		 $("#addr"+(i-1)).html('');
+		 $("#addr"+(i)).html('');
 		 i--;
 	    }
 	 });

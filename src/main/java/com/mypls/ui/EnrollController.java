@@ -43,6 +43,8 @@ public class EnrollController {
         } catch (NullPointerException ex) {
             System.out.println(ex.toString());
         }
+        map.put("UserType", user.getUser_type_id());
+        map.put("Username", user.getFirst_name());
         map.put("msg_type", "none");
         map.put("message", "none");
         return new ModelAndView(map, "enroll/home.ftl");
@@ -70,6 +72,8 @@ public class EnrollController {
         map.put("feedbackList",feedbackList);
         map.put("msg_type", "none");
         map.put("msg", "none");
+        map.put("UserType", user.getUser_type_id());
+        map.put("Username", user.getFirst_name());
         if (learner_courseService.registrationAvailable(currCourse)) {
             map.put("regis_available", "yes");
         } else {
@@ -91,9 +95,13 @@ public class EnrollController {
             if (enrolled) {
                 map.put("msg_type", "notification");
                 map.put("msg", "Enrolled to the course");
+                map.put("UserType", user.getUser_type_id());
+                map.put("Username", user.getFirst_name());
             } else {
                 map.put("msg_type", "error");
                 map.put("msg", "Couldn't enroll. Database error!");
+                map.put("UserType", user.getUser_type_id());
+                map.put("Username", user.getFirst_name());
             }
             return home(req);
         } else {
@@ -102,13 +110,19 @@ public class EnrollController {
                 if (enrolled) {
                     map.put("msg_type", "notification");
                     map.put("msg", "Enrolled to the course");
+                    map.put("UserType", user.getUser_type_id());
+                    map.put("Username", user.getFirst_name());
                 } else {
                     map.put("msg_type", "error");
                     map.put("msg", "Couldn't enroll. Database error!");
+                    map.put("UserType", user.getUser_type_id());
+                    map.put("Username", user.getFirst_name());
                 }
             } else {
                 map.put("msg_type", "error");
                 map.put("msg", "Couldn't enroll. Prerequisite not complete!");
+                map.put("UserType", user.getUser_type_id());
+                map.put("Username", user.getFirst_name());
             }
             return home(req);
         }

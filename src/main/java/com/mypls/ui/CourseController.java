@@ -32,6 +32,8 @@ public class CourseController extends LoginController{
 
     QuizLearnerService quizLearnerService = new QuizLearnerService();
 
+    Course_FeedbackService course_feedbackService = new Course_FeedbackService();
+
     public ModelAndView home(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
@@ -262,6 +264,8 @@ public class CourseController extends LoginController{
             map.put("course", currCourse);
             map.put("msg_type", "none");
             map.put("msg", "none");
+            Integer alreadyFedback = course_feedbackService.feedbackGiven(user, ID);
+            map.put("alreadyFedback", alreadyFedback);
 
             if(user.getUser_type_id() == 3) {
                 // All past quizzes and all available quizzes
@@ -301,6 +305,8 @@ public class CourseController extends LoginController{
                 map.put("attemptedQuiz", attemptedQuiz);
 //                System.out.println(pastQuiz.get(0).getCourse_id());
             }
+
+
 
 //            System.out.println(map);
             return new ModelAndView(map , "course/single.ftl");

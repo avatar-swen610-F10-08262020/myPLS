@@ -483,7 +483,6 @@
             <a class="btn btn-default" href="/course">Home</a>
             <a class="btn btn-default" href="/course">Courses</a>
             <a class="btn btn-default" href="/offeredcourse">Enroll</a>
-            <a class="btn btn-default" href="#">Announcement</a>
             <a class="btn btn-default" href="/profile">${Username}</a>
             <a class="btn btn-default" href="/logout">Logout</a>
         </div>

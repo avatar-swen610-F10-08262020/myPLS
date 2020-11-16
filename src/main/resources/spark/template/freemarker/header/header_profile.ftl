@@ -157,15 +157,12 @@
                             <a class="btn btn-default" href="/home">Home</a>
                             <a class="btn btn-default" href="/course">Courses</a>
                             <a class="btn btn-default" href="/course">Users</a>
-                            <a class="btn btn-default" href="#">Announcement</a>
                         <#elseif UserType == 2>
                             <a class="btn btn-default" href="/course">Home</a>
                             <a class="btn btn-default" href="/course/assigned">Courses</a>
-                            <a class="btn btn-default" href="/course">Announcement</a>
                          <#else>
                              <a class="btn btn-default" href="/course">Home</a>
                              <a class="btn btn-default" href="/course">Courses</a>
-                             <a class="btn btn-default" href="#">Announcement</a>
                         </#if>
 
             <a class="btn btn-default" href="#">${firstName}</a>
