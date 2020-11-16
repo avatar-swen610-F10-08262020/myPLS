@@ -84,4 +84,5 @@ public class Quiz_Learner {
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
     }
+
 }

@@ -23,9 +23,13 @@ public class Learner_course {
     @JoinColumn(name="course_id", referencedColumnName="id", insertable = false, updatable = false)
     private Course course;
 
+
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName="id", insertable = false, updatable = false)
     private User user;
+
+
+    private String created_date;
 
 
     public Long getId() {
@@ -76,11 +80,20 @@ public class Learner_course {
         this.course = course;
     }
 
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public String getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
+
     }
 }

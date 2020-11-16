@@ -2,8 +2,11 @@ package com.mypls.ui;
 
 import com.mypls.model.*;
 import com.mypls.util.HibernateUtil;
+import org.hibernate.HibernateError;
+import org.hibernate.Session;
 import spark.ModelAndView;
 import spark.Request;
+import spark.Response;
 
 import java.util.*;
 
@@ -11,6 +14,7 @@ public class QuizController extends CourseController{
     Quiz_OptionsService quiz_optionsService = new Quiz_OptionsService();
     QuizService quizService = new QuizService();
     Quiz_QuestionsService quiz_questionsService = new Quiz_QuestionsService();
+    Session session = null;
 
     public ModelAndView quiz_add( Request req){
         System.out.println(req.queryParams());
@@ -101,35 +105,16 @@ public class QuizController extends CourseController{
         return singleview(req);
 
     }
+
     public ModelAndView quiz_details( Request req){
         Map<String, Object> map = new HashMap<>();
         try {
+//            User user = userService.getUserbyId((long) 1);
             User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long quiz_id = Long.parseLong(req.params(":id"));
-            List<Quiz_Options> quiz_options_list = quiz_optionsService.getQuizOptionByQuizId(quiz_id);
-//            List<Quiz_Questions> quiz_questions = new ArrayList<>();
-            Set<Quiz_Questions> quiz_questions = new HashSet<>();
-            List<Quiz_Questions_Options> quiz_questions_options_list = new ArrayList<>();
-            for(Quiz_Options quiz_options:quiz_options_list){
-                quiz_questions.add(quiz_options.getQuiz_questions());
-            }
-            for(Quiz_Questions quizQuestion:quiz_questions){
-                List<Quiz_Options> quiz_optionsList = new ArrayList<>();
-                Integer correct_ans=0;
-                for(Quiz_Options quiz_options:quiz_options_list){
-                    if(!quizQuestion.getId().equals(quiz_options.getQuiz_questions().getId()))
-                        continue;
-                    quiz_optionsList.add(quiz_options);
-                    if(quiz_options.getOption_status().equals(1))
-                        correct_ans = Math.toIntExact(quiz_options.getOption_number());
-                }
-                Quiz_Questions_Options quiz_questions_options = new Quiz_Questions_Options(quizQuestion,quiz_optionsList);
-                quiz_questions_options.setResult(correct_ans);
-                quiz_questions_options_list.add(quiz_questions_options);
-            }
-            Collections.sort(quiz_questions_options_list);
+            List<Quiz_Questions_Options> quiz_questions_options_list = quizService.getQA(quiz_id);
 
             map.put("QuizQuestionOptions", quiz_questions_options_list);
             map.put("quizId", quiz_id);
@@ -143,6 +128,84 @@ public class QuizController extends CourseController{
             return login(req);
         }
     }
+
+    public ModelAndView quiz_attempt ( Request req) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUser_type_id());
+            map.put("Username", user.getFirst_name());
+            Long quiz_id = Long.parseLong(req.params(":id"));
+            List<Quiz_Questions_Options> quiz_questions_options_list = quizService.getQA(quiz_id);
+
+            map.put("QuizQuestionOptions", quiz_questions_options_list);
+            map.put("quizId", quiz_id);
+
+
+
+            return new ModelAndView(map, "quiz/quiz_attempt.ftl");
+        }
+        catch (NullPointerException ex)
+        {
+            return login(req);
+        }
+    }
+
+    public ModelAndView quiz_submit(Request req, Response res){
+        Map<String, Object> map = new HashMap<>();
+        try {
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUser_type_id());
+            map.put("Username", user.getFirst_name());
+            Long quiz_id = Long.parseLong(req.params(":id"));
+            Long course_id = quizService.getQuizByID(quiz_id).getCourse_id();
+            List<Quiz_Questions_Options> quiz_questions_options_list = quizService.getQA(quiz_id);
+            double total_score = 0.0;
+            double percentage = 0.0;
+            for (Quiz_Questions_Options qqo: quiz_questions_options_list) {
+                Integer correct_answer = -1;
+                String submitted_answer = req.queryParams("q_"+qqo.getQuiz_questions().getQuestion_number());
+                System.out.println("Submitted " + submitted_answer);
+                List<Quiz_Options> options = qqo.getQuiz_optionslist();
+                for (Quiz_Options qo: options) {
+                    if (qo.getOption_status() == 1) {
+                        correct_answer = Math.toIntExact(qo.getOption_number());
+                        System.out.println(qo.getOption_status() + "c" + correct_answer);
+                    }
+                }
+                if (correct_answer.toString().equalsIgnoreCase(submitted_answer)) {
+                    System.out.println("correct" + total_score);
+                    total_score += 1;
+                }
+            }
+            percentage = total_score / quiz_questions_options_list.size() * 100;
+            System.out.println(total_score + "---" + percentage);
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Quiz_Learner quiz_learner = new Quiz_Learner();
+            quiz_learner.setLearner_id(user.getId());
+            quiz_learner.setQuiz_id(quiz_id);
+            quiz_learner.setPercentage(String.valueOf(percentage));
+            quiz_learner.setScore((int) total_score);
+            quiz_learner.setStatus(1);
+            quiz_learner.setTotal_questions(quiz_questions_options_list.size());
+            session.save(quiz_learner);
+//            session.getTransaction().commit();
+            session.close();
+
+
+
+            res.redirect( "/course/"+course_id.toString());
+        }
+        catch (NullPointerException ex)
+        {
+            return login(req);
+        }
+        return null;
+    }
+
     public ModelAndView quiz_edit( Request req){
         Map<String, Object> map = new HashMap<>();
         try {

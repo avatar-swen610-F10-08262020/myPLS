@@ -7,7 +7,11 @@
          <h2>Course: ${course.course_name}</h2>
          <span>Code: ${course.course_code}</span>
          <#if (regis_available == "yes")>
-         <a style="float: right" href="/offeredcourse/enroll/${course.id}" class="btn btn-sm btn-info">Enroll</a>
+            <#if (eligible == "yes")>
+                <a style="float: right" href="/offeredcourse/enroll/${course.id}" class="btn btn-sm btn-info">Enroll</a>
+            <#else>
+                <span style="color: red; float: right"><b>You lack certain prereqiusites to register</b></span>
+            </#if>
          <#else>
          <span style="color: red; float: right"><b>Registration closed... Class full</b></span>
          </#if>
