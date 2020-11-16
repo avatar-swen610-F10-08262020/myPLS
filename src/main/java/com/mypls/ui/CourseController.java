@@ -32,8 +32,8 @@ public class CourseController extends LoginController{
     public ModelAndView home(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             if(user.getUser_type_id() == 1) {
                 map.put("UserType", user.getUser_type_id());
                 map.put("Username", user.getFirst_name());
@@ -64,8 +64,8 @@ public class CourseController extends LoginController{
     public ModelAndView assignedCourseList(Request req){
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             List<Professor_Course> courses = professorCourseService.getCourseByProfessor(user.getId());
@@ -88,8 +88,8 @@ public class CourseController extends LoginController{
     public ModelAndView registeredCourseList(Request req){
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             ArrayList<Course> courses = learner_courseService.getRegisteredCourses(user);
@@ -112,8 +112,8 @@ public class CourseController extends LoginController{
     public ModelAndView create(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             List<User> userList =  userService.getProfessors();
 
 
@@ -132,8 +132,8 @@ public class CourseController extends LoginController{
 
     public ModelAndView registerClass(Request req) {
         Map<String, Object> map = new HashMap<>();
-        User sessionUser = userService.getUserbyId((long) 1);
-//        User sessionUser = sessionUtil.getAuthenticatedUser(req);
+//        User sessionUser = userService.getUserbyId((long) 1);
+        User sessionUser = sessionUtil.getAuthenticatedUser(req);
 
         String courseName = req.queryParams("course_name");
         String description = req.queryParams("description");
@@ -211,8 +211,8 @@ public class CourseController extends LoginController{
     public ModelAndView singleview(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long ID = Long.parseLong(req.params(":id"));
@@ -288,8 +288,8 @@ public class CourseController extends LoginController{
     public ModelAndView edit(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long ID = Long.parseLong(req.params(":id"));
@@ -366,8 +366,8 @@ public class CourseController extends LoginController{
         Map<String, Object> map = new HashMap<>();
 
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long ID = Long.parseLong(req.params(":id"));

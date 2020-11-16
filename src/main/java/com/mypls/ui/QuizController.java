@@ -197,13 +197,23 @@ public class QuizController extends CourseController{
 
 
 
-            res.redirect( "/course/"+course_id.toString());
+            if (percentage < 50) {
+                map.put("msg_type", "error");
+                map.put("msg", "Sorry, you failed the quiz. You managed to get " + String.valueOf(percentage) +" (" +String.valueOf(total_score) + "/" + String.valueOf(quiz_questions_options_list.size()) + ")");
+            } else {
+                map.put("msg_type", "success");
+                map.put("msg", "Congratulations, you passed the quiz. You managed to get " + String.valueOf(percentage) +" (" +String.valueOf(total_score) + "/" + String.valueOf(quiz_questions_options_list.size()) + ".0)");
+            }
+
+            map.put("courseid", course_id);
+            return new ModelAndView(map , "quiz/quiz_result.ftl");
+//            res.redirect( "/course/"+course_id.toString());
         }
         catch (NullPointerException ex)
         {
             return login(req);
         }
-        return null;
+//        return null;
     }
 
     public ModelAndView quiz_edit( Request req){

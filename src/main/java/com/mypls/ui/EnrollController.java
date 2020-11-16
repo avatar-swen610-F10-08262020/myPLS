@@ -25,8 +25,8 @@ public class EnrollController {
     Learner_courseService learner_courseService = new Learner_courseService();
     SessionUtil sessionUtil = new SessionUtil();
     public ModelAndView home(Request req) {
-        User user = userService.getUserbyId((long) 1);
-//        User user = sessionUtil.getAuthenticatedUser(req);
+//        User user = userService.getUserbyId((long) 1);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
         Calendar today = Calendar.getInstance();
         if (today.get(Calendar.MONTH) <=5) {
@@ -53,8 +53,8 @@ public class EnrollController {
     public ModelAndView show(Request req) {
         Map<String, Object> map = new HashMap<>();
         Long ID = Long.parseLong(req.params(":id"));
-        User user = userService.getUserbyId((long) 1);
-//        User user = sessionUtil.getAuthenticatedUser(req);
+//        User user = userService.getUserbyId((long) 1);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Course currCourse = cService.getIndividualCourse(ID);
         Professor_Course professor_course = professorCourseService.getCourseProfessor(ID);
         User userProfessor = userService.getUserbyId(professor_course.getUser_id());
@@ -86,8 +86,8 @@ public class EnrollController {
     public ModelAndView enroll(Request req) {
         Map<String, Object> map = new HashMap<>();
         Long ID = Long.parseLong(req.params(":id"));
-        User user = userService.getUserbyId((long) 1);
-//        User user = sessionUtil.getAuthenticatedUser(req);
+//        User user = userService.getUserbyId((long) 1);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Course course = cService.getIndividualCourse(ID);
         List<Course> dependentCourses = cdService.getDependentCourses(course.getId());
         if (dependentCourses.size() == 0) {

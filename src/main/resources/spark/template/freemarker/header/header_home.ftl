@@ -293,6 +293,7 @@
             <#else>
                 <a class="btn btn-default" href="/course">Home</a>
                 <a class="btn btn-default" href="/course">Courses</a>
+                <a class="btn btn-default" href="/offeredcourse">Enroll</a>
                 <a class="btn btn-default" href="#">Announcement</a>
            </#if>
 

@@ -23,8 +23,8 @@ public class FeedbackController extends LoginController{
     public ModelAndView feedbackview(Request req, Response res) {
         Map<String, Object> map = new HashMap<>();
         try {
-            User user = userService.getUserbyId((long) 1);
-//            User user = sessionUtil.getAuthenticatedUser(req);
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
 
