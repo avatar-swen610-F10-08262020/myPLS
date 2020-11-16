@@ -164,7 +164,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin-right:1em;">Submit Quiz</button> <button class="btn btn-danger" data-toggle="collapse" data-target="#quiz_add">Cancel</button>
 
-            </form>
+            </form>my
         </div>
     </div>
 
