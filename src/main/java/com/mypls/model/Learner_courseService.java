@@ -118,4 +118,10 @@ public class Learner_courseService {
         return courses;
     }
 
+    public Learner_course getLearnerCourseByCourseIdAndLearnerId(Long course_id, Long learner_id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Learner_course q = (Learner_course) session.createQuery("From Learner_course Where user_id = "+learner_id.toString()+" And course_id = "+ course_id.toString() +" And status = '1'").getSingleResult();
+        return q;
+    }
+
 }

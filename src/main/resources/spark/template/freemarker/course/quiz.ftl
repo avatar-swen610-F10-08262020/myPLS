@@ -1,61 +1,60 @@
 <div class="container">
-<br />
 <#if pastQuiz?size gt 0>
-<h3>Past Quiz</h3>
+    <h3>Past Quiz</h3>
+     <#list pastQuiz as quiz>
+         <div class="card" style="padding: 1rem;">
+            <div>
+                <span>Past Quiz: ${quiz.quiz_description}</span>
+            </div>
+          <div class="card-body">
+            Quiz Start Date: ${quiz.start_date} </br>
+            Quiz End Date: ${quiz.end_date} </br>
+          </div>
+         </div>
+     </#list>
 </#if>
-<#list pastQuiz as quiz>
- <div class="card" style="padding: 1rem;">
-    <div>
-        <span>Past Quiz: ${quiz.quiz_description}</span>
-    </div>
-  <div class="card-body">
-    Quiz Start Date: ${quiz.start_date} </br>
-    Quiz End Date: ${quiz.end_date} </br>
-  </div>
- </div>
- </#list>
+<#if attemptedQuiz?size gt 0>
+     <#list attemptedQuiz as quiz>
+        <div class="card" style="padding: 1rem;">
+            <div>
+               <span>Attempted Quiz: ${quiz.quiz.quiz_description}</span>
+            </div>
+            <div class="card-body">
+              Quiz Start Date: ${quiz.quiz.start_date} </br>
+              Quiz End Date: ${quiz.quiz.end_date} </br>
+              Score: ${quiz.percentage} %
 
- <#list attemptedQuiz as quiz>
-  <div class="card" style="padding: 1rem;">
-     <div>
-         <span>Attempted Quiz: ${quiz.quiz.quiz_description}</span>
-     </div>
-   <div class="card-body">
-     Quiz Start Date: ${quiz.quiz.start_date} </br>
-     Quiz End Date: ${quiz.quiz.end_date} </br>
-     Score: ${quiz.percentage} %
+            </div>
+        </div>
+     </#list>
+</#if>
 
-   </div>
-  </div>
-  </#list>
-
-<br />
 <h3>New Quiz</h3>
  <#list quizList as quiz>
- <div class="card" style="padding: 1rem;">
-    <div>
-    <#if UserType != 3>
-        <span>Quiz Title: ${quiz.quiz_description}</span>
-        <a href="/quiz/details/${quiz.id}" class="btn btn-sm btn-info" style="float: right;">View</a>
+     <div class="card" style="padding: 1rem;">
+        <div>
+        <#if UserType != 3>
+            <span>Quiz Title: ${quiz.quiz_description}</span>
+            <a href="/quiz/details/${quiz.id}" class="btn btn-sm btn-info" style="float: right;">View</a>
+        <#else>
+            <span>Quiz Title: ${quiz.quiz_description}</span>
+            <a href="/quiz/attempt/${quiz.id}" class="btn btn-sm btn-info" style="float: right;">Attempt</a>
+        </#if>
+        </div>
+      <div class="card-body">
+        Quiz Start Date: ${quiz.start_date} </br>
+        Quiz End Date: ${quiz.end_date} </br>
+
+      </div>
+     </div>
+
     <#else>
-        <span>Quiz Title: ${quiz.quiz_description}</span>
-        <a href="/quiz/attempt/${quiz.id}" class="btn btn-sm btn-info" style="float: right;">Attempt</a>
-    </#if>
-    </div>
-  <div class="card-body">
-    Quiz Start Date: ${quiz.start_date} </br>
-    Quiz End Date: ${quiz.end_date} </br>
-
-  </div>
- </div>
-
- <#else>
-  <div class="card" style="padding: 1rem;">
-     <head>Quiz</head>
-    <div class="card-body">
-        No Quiz added yet.
-    </div>
-  </div>
+      <div class="card" style="padding: 1rem;">
+         <head>Quiz</head>
+        <div class="card-body">
+            No Quiz added yet.
+        </div>
+      </div>
  </#list>
 
  <#if lessonList?size gt 0 && UserType!=3>

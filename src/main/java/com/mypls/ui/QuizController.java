@@ -386,4 +386,72 @@ public class QuizController extends CourseController{
         return quiz_edit(req);
     }
 
+    public ModelAndView quiz_performance(Request req){
+        Map<String, Object> map = new HashMap<>();
+        try {
+
+//            User user = userService.getUserbyId((long) 1);
+            User user = sessionUtil.getAuthenticatedUser(req);
+            map.put("UserType", user.getUser_type_id());
+            map.put("Username", user.getFirst_name());
+            Long ID = Long.parseLong(req.params(":id"));
+            Long Learner_ID = Long.parseLong(req.params(":learner_id"));
+            Learner_course currCourse = learner_courseService.getLearnerCourseByCourseIdAndLearnerId(ID,Learner_ID);
+
+            List<Quiz> pastQuiz = new ArrayList<Quiz>();
+            pastQuiz = quizService.getQuizByCourseID(ID);
+
+            ArrayList<Quiz_Learner> attemptedQuiz = new ArrayList<Quiz_Learner>();
+            ArrayList<Quiz> notAttemptedQuiz = new ArrayList<Quiz>();
+
+            for (int i = 0; i < pastQuiz.size(); i++) {
+                System.out.println(String.valueOf(i) + "-" + quizLearnerService.alreadyAttempted(Learner_ID, pastQuiz.get(i).getId()));
+                if (quizLearnerService.alreadyAttempted(Learner_ID, pastQuiz.get(i).getId())) {
+                    List<Quiz_Learner> quiz_learners = quizLearnerService.getQuizLearner(Learner_ID, pastQuiz.get(i).getId());
+                    for (Quiz_Learner ql_i: quiz_learners) {
+                        attemptedQuiz.add(ql_i);
+                    }
+                } else {
+                    notAttemptedQuiz.add(pastQuiz.get(i));
+                }
+            }
+            map.put("courseId", ID);
+            map.put("learnerID", Learner_ID);
+            map.put("learnerCourse",currCourse);
+            map.put("notAttemptedQuiz", notAttemptedQuiz);
+            map.put("attemptedQuiz", attemptedQuiz);
+            return new ModelAndView(map, "quiz/quiz_performance.ftl");
+//            return singleview(req);
+        }
+        catch (NullPointerException ex)
+        {
+            return login(req);
+        }
+
+    }
+
+    public ModelAndView pass_course(Request req) {
+        Long ID = Long.parseLong(req.params(":id"));
+        Long Learner_ID = Long.parseLong(req.params(":learner_id"));
+        Learner_course currCourse = learner_courseService.getLearnerCourseByCourseIdAndLearnerId(ID,Learner_ID);
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        currCourse.setCompleted(2);
+        session.update(currCourse);
+        session.getTransaction().commit();
+        return quiz_performance(req);
+    }
+
+    public ModelAndView fail_course(Request req) {
+        Long ID = Long.parseLong(req.params(":id"));
+        Long Learner_ID = Long.parseLong(req.params(":learner_id"));
+        Learner_course currCourse = learner_courseService.getLearnerCourseByCourseIdAndLearnerId(ID,Learner_ID);
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        currCourse.setCompleted(1);
+        session.update(currCourse);
+        session.getTransaction().commit();
+        return quiz_performance(req);
+    }
+
 }

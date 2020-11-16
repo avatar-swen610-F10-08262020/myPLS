@@ -14,12 +14,16 @@
                     <tr>
                         <td>${users.user.first_name} ${users.user.last_name}</td>
                         <td>${users.user.email}</td>
-                        <td><button class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#quiz_performance">Show</button> </td>
+                        <td>
+                            <a href="/quiz/performance/${course.id}/${users.user.id}" class="btn btn-sm btn-primary">Show</a>
+                        </td>
                         <td>
                             <#if users.completed == 0>
-                                <button type="submit" class="btn btn-sm btn-success" style="margin-right:1em;">Pass</button>
+                                Not Graded
+                            <#elseif users.completed == 2>
+                                <p style="color:green"> <b>Passed</b></p>
                              <#else>
-                                <button type="submit" class="btn btn-sm btn-danger" style="margin-right:1em;">Fail</button>
+                                <p style="color:red"><b>Failed</b></p>
                              </#if>
                         </td>
                     </tr>

@@ -214,11 +214,13 @@ public class CourseController extends LoginController{
     public ModelAndView singleview(Request req) {
         Map<String, Object> map = new HashMap<>();
         try {
+
 //            User user = userService.getUserbyId((long) 1);
             User user = sessionUtil.getAuthenticatedUser(req);
             map.put("UserType", user.getUser_type_id());
             map.put("Username", user.getFirst_name());
             Long ID = Long.parseLong(req.params(":id"));
+
             Course currCourse = cService.getIndividualCourse(ID);
             Professor_Course professor_course = professorCourseService.getCourseProfessor(ID);
             User userProfessor = userService.getUserbyId(professor_course.getUser_id());
@@ -250,18 +252,21 @@ public class CourseController extends LoginController{
             map.put("quizList",quizList);
             map.put("lessonList", lesson_weekList);
 
+            ArrayList<Quiz> pastQuiz = new ArrayList<Quiz>();
+            ArrayList<Quiz_Learner> emptyAttemptedQuiz = new ArrayList<Quiz_Learner>();
+            map.put("attemptedQuiz", emptyAttemptedQuiz);
+            map.put("pastQuiz", pastQuiz);
 
-            if (user.getUser_type_id() != 3) {
-                quizList = quizService.getQuizByCourseID(ID);
-                ArrayList<Quiz> pastQuiz = new ArrayList<Quiz>();
-                ArrayList<Quiz_Learner> attemptedQuiz = new ArrayList<Quiz_Learner>();
-                map.put("quizList", quizList);
-                map.put("attemptedQuiz", attemptedQuiz);
-                map.put("pastQuiz", pastQuiz);
-            } else {
+            map.put("feedbackList",feedbackList);
+            map.put("professor",userProfessor);
+            map.put("course", currCourse);
+            map.put("msg_type", "none");
+            map.put("msg", "none");
+
+            if(user.getUser_type_id() == 3) {
                 // All past quizzes and all available quizzes
                 ArrayList<Quiz> offeredQuiz = quizService.getAttemptableQuizByCourseID(ID);
-                ArrayList<Quiz> pastQuiz = quizService.getPastQuizByCourseID(ID);
+                pastQuiz = quizService.getPastQuizByCourseID(ID);
 
                 // Get Attemptable, Not attempted and Attempted Quizzes
                 ArrayList<Quiz> attemptableQuiz = new ArrayList<Quiz>();
@@ -297,14 +302,6 @@ public class CourseController extends LoginController{
 //                System.out.println(pastQuiz.get(0).getCourse_id());
             }
 
-
-            map.put("lessonList", lessonList);
-
-            map.put("feedbackList",feedbackList);
-            map.put("professor",userProfessor);
-            map.put("course", currCourse);
-            map.put("msg_type", "none");
-            map.put("msg", "none");
 //            System.out.println(map);
             return new ModelAndView(map , "course/single.ftl");
         }
@@ -542,4 +539,7 @@ public class CourseController extends LoginController{
             return home(req);
         }
     }
+
+
+
 }

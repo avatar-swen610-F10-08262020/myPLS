@@ -10,6 +10,7 @@
                 Share
              </a>
         </div>
+        <#if UserType!=3>
         <div class="row" style="padding:1rem">
             <button style="margin-right:1em" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#lesson_update_${content.id}">Update Lesson</button>
             <form action="/lesson/delete/${course.id}/${content.id}" method="post">
@@ -17,6 +18,8 @@
                 <button type="submit"  class="btn btn-sm btn-danger">Delete</button>
             </form>
         </div>
+        </#if>
+
         <div id="lesson_update_${content.id}" class="collapse">
                 <div class="card" style="padding:1rem;width:50%">
                     <form action="/lesson/update/${course.id}/${content.id}" method="post" enctype="multipart/form-data">
@@ -54,8 +57,9 @@
     </div>
   </div>
  </#list>
-<button style="margin:2em" class="btn btn-info" data-toggle="collapse" data-target="#lesson_add">Add Lesson</button>
-
+<#if UserType!=3>
+    <button style="margin:2em" class="btn btn-info" data-toggle="collapse" data-target="#lesson_add">Add Lesson</button>
+</#if>
     <div id="lesson_add" class="collapse">
         <div class="card" style="padding:1rem;width:50%">
             <form action="/lesson/add/${course.id}" method="post" enctype="multipart/form-data">

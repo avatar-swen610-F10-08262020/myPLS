@@ -80,6 +80,10 @@ public class WebServer {
   private static final String COURSE_PREREQUISITE_URL = "/course/prerequisite/:id";
   private static final String COURSE_CREATE_PREREQUISITE_URL = "/course/prerequisite/create/:id";
 
+  private static final String LEARNER_COURSE_PASS_URL = "/course/pass/:id/:learner_id";
+  private static final String LEARNER_COURSE_FAIL_URL = "/course/fail/:id/:learner_id";
+
+
   private static final String LESSON_CREATE_URL = "/lesson/add/:id";
   private static final String LESSON_UPDATE_URL = "/lesson/update/:id/:lesson_id";
   private static final String LESSON_DELETE_URL = "/lesson/delete/:id/:lesson_id";
@@ -96,6 +100,7 @@ public class WebServer {
   private static final String QUIZ_OPTION_UPDATE_URL ="/quiz/option/update/:id/:question_id";
   private static final String QUIZ_QUESTION_DELETE_URL ="/quiz/question/delete/:id/:question_id";
   private static final String QUIZ_QUESTION_ADD_URL ="/quiz/question/add/:id";
+  private static final String QUIZ_PERFORMANCE_VIEW_URL ="/quiz/performance/:id/:learner_id";
 
 
 
@@ -213,6 +218,11 @@ public class WebServer {
     get(COURSE_ASSIGNED_URL, (req, res) -> new CourseController().assignedCourseList(req), templateEngine);
     get(QUIZ_DETAILS_URL, (req, res) -> new QuizController().quiz_details(req), templateEngine);
     get(QUIZ_ATTEMPT_URL, (req, res) -> new QuizController().quiz_attempt(req), templateEngine);
+    get(QUIZ_PERFORMANCE_VIEW_URL, (req, res) -> new QuizController().quiz_performance(req), templateEngine);
+    get(LEARNER_COURSE_PASS_URL, (req, res) -> new QuizController().pass_course(req), templateEngine);
+    get(LEARNER_COURSE_FAIL_URL, (req, res) -> new QuizController().fail_course(req), templateEngine);
+
+
 
 
     get(QUIZ_EDIT_URL, (req, res) -> new QuizController().quiz_edit(req), templateEngine);
