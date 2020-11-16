@@ -67,7 +67,7 @@
                                                        </div>
                                                        <div class="media-content">
                                                            <h5>Rating</h5>
-                                                           <p>4.5</p>
+                                                           <p>${rating} out of 5</p>
                                                        </div>
                                                    </div>
                                                </div>
@@ -78,13 +78,13 @@
                                        <div class="col-lg-6 member_desc">
                                            <h4>Review 1</h4>
                                            <p>
-                                               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.
+                                               Sample Review.
                                            </p>
                                        </div>
                                        <div class="col-lg-6 member_desc">
                                            <h4>Review 2</h4>
                                            <p>
-                                               Cepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                                               Sample Review
                                            </p>
                                        </div>
                                    </div>

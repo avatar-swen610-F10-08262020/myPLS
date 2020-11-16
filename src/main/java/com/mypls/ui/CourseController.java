@@ -213,6 +213,7 @@ public class CourseController extends LoginController{
             Professor_Course professor_course = professorCourseService.getCourseProfessor(ID);
             User userProfessor = userService.getUserbyId(professor_course.getUser_id());
             List<Course_Feedback> feedbackList = cfService.getFeedbackByCourse(ID);
+            Double rating = cfService.getRatingByCourse(ID);
             List<Quiz> quizList = quizService.getQuizByCourseID(ID);
 
             List<Lesson> lessonList = lessonService.getLessonByCourse(ID);
@@ -223,7 +224,6 @@ public class CourseController extends LoginController{
             }
             for(Long week_number:week_id){
                 List<Lesson> content_lesson = new ArrayList<>();
-                Lesson lessonData = new Lesson();
                 for(Lesson lesson:lessonList){
                     if(lesson.getWeek_id().equals(week_number))
                         content_lesson.add(lesson);
@@ -233,7 +233,8 @@ public class CourseController extends LoginController{
             }
             Collections.sort(lesson_weekList);
             List<Learner_course> userList = learner_courseService.getLearnerByCourse(ID);
-
+            System.out.println(rating);
+            map.put("rating",rating);
             map.put("userList", userList);
             map.put("quizList",quizList);
             map.put("lessonList", lesson_weekList);

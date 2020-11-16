@@ -15,4 +15,14 @@ public class Course_FeedbackService {
         List<Course_Feedback> resultList = q.list();
         return resultList;
     }
+
+    public Double getRatingByCourse(Long course_id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Double q = (Double) session.createQuery("Select NULLIF(avg(rating),0) From Course_Feedback Where course_id = "+ course_id.toString() + " And status = 1").getSingleResult();
+        if(q == null)
+            return Double.valueOf(5);
+        return q;
+    }
+
+
 }

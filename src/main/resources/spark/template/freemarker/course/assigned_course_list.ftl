@@ -26,7 +26,7 @@
                         <td>${professorcourse.course.class_size}</td>
                         <td>
                             <a href="/course/${professorcourse.course.id}" class="btn btn-sm btn-success">Show</a>
-                            <a href="/course/prerequisite/${professorcourse.course.id}" class="btn btn-sm btn-info">Student List</a>
+                            <a href="/course/prerequisite/${professorcourse.course.id}" class="btn btn-sm btn-info">Prerequisites</a>
 
                         </td>
                     </tr>
