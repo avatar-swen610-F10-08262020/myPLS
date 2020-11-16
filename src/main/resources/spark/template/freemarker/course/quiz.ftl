@@ -1,11 +1,50 @@
 <div class="container">
- <#list quizList as quiz>
+<br />
+<#if pastQuiz?size gt 0>
+<h3>Past Quiz</h3>
+</#if>
+<#list pastQuiz as quiz>
  <div class="card" style="padding: 1rem;">
-    <head>Quiz Title: <a href="/quiz/details/${quiz.id}" >${quiz.quiz_description}</a></head>
+    <div>
+        <span>Past Quiz: ${quiz.quiz_description}</span>
+    </div>
   <div class="card-body">
     Quiz Start Date: ${quiz.start_date} </br>
     Quiz End Date: ${quiz.end_date} </br>
-    Time Length: ${quiz.quiz_length} Minute
+  </div>
+ </div>
+ </#list>
+
+ <#list attemptedQuiz as quiz>
+  <div class="card" style="padding: 1rem;">
+     <div>
+         <span>Attempted Quiz: ${quiz.quiz.quiz_description}</span>
+     </div>
+   <div class="card-body">
+     Quiz Start Date: ${quiz.quiz.start_date} </br>
+     Quiz End Date: ${quiz.quiz.end_date} </br>
+     Score: ${quiz.percentage} %
+
+   </div>
+  </div>
+  </#list>
+
+<br />
+<h3>New Quiz</h3>
+ <#list quizList as quiz>
+ <div class="card" style="padding: 1rem;">
+    <div>
+    <#if UserType != 3>
+        <span>Quiz Title: ${quiz.quiz_description}</span>
+        <a href="/quiz/details/${quiz.id}" class="btn btn-sm btn-info" style="float: right;">View</a>
+    <#else>
+        <span>Quiz Title: ${quiz.quiz_description}</span>
+        <a href="/quiz/attempt/${quiz.id}" class="btn btn-sm btn-info" style="float: right;">Attempt</a>
+    </#if>
+    </div>
+  <div class="card-body">
+    Quiz Start Date: ${quiz.start_date} </br>
+    Quiz End Date: ${quiz.end_date} </br>
 
   </div>
  </div>
@@ -18,7 +57,9 @@
     </div>
   </div>
  </#list>
+<#if UserType!=3>
 <button style="margin:2em" class="btn btn-info" data-toggle="collapse" data-target="#quiz_add">Add Quiz</button>
+</#if>
 
     <div id="quiz_add" class="collapse">
         <h1>Add Quiz</h1>

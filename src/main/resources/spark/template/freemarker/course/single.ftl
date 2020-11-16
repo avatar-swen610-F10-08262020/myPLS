@@ -6,20 +6,59 @@
       <section class="bg-light">
         <div class="container">
         <h2>Course: ${course.course_name}</h2>
+        <div>
         <span>Code: ${course.course_code}</span>
+        <#if UserType==3>
+            <#if alreadyFedback == 0>
+                <#if attemptedQuiz?size != 0>
+                    <button type="button" class="btn btn-sm btn-info" style="float: right;" data-toggle="modal" data-target="#feedbackModalCenter">
+                      Provide Course Feedback
+                    </button>
+
+                    <div class="modal fade" id="feedbackModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form action="/feedback/${course.id}" method="POST">
+                                <div class="form-group">
+                                    <label for="feedback_text">Enter Feedback</label>
+                                    <textarea class="form-control" id="feedback_text" rows="5" name="feedback_text" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <p>Rating: <span id="rating_text"></span></p>
+                                    <label for="rating">Course Rating</label>
+                                    <input type="range" class="custom-range" min="0" max="5" id="rating" name="rating_value">
+                                </div>
+                                <input class="btn btn-sm btn-primary" type="submit" value="Submit">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </#if>
+            </#if>
+        </#if>
+        </div>
         <ul class="nav nav-tabs">
             <li class="active bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#course" style="color:white;">Course Details</a></li>
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#material" style="color:white;">Course Material</a></li>
-             <#if UserType!=3>
+
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#quiz" style="color:white;">Course Quiz</a></li>
-            </#if>
+
             <#if UserType==1>
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#feedback" style="color:white;">Course Feedback</a></li>
             </#if>
+            <#if UserType==4>
             <li class="bt btn-md btn-info" style="padding:1%"><a data-toggle="tab" href="#feedback" style="color:white;">Discussion</a></li>
+            </#if>
 
           </ul>
-
           <div class="tab-content">
             <div id="course" class="tab-pane in active">
                 <div class="container">
@@ -95,31 +134,33 @@
             </div>
             <div id="feedback" class="tab-pane fade">
               <div class="container">
-                 <#list feedbackList as feedbackData>
-                     <#list feedbackData as feedback>
+                 <#if UserType==1>
+                     <#list feedbackList as feedbackData>
+                         <#list feedbackData as feedback>
 
-                         <div class="card" style="padding: 1rem;">
-                             <div class="card-body">
-                                 ${feedback.rating}.0/5.0
-                                 </br>
-                                 <b>${feedback.feedback}</b>
-                             </div>
-                             <div class="comment_toolbar">
+                             <div class="card" style="padding: 1rem;">
+                                 <div class="card-body">
+                                     ${feedback.rating}.0/5.0
+                                     </br>
+                                     <b>${feedback.feedback}</b>
+                                 </div>
+                                 <div class="comment_toolbar">
 
-                                 <!-- inc. date and time -->
-                                 <div class="comment_details">
-                                     <ul>
-                                         <li><i class="fa fa-clock-o"></i> 13:94</li>
-                                         <li><i class="fa fa-calendar"></i> 04/01/2020</li>
-                                         <li><i class="fa fa-pencil"></i> <span class="user">${feedback.user.first_name} ${feedback.user.last_name}</span></li>
-                                     </ul>
+                                     <!-- inc. date and time -->
+                                     <div class="comment_details">
+                                         <ul>
+                                             <li><i class="fa fa-clock-o"></i> 13:94</li>
+                                             <li><i class="fa fa-calendar"></i> 04/01/2020</li>
+                                             <li><i class="fa fa-pencil"></i> <span class="user">${feedback.user.first_name} ${feedback.user.last_name}</span></li>
+                                         </ul>
+                                     </div>
                                  </div>
                              </div>
-                         </div>
-                         <#break>
-                      </#list>
+                             <#break>
+                          </#list>
 
-                 </#list>
+                     </#list>
+                 </#if>
                </div>
             </div>
             <div id="material" class="tab-pane fade">
@@ -133,4 +174,21 @@
         </div>
       </section>
    </header>
+
+   <script>
+   var rating_slider = document.getElementById("rating");
+   var output = document.getElementById("rating_text");
+   output.innerHTML = rating_slider.value;
+   rating_slider.oninput = function() {
+     output.innerHTML = this.value;
+   }
+
+
+   $.ajax({
+         url: '/feedback/' + a + '&b='+b,
+         success: function(data) {
+           $('#result').text(data);
+         }
+       });
+   </script>
 

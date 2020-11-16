@@ -23,6 +23,8 @@ public class Learner_course {
     @JoinColumn(name="course_id", referencedColumnName="id", insertable = false, updatable = false)
     private Course course;
 
+    private String created_date;
+
     public Long getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class Learner_course {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public String getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
     }
 }

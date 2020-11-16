@@ -22,7 +22,6 @@
                         <td>${course.class_size}</td>
                         <td>
                             <a href="/offeredcourse/${course.id}" class="btn btn-sm btn-success">Details</a>
-                            <a href="#" class="btn btn-sm btn-info">Enroll</a>
                         </td>
                     </tr>
                 </#list>

@@ -470,7 +470,6 @@
     }
   </style>
 
-
 </head>
 
 <body>
@@ -495,6 +494,7 @@
              <#elseif UserType == 3>
                  <a class="btn btn-default" href="/home">Home</a>
                  <a class="btn btn-default" href="/course">Courses</a>
+                 <a class="btn btn-default" href="/offeredcourse">Enroll</a>
                  <a class="btn btn-default" href="#">Announcement</a>
             </#if>
 

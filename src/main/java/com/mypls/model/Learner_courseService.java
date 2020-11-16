@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Learner_courseService {
@@ -16,10 +17,26 @@ public class Learner_courseService {
         Query q = session.createQuery("From Learner_course Where course_id = "+course.getId().toString()+" And status = '1'");
         List<Learner_course> courseList = q.list();
         session.close();
-        if (courseList.isEmpty()) {
+        Calendar today = Calendar.getInstance();
+        Calendar stoday = Calendar.getInstance();
+        ArrayList<Learner_course> regLearnerCourse = new ArrayList<Learner_course>();
+
+        for(Learner_course l_c: courseList) {
+            String regDate = l_c.getCreated_date();
+            String[] split1 = regDate.split(" ");
+            String[] split2 = split1[0].split("-");
+            stoday.set(Integer.parseInt(split2[0]), Integer.parseInt(split2[1]) - 1, Integer.parseInt(split2[2]));
+            Float diff = (float)(today.getTimeInMillis() - stoday.getTimeInMillis())/(24 * 60 * 60 * 1000);
+            if (diff < 0)
+                diff *= -1;
+            // If the date when someone wants to register is within 46 days of someone else's registration
+            if (diff < 46)
+                regLearnerCourse.add(l_c);
+        }
+        if (regLearnerCourse.isEmpty()) {
             return 0;
         } else {
-            return  courseList.size();
+            return regLearnerCourse.size();
         }
     }
 
@@ -35,7 +52,7 @@ public class Learner_courseService {
 
     public Boolean checkEnrollCriteria(Long user_id, List<Course> dependentCourses) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("From Learner_course Where user_id = "+user_id.toString()+" And status = '1'");
+        Query q = session.createQuery("From Learner_course Where user_id = "+user_id.toString()+" And status = '1' And completed = '1'");
         List<Learner_course> courseList = q.list();
         session.close();
         if (courseList.size() < dependentCourses.size()) {

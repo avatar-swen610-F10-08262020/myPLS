@@ -26,6 +26,7 @@
 <mapping class="com.mypls.model.Quiz"/>
 <mapping class="com.mypls.model.Quiz_Questions"/>
 <mapping class="com.mypls.model.Quiz_Options"/>
+<mapping class="com.mypls.model.Quiz_Learner"/>
 
 
 

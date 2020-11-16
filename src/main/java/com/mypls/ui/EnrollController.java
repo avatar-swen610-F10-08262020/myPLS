@@ -23,9 +23,10 @@ public class EnrollController {
     Professor_CourseService professorCourseService = new Professor_CourseService();
     Course_FeedbackService cfService = new Course_FeedbackService();
     Learner_courseService learner_courseService = new Learner_courseService();
-
+    SessionUtil sessionUtil = new SessionUtil();
     public ModelAndView home(Request req) {
-        User user = userService.getUserbyId((long) 2);
+//        User user = userService.getUserbyId((long) 1);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Map<String, Object> map = new HashMap<>();
         Calendar today = Calendar.getInstance();
         if (today.get(Calendar.MONTH) <=5) {
@@ -42,6 +43,8 @@ public class EnrollController {
         } catch (NullPointerException ex) {
             System.out.println(ex.toString());
         }
+        map.put("UserType", user.getUser_type_id());
+        map.put("Username", user.getFirst_name());
         map.put("msg_type", "none");
         map.put("message", "none");
         return new ModelAndView(map, "enroll/home.ftl");
@@ -50,13 +53,18 @@ public class EnrollController {
     public ModelAndView show(Request req) {
         Map<String, Object> map = new HashMap<>();
         Long ID = Long.parseLong(req.params(":id"));
-//        System.out.println(ID);
+//        User user = userService.getUserbyId((long) 1);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Course currCourse = cService.getIndividualCourse(ID);
         Professor_Course professor_course = professorCourseService.getCourseProfessor(ID);
         User userProfessor = userService.getUserbyId(professor_course.getUser_id());
         List<Course_Feedback> feedbackList = cfService.getFeedbackByCourse(ID);
         List<Course> dependentCourses = cdService.getDependentCourses(ID);
         System.out.println(dependentCourses.size());
+        map.put("eligible", "yes");
+        if (learner_courseService.checkEnrollCriteria(user.getId(), dependentCourses) == false) {
+            map.put("eligible", "no");
+        }
         map.put("dependent_course", dependentCourses);
         map.put("dependent_size", dependentCourses.size());
         map.put("course", currCourse);
@@ -64,6 +72,8 @@ public class EnrollController {
         map.put("feedbackList",feedbackList);
         map.put("msg_type", "none");
         map.put("msg", "none");
+        map.put("UserType", user.getUser_type_id());
+        map.put("Username", user.getFirst_name());
         if (learner_courseService.registrationAvailable(currCourse)) {
             map.put("regis_available", "yes");
         } else {
@@ -76,7 +86,8 @@ public class EnrollController {
     public ModelAndView enroll(Request req) {
         Map<String, Object> map = new HashMap<>();
         Long ID = Long.parseLong(req.params(":id"));
-        User user = userService.getUserbyId((long) 2);
+//        User user = userService.getUserbyId((long) 1);
+        User user = sessionUtil.getAuthenticatedUser(req);
         Course course = cService.getIndividualCourse(ID);
         List<Course> dependentCourses = cdService.getDependentCourses(course.getId());
         if (dependentCourses.size() == 0) {
@@ -84,9 +95,13 @@ public class EnrollController {
             if (enrolled) {
                 map.put("msg_type", "notification");
                 map.put("msg", "Enrolled to the course");
+                map.put("UserType", user.getUser_type_id());
+                map.put("Username", user.getFirst_name());
             } else {
                 map.put("msg_type", "error");
                 map.put("msg", "Couldn't enroll. Database error!");
+                map.put("UserType", user.getUser_type_id());
+                map.put("Username", user.getFirst_name());
             }
             return home(req);
         } else {
@@ -95,13 +110,19 @@ public class EnrollController {
                 if (enrolled) {
                     map.put("msg_type", "notification");
                     map.put("msg", "Enrolled to the course");
+                    map.put("UserType", user.getUser_type_id());
+                    map.put("Username", user.getFirst_name());
                 } else {
                     map.put("msg_type", "error");
                     map.put("msg", "Couldn't enroll. Database error!");
+                    map.put("UserType", user.getUser_type_id());
+                    map.put("Username", user.getFirst_name());
                 }
             } else {
                 map.put("msg_type", "error");
                 map.put("msg", "Couldn't enroll. Prerequisite not complete!");
+                map.put("UserType", user.getUser_type_id());
+                map.put("Username", user.getFirst_name());
             }
             return home(req);
         }
