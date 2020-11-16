@@ -248,7 +248,9 @@ public class CourseController extends LoginController{
             }
             Collections.sort(lesson_weekList);
             List<Learner_course> userList = learner_courseService.getLearnerByCourse(ID);
+            Learner_course learner_grade = learner_courseService.getLearnerCourseByCourseIdAndLearnerId(ID,user.getId());
             System.out.println(rating);
+            map.put("learnerGrade",learner_grade);
             map.put("rating",rating);
             map.put("userList", userList);
             map.put("quizList",quizList);

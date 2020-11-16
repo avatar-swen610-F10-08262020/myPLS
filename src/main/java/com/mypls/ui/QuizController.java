@@ -464,4 +464,23 @@ public class QuizController extends CourseController{
         return quiz_performance(req);
     }
 
+    public ModelAndView course_grade(Request req){
+        Long ID = Long.parseLong(req.params(":id"));
+        Long Learner_ID = Long.parseLong(req.params(":learner_id"));
+        Learner_course currCourse = learner_courseService.getLearnerCourseByCourseIdAndLearnerId(ID,Learner_ID);
+        String course_grade = req.queryParams("course_grade");
+        Integer complete = 0;
+        if(course_grade.equals("F")){
+            complete = 1;
+        }
+        else complete = 2;
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        currCourse.setCompleted(complete);
+        currCourse.setGrade(course_grade);
+        session.update(currCourse);
+        session.getTransaction().commit();
+        return quiz_performance(req);
+    }
+
 }

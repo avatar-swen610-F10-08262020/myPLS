@@ -5,6 +5,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -120,8 +121,13 @@ public class Learner_courseService {
 
     public Learner_course getLearnerCourseByCourseIdAndLearnerId(Long course_id, Long learner_id){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Learner_course q = (Learner_course) session.createQuery("From Learner_course Where user_id = "+learner_id.toString()+" And course_id = "+ course_id.toString() +" And status = '1'").getSingleResult();
-        return q;
+        try {
+            Learner_course q = (Learner_course) session.createQuery("From Learner_course Where user_id = " + learner_id.toString() + " And course_id = " + course_id.toString() + " And status = '1'").getSingleResult();
+            return q;
+        }
+        catch (NoResultException ex){
+            return null;
+        }
     }
 
 }

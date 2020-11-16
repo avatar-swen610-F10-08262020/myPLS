@@ -19,6 +19,9 @@ public class Learner_course {
     @ColumnDefault("0")
     private Integer completed;
 
+    @ColumnDefault("0")
+    private String grade;
+
     @ManyToOne
     @JoinColumn(name="course_id", referencedColumnName="id", insertable = false, updatable = false)
     private Course course;
@@ -95,5 +98,13 @@ public class Learner_course {
     public void setCreated_date(String created_date) {
         this.created_date = created_date;
 
+    }
+
+    public void setGrade(String grade){
+        this.grade = grade;
+    }
+
+    public String getGrade(){
+        return grade;
     }
 }

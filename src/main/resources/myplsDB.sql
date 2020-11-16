@@ -199,6 +199,7 @@ CREATE TABLE `Learner_course` (
   `status` int DEFAULT '1',
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `completed` int DEFAULT '0',
+  `grade` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `course_id_UNIQUE` (`course_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -210,7 +211,7 @@ CREATE TABLE `Learner_course` (
 
 LOCK TABLES `Learner_course` WRITE;
 /*!40000 ALTER TABLE `Learner_course` DISABLE KEYS */;
-INSERT INTO `Learner_course` VALUES (1,11,1,1,'2020-11-07 13:05:27',1);
+INSERT INTO `Learner_course` VALUES (1,11,1,1,'2020-11-07 13:05:27',2,'A');
 /*!40000 ALTER TABLE `Learner_course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -456,4 +457,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-16  1:31:12
+-- Dump completed on 2020-11-16 10:34:00

@@ -87,6 +87,14 @@
                                            <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Class size: ${course.class_size}</li>
                                            <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Start date: ${course.start_date}</li>
                                            <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> End date: ${course.end_date}</li>
+                                           <#if UserType==3>
+                                            <li class=""><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> Current Grade:
+                                                <b>
+                                                    <#if learnerGrade.completed = 0> Not Graded <#elseif learnerGrade.completed = 1> Fail <#else> ${learnerGrade.grade} </#if>
+                                                </b>
+                                            </li>
+
+                                           </#if>
                                        </ul>
                                    </div>
                                    <div class="bg-image " style="background-image: url('https://www.bootdey.com/img/Content/bg_element.jpg');">
